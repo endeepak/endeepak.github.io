@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: f.js | !geek]]></title>
+  <link href="tech.endeepak.com/blog/categories/f-dot-js/atom.xml" rel="self"/>
+  <link href="tech.endeepak.com/"/>
+  <updated>2014-05-01T21:06:05+05:30</updated>
+  <id>tech.endeepak.com/</id>
+  <author>
+    <name><![CDATA[Deepak Narayana Rao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing f.js]]></title>
+    <link href="tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js/"/>
+    <updated>2014-05-01T18:59:39+05:30</updated>
+    <id>tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</id>
+    <content type="html"><![CDATA[<p>Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&amp;:</code> sugar.</p>
+
+<p>```ruby
+books.map { |book| => book.title }</p>
+
+<h1>or even better</h1>
+
+<p>books.map(&amp;:title)
+```
+compare this with javascript code</p>
+
+<p><code>javascript
+books.map(function(book) { return book.title })
+</code></p>
+
+<p>Good news is ES6 might come with proposed <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions">arrow functions</a>, but it might take a while before all the browsers implement this. This is where <a href="https://github.com/endeepak/f.js">f.js</a> can be handy. This library will help to write redable code by writing less. You can write the above code as</p>
+
+<p><code>javascript
+books.map(f.y('book =&gt; book.title'))
+// or
+books.map(f.x('title'))
+</code></p>
+
+<p><a href="https://github.com/endeepak/f.js">f.js</a> supports methods, negation and includes utilities like noop and identity. Examples</p>
+
+<p>```javascript
+movies.filter(f.x(&lsquo;!watched&rsquo;))
+people.map(f.x(&lsquo;fullName()&rsquo;))
+shows.filter(f.x(&lsquo;!isGood()&rsquo;))</p>
+
+<p>//Lambda with multiple parameters
+//sort movies in descending order on rating
+movies.sort(f.y(&lsquo;(m1, m2) => m2.rating &ndash; m1.rating&rsquo;));</p>
+
+<p>//Noop and identity examples
+books.forEach(callback || f()) //f() returns noop function
+movies.filter(filterFunction || f(true)) //f(arg) returns identity function
+```</p>
+
+<p>The f.y(lambda) method uses same syntax as arrow functions. Once ES6 arrow functions feature is available on all browsers, write a regex to remove usage of f.y and say bye to f.js</p>
+
+<p>Code &amp; Documentation: <a href="https://github.com/endeepak/f.js">https://github.com/endeepak/f.js</a></p>
+]]></content>
+  </entry>
+  
+</feed>

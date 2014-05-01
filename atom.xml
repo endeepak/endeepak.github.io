@@ -1,16 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://endeepak.github.io/atom.xml" rel="self"/>
-  <link href="http://endeepak.github.io/"/>
-  <updated>2014-05-01T18:20:15+05:30</updated>
-  <id>http://endeepak.github.io/</id>
+  <title><![CDATA[!geek]]></title>
+  <link href="tech.endeepak.com/atom.xml" rel="self"/>
+  <link href="tech.endeepak.com/"/>
+  <updated>2014-05-01T21:06:05+05:30</updated>
+  <id>tech.endeepak.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Deepak Narayana Rao]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Introducing f.js]]></title>
+    <link href="tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js/"/>
+    <updated>2014-05-01T18:59:39+05:30</updated>
+    <id>tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</id>
+    <content type="html"><![CDATA[<p>Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&amp;:</code> sugar.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">books</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">book</span><span class="o">|</span> <span class="o">=&gt;</span> <span class="n">book</span><span class="o">.</span><span class="n">title</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># or even better</span>
+</span><span class='line'><span class="n">books</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:title</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>compare this with javascript code</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">book</span><span class="p">.</span><span class="nx">title</span> <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Good news is ES6 might come with proposed <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions">arrow functions</a>, but it might take a while before all the browsers implement this. This is where <a href="https://github.com/endeepak/f.js">f.js</a> can be handy. This library will help to write redable code by writing less. You can write the above code as</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">y</span><span class="p">(</span><span class="s1">&#39;book =&gt; book.title&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="c1">// or</span>
+</span><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">))</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="https://github.com/endeepak/f.js">f.js</a> supports methods, negation and includes utilities like noop and identity. Examples</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!watched&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="nx">people</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;fullName()&#39;</span><span class="p">))</span>
+</span><span class='line'><span class="nx">shows</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!isGood()&#39;</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Lambda with multiple parameters</span>
+</span><span class='line'><span class="c1">//sort movies in descending order on rating</span>
+</span><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">y</span><span class="p">(</span><span class="s1">&#39;(m1, m2) =&gt; m2.rating - m1.rating&#39;</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Noop and identity examples</span>
+</span><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">callback</span> <span class="o">||</span> <span class="nx">f</span><span class="p">())</span> <span class="c1">//f() returns noop function</span>
+</span><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">filterFunction</span> <span class="o">||</span> <span class="nx">f</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span> <span class="c1">//f(arg) returns identity function</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The f.y(lambda) method uses same syntax as arrow functions. Once ES6 arrow functions feature is available on all browsers, write a regex to remove usage of f.y and say bye to f.js</p>
+
+<p>Code &amp; Documentation: <a href="https://github.com/endeepak/f.js">https://github.com/endeepak/f.js</a></p>
+]]></content>
+  </entry>
   
 </feed>

@@ -1,15 +1,19 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>http://endeepak.github.io/blog/archives/</loc>
-        <lastmod>2014-05-01T18:18:31+05:30</lastmod>
+        <loc>tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js/</loc>
+        <lastmod>2014-05-01T21:01:27+05:30</lastmod>
     </url>
     <url>
-        <loc>http://endeepak.github.io/</loc>
-        <lastmod>2014-05-01T18:18:31+05:30</lastmod>
+        <loc>tech.endeepak.com/blog/archives/</loc>
+        <lastmod>2014-05-01T21:01:27+05:30</lastmod>
     </url>
     <url>
-        <loc>http://endeepak.github.io/robots.txt</loc>
+        <loc>tech.endeepak.com/</loc>
+        <lastmod>2014-05-01T21:01:27+05:30</lastmod>
+    </url>
+    <url>
+        <loc>tech.endeepak.com/robots.txt</loc>
         <lastmod>2014-05-01T18:18:31+05:30</lastmod>
     </url>
 </urlset>
