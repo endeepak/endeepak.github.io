@@ -1,15 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
-        <loc>tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js/</loc>
+        <loc>tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</loc>
         <lastmod>2014-05-03T09:05:47+05:30</lastmod>
     </url>
     <url>
-        <loc>tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router/</loc>
+        <loc>tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</loc>
         <lastmod>2014-05-03T09:35:24+05:30</lastmod>
     </url>
     <url>
-        <loc>tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings/</loc>
+        <loc>tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</loc>
         <lastmod>2014-05-03T13:03:13+05:30</lastmod>
     </url>
     <url>

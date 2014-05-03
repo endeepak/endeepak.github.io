@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ui-router | !geek]]></title>
   <link href="tech.endeepak.com/blog/categories/ui-router/atom.xml" rel="self"/>
   <link href="tech.endeepak.com/"/>
-  <updated>2014-05-03T13:06:15+05:30</updated>
+  <updated>2014-05-03T13:27:08+05:30</updated>
   <id>tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -15,7 +15,7 @@
   
   <entry>
     <title type="html"><![CDATA[Debugging Angular Ui-router]]></title>
-    <link href="tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router/"/>
+    <link href="tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router"/>
     <updated>2014-05-03T08:21:40+05:30</updated>
     <id>tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>
     <content type="html"><![CDATA[<p>The <a href="https://github.com/angular-ui/ui-router">ui-router</a> from <a href="https://github.com/angular-ui">angular-ui</a> gives power of nested states and multiple named views which is essential for angular apps with non-trivial layout and workflow.</p>
