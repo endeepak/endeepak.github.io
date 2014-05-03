@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T15:21:13+05:30</updated>
+  <updated>2014-05-03T17:40:26+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,78 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Printing html with image and css]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css"/>
+    <updated>2014-05-03T16:54:00+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</id>
+    <content type="html"><![CDATA[<p>There are plenty of examples for printing html of an element. Most of them look like this</p>
+
+<p>```js
+//The simple soultion but has few problems listed below.
+function printHtml(html)
+{</p>
+
+<pre><code>var mywindow = window.open();
+mywindow.document.write('&lt;html&gt;&lt;head&gt;&lt;title&gt;My App&lt;/title&gt;');
+mywindow.document.write('&lt;/head&gt;&lt;body&gt;');
+mywindow.document.write(html);
+mywindow.document.write('&lt;/body&gt;&lt;/html&gt;');
+mywindow.print();
+mywindow.close();
+return true;
+</code></pre>
+
+<p>}
+```
+The issues with above solution:</p>
+
+<ol>
+<li>The new window pop up would be blocked by browsers. Users need to enable pop up.</li>
+<li>If you have external css files, you will notice the styling not applied some times.</li>
+<li>If you have images(like logo), the print will be missing these images intermittently.</li>
+</ol>
+
+
+<p>The first issue can be addressed by using an iframe instead of new window. The 2nd and 3rd issues are addressed by making sure print happens after page has loaded css files and images. The working solution we use in <a href="http://www.bahmni.org">Bahmni</a> for printing patient registration cards looks like this</p>
+
+<p>```js
+var printHtml = function (html) {</p>
+
+<pre><code>var hiddenFrame = $('&lt;iframe style="display: none"&gt;&lt;/iframe&gt;').appendTo('body')[0];
+hiddenFrame.contentWindow.printAndRemove = function() {
+    hiddenFrame.contentWindow.print();
+    $(hiddenFrame).remove();
+};
+var htmlDocument = "&lt;!doctype html&gt;"+
+            "&lt;html&gt;"+
+                '&lt;body onload="printAndRemove();"&gt;' + // Print only after document is loaded
+                    html +
+                '&lt;/body&gt;'+
+            "&lt;/html&gt;";
+var doc = hiddenFrame.contentWindow.document.open("text/html", "replace");
+doc.write(htmlDocument);
+doc.close();
+</code></pre>
+
+<p>};
+```</p>
+
+<p>For printing contents of an element you can use this</p>
+
+<p>```js
+//element can be found by document.querySelectorAll(slector)[0]
+//or using jQuery(selector)[0]
+var printElement = function (element) {</p>
+
+<pre><code>printHtml(element.innerHTML)
+</code></pre>
+
+<p>};
+```</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Debugging angular view bindings]]></title>
