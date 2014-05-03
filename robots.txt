@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://tech.endeepak.com/sitemap.xml 
+Sitemap: tech.endeepak.com/sitemap.xml 
