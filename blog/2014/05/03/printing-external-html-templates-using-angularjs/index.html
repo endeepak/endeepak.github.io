@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Printing external html templates using AngularJS - !geek</title>
+  <meta name="author" content="Deepak Narayana Rao">
+
+  
+  <meta name="description" content="Use case In Bahmni EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">!geek</a></h1>
+  
+    <h2>Code, learn & share</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tech.endeepak.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.endeepak.com">Author</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Printing external html templates using AngularJS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-03T20:50:48+05:30" pubdate data-updated="true">May 3<span>rd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Use case</h2>
+
+<p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Contract</span>
+</span><span class='line'><span class="nx">printer</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="nx">templateUrl</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//This would called on clicking the print button</span>
+</span><span class='line'><span class="nx">printer</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="s1">&#39;/config/registrationCardTempate.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">patient</span><span class="o">:</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Ram Kumar&#39;</span><span class="p">,</span> <span class="nx">dateOfBirth</span><span class="o">:</span> <span class="s1">&#39;1978-08-23&#39;</span><span class="p">,</span> <span class="nx">gender</span><span class="o">:</span> <span class="s1">&#39;M&#39;</span><span class="p">}})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sample html template</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;/config/registrationCard.css&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/config/logo.jpg&quot;</span><span class="nt">&gt;&lt;img&gt;</span>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>The hospital name<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'><span class="nt">&lt;table&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Name<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.name&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Age<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.dateOfBirth | age&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Gender<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.gender&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;/table&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Implementation</h2>
+
+<p>As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps</p>
+
+<ol>
+<li>Fetch the html template</li>
+<li>Compile the html template with given data using angular&rsquo;s $complile</li>
+<li>Wait for angular to complete rendering the template (Explained <a href="waiting-for-angularjs-digest-cycle">here</a>)</li>
+<li>Print the html(Explained <a href="printing-html-with-image-and-css">here</a>)</li>
+</ol>
+
+
+<p>The code for print function looks like this</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">print</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">templateUrl</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">templateUrl</span><span class="p">).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">template</span><span class="p">){</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">printScope</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$new</span><span class="p">(),</span> <span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">$compile</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;&#39;</span> <span class="o">+</span> <span class="nx">template</span> <span class="o">+</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">))(</span><span class="nx">printScope</span><span class="p">);</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">waitForRenderAndPrint</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nx">printScope</span><span class="p">.</span><span class="nx">$$phase</span> <span class="o">||</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">pendingRequests</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndPrint</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">printHtml</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>
+</span><span class='line'>                <span class="nx">printScope</span><span class="p">.</span><span class="nx">$destroy</span><span class="p">();</span> <span class="c1">// To avoid memory leaks from scope create by $rootScope.$new()</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nx">waitForRenderAndPrint</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The complete solution is available on <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/printer.js">github</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Deepak Narayana Rao</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-03T20:50:48+05:30" pubdate data-updated="true">May 3<span>rd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/print/'>print</a>, <a class='category' href='/blog/categories/template/'>template</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle" title="Previous Post: Waiting for AngularJS digest cycle">&laquo; Waiting for AngularJS digest cycle</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/printing-external-html-templates-using-angularjs">Printing external html templates using AngularJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/printing-html-with-image-and-css">Printing html with image and css</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/octopress-config-dot-yml-changes-not-picked-up">Octopress config.yml changes not picked up?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/debugging-angular-view-bindings">Debugging angular view bindings</a>
+      </li>
+    
+  </ul>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Deepak Narayana Rao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tech-endeepak';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs';
+        var disqus_url = 'http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

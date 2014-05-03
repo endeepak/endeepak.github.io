@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T18:32:50+05:30</updated>
+  <updated>2014-05-03T22:09:42+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Printing external html templates using AngularJS]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
+    <updated>2014-05-03T20:50:48+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
+    <content type="html"><![CDATA[<h2>Use case</h2>
+
+<p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Contract</span>
+</span><span class='line'><span class="nx">printer</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="nx">templateUrl</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//This would called on clicking the print button</span>
+</span><span class='line'><span class="nx">printer</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="s1">&#39;/config/registrationCardTempate.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">patient</span><span class="o">:</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Ram Kumar&#39;</span><span class="p">,</span> <span class="nx">dateOfBirth</span><span class="o">:</span> <span class="s1">&#39;1978-08-23&#39;</span><span class="p">,</span> <span class="nx">gender</span><span class="o">:</span> <span class="s1">&#39;M&#39;</span><span class="p">}})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Sample html template</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;/config/registrationCard.css&quot;</span><span class="nt">/&gt;</span>
+</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/config/logo.jpg&quot;</span><span class="nt">&gt;&lt;img&gt;</span>
+</span><span class='line'><span class="nt">&lt;h1&gt;</span>The hospital name<span class="nt">&lt;/h1&gt;</span>
+</span><span class='line'><span class="nt">&lt;table&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Name<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.name&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Age<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.dateOfBirth | age&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Gender<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.gender&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
+</span><span class='line'><span class="nt">&lt;/table&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Implementation</h2>
+
+<p>As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps</p>
+
+<ol>
+<li>Fetch the html template</li>
+<li>Compile the html template with given data using angular&rsquo;s $complile</li>
+<li>Wait for angular to complete rendering the template (Explained <a href="waiting-for-angularjs-digest-cycle">here</a>)</li>
+<li>Print the html(Explained <a href="printing-html-with-image-and-css">here</a>)</li>
+</ol>
+
+
+<p>The code for print function looks like this</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">print</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">templateUrl</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">templateUrl</span><span class="p">).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">template</span><span class="p">){</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">printScope</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$new</span><span class="p">(),</span> <span class="nx">data</span><span class="p">);</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">$compile</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;&#39;</span> <span class="o">+</span> <span class="nx">template</span> <span class="o">+</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">))(</span><span class="nx">printScope</span><span class="p">);</span>
+</span><span class='line'>        <span class="kd">var</span> <span class="nx">waitForRenderAndPrint</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nx">printScope</span><span class="p">.</span><span class="nx">$$phase</span> <span class="o">||</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">pendingRequests</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndPrint</span><span class="p">);</span>
+</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>                <span class="nx">printHtml</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>
+</span><span class='line'>                <span class="nx">printScope</span><span class="p">.</span><span class="nx">$destroy</span><span class="p">();</span> <span class="c1">// To avoid memory leaks from scope create by $rootScope.$new()</span>
+</span><span class='line'>            <span class="p">}</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'>        <span class="nx">waitForRenderAndPrint</span><span class="p">();</span>
+</span><span class='line'>    <span class="p">});</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The complete solution is available on <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/printer.js">github</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Waiting for AngularJS digest cycle]]></title>
