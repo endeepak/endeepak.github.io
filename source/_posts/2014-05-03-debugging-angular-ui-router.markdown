@@ -3,7 +3,6 @@ layout: post
 title: "Debugging angular ui-router"
 date: 2014-05-03 08:21:40 +0530
 comments: true
-published: false
 categories: javascript angularjs angular-ui ui-router debug
 ---
 
