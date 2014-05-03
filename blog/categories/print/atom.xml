@@ -4,7 +4,7 @@
   <title><![CDATA[Category: print | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/print/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T22:09:42+05:30</updated>
+  <updated>2014-05-03T22:13:38+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -54,8 +54,8 @@ Sample html template</p>
 <ol>
 <li>Fetch the html template</li>
 <li>Compile the html template with given data using angular&rsquo;s $complile</li>
-<li>Wait for angular to complete rendering the template (Explained <a href="waiting-for-angularjs-digest-cycle">here</a>)</li>
-<li>Print the html(Explained <a href="printing-html-with-image-and-css">here</a>)</li>
+<li>Wait for angular to complete rendering the template (Explained <a href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle">here</a>)</li>
+<li>Print the html(Explained <a href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css">here</a>)</li>
 </ol>
 
 
