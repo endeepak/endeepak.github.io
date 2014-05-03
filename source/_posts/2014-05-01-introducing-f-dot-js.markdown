@@ -3,7 +3,7 @@ layout: post
 title: "Introducing f.js"
 date: 2014-05-01 18:59:39 +0530
 comments: true
-categories: [Javascript, f.js]
+categories: javascript f.js
 ---
 
 Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&:</code> sugar.
@@ -15,13 +15,13 @@ books.map(&:title)
 ```
 compare this with javascript code
 
-```javascript
+```js
 books.map(function(book) { return book.title })
 ```
 
 Good news is ES6 might come with proposed [arrow functions](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions), but it might take a while before all the browsers implement this. This is where [f.js](https://github.com/endeepak/f.js) can be handy. This library will help to write redable code by writing less. You can write the above code as
 
-```javascript
+```js
 books.map(f.y('book => book.title'))
 // or
 books.map(f.x('title'))
@@ -29,7 +29,7 @@ books.map(f.x('title'))
 
 [f.js](https://github.com/endeepak/f.js) supports methods, negation and includes utilities like noop and identity. Examples
 
-```javascript
+```js
 movies.filter(f.x('!watched'))
 people.map(f.x('fullName()'))
 shows.filter(f.x('!isGood()'))
