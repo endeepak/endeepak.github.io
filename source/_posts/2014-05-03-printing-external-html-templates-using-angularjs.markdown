@@ -35,8 +35,8 @@ As the app is built using angularjs, we decided to use angular as the templating
 
 1. Fetch the html template
 2. Compile the html template with given data using angular's $complile
-3. Wait for angular to complete rendering the template (Explained [here](waiting-for-angularjs-digest-cycle))
-4. Print the html(Explained [here](printing-html-with-image-and-css))
+3. Wait for angular to complete rendering the template (Explained [here](http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle))
+4. Print the html(Explained [here](http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css))
 
 The code for print function looks like this
 
