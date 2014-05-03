@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T17:40:26+05:30</updated>
+  <updated>2014-05-03T18:32:50+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Waiting for AngularJS digest cycle]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle"/>
+    <updated>2014-05-03T17:43:34+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</id>
+    <content type="html"><![CDATA[<p>The million dollar question most of the AngularJS users(devs) end up asking is</p>
+
+<ul>
+<li>How to wait for angular digest cycle to be completed?  <em>or in simple terms</em></li>
+<li>How to wait for browser to complete rendering the view with angular bindings?</li>
+</ul>
+
+
+<p>AngularJS does not raise any event to notify this. The suggested simple solution is to use $timeout to queue your work to be run after current digest cycle (also waits for DOM renedering to be completed by the browser).</p>
+
+<p>```js
+$timeout(function(){</p>
+
+<pre><code>//the code which needs to run after dom rendering
+</code></pre>
+
+<p>})
+```</p>
+
+<p>The above solution works only for views which don&rsquo;t have ng-include or directives with template url. In this case you have to wait for all the templates to be loaded(async) and then run your code. This can be achived by waiting for <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> to be zero. The enhanced solution is</p>
+
+<p>```js
+var waitForRenderAndDoSomething = function() {</p>
+
+<pre><code>if($http.pendingRequests.length &gt; 0) {
+    $timeout(waitForRenderAndDoSomething); // Wait for all templates to be loaded
+} else {
+    //the code which needs to run after dom rendering
+}
+</code></pre>
+
+<p>}
+$timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
+```</p>
+
+<p>Hopefully AngularJS will come up with a easier solution in future releases.</p>
+
+<h4>Note</h4>
+
+<p>The <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> supposed to be used for debugging purpose only. If angular team decides to remove this, you can implement the same using http interceptors as suggested in this <a href="http://stackoverflow.com/a/20062899/69362">link</a>.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Printing html with image and css]]></title>

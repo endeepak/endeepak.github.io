@@ -9,19 +9,7 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="There are plenty of examples for printing html of an element. Most of them look like this 1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-//The simple soultion but has &hellip;">
+  <meta name="description" content="The million dollar question most of the AngularJS users(devs) end up asking is How to wait for angular digest cycle to be completed? or in simple &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +66,86 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-03T17:43:34+05:30" pubdate data-updated="true">May 3<span>rd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>The million dollar question most of the AngularJS users(devs) end up asking is</p>
+
+<ul>
+<li>How to wait for angular digest cycle to be completed?  <em>or in simple terms</em></li>
+<li>How to wait for browser to complete rendering the view with angular bindings?</li>
+</ul>
+
+
+<p>AngularJS does not raise any event to notify this. The suggested simple solution is to use $timeout to queue your work to be run after current digest cycle (also waits for DOM renedering to be completed by the browser).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$timeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+</span><span class='line'>  <span class="c1">//the code which needs to run after dom rendering</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above solution works only for views which don&rsquo;t have ng-include or directives with template url. In this case you have to wait for all the templates to be loaded(async) and then run your code. This can be achived by waiting for <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> to be zero. The enhanced solution is</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">waitForRenderAndDoSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">$http</span><span class="p">.</span><span class="nx">pendingRequests</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndDoSomething</span><span class="p">);</span> <span class="c1">// Wait for all templates to be loaded</span>
+</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>      <span class="c1">//the code which needs to run after dom rendering</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndDoSomething</span><span class="p">);</span> <span class="c1">// Waits for first digest cycle</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Hopefully AngularJS will come up with a easier solution in future releases.</p>
+
+<h4>Note</h4>
+
+<p>The <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> supposed to be used for debugging purpose only. If angular team decides to remove this, you can implement the same using http interceptors as suggested in this <a href="http://stackoverflow.com/a/20062899/69362">link</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -511,6 +579,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/05/03/printing-html-with-image-and-css">Printing html with image and css</a>
       </li>
     
@@ -524,10 +596,6 @@
     
       <li class="post">
         <a href="/blog/2014/05/03/debugging-angular-ui-router">Debugging angular ui-router</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/05/01/introducing-f-dot-js">Introducing f.js</a>
       </li>
     
   </ul>
