@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: f.js | !geek]]></title>
-  <link href="tech.endeepak.com/blog/categories/f-dot-js/atom.xml" rel="self"/>
-  <link href="tech.endeepak.com/"/>
-  <updated>2014-05-03T13:41:59+05:30</updated>
-  <id>tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/f-dot-js/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2014-05-03T13:48:27+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Introducing f.js]]></title>
-    <link href="tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js/"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js"/>
     <updated>2014-05-01T18:59:39+05:30</updated>
-    <id>tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</id>
+    <id>http://tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</id>
     <content type="html"><![CDATA[<p>Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&amp;:</code> sugar.</p>
 
 <p>```ruby

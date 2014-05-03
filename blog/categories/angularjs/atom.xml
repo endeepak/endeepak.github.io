@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Angularjs | !geek]]></title>
-  <link href="tech.endeepak.com/blog/categories/angularjs/atom.xml" rel="self"/>
-  <link href="tech.endeepak.com/"/>
-  <updated>2014-05-03T13:41:59+05:30</updated>
-  <id>tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2014-05-03T13:48:27+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Debugging Angular View Bindings]]></title>
-    <link href="tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings/"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings"/>
     <updated>2014-05-03T09:34:54+05:30</updated>
-    <id>tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
+    <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
     <content type="html"><![CDATA[<p>The way to debug problems with <code></code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
 
 <p>Example: If you want to debug missing data in <code>&lt;span>Name : &lt;/span></code></p>
@@ -50,9 +50,9 @@ injector.get(&lsquo;myService&rsquo;)
   
   <entry>
     <title type="html"><![CDATA[Debugging Angular Ui-router]]></title>
-    <link href="tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router/"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router"/>
     <updated>2014-05-03T08:21:40+05:30</updated>
-    <id>tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>
+    <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>
     <content type="html"><![CDATA[<p>The <a href="https://github.com/angular-ui/ui-router">ui-router</a> from <a href="https://github.com/angular-ui">angular-ui</a> gives power of nested states and multiple named views which is essential for angular apps with non-trivial layout and workflow.</p>
 
 <p>The main problem with angular ui-router is getting the route configurations right in the first time. You start seeing blank pages for misconfigured views. The sad part is these errors are not logged to console. It gets quite frustrating in tracking down the cause.</p>
