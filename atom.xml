@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="tech.endeepak.com/atom.xml" rel="self"/>
   <link href="tech.endeepak.com/"/>
-  <updated>2014-05-03T09:09:17+05:30</updated>
+  <updated>2014-05-03T12:25:50+05:30</updated>
   <id>tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,49 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Debugging Angular View Bindings]]></title>
+    <link href="tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings/"/>
+    <updated>2014-05-03T09:34:54+05:30</updated>
+    <id>tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
+    <content type="html"><![CDATA[<p>The way to debug problems with <code>{{}}</code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
+
+<p>Example: If you want to debug missing data in <code>&lt;span>Name : {{person.fullName()}}&lt;/span></code></p>
+
+<ul>
+<li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>
+<li>Go to console tab and type</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">scope</span><span class="p">().</span><span class="nx">pesron</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Get controller</span>
+</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">controller</span><span class="p">()</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//Getting injector and other objects</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">injector</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">injector</span><span class="p">()</span>
+</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;$rootScope&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;myService&#39;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The other alternative is to use chrome extension <a href="https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en">AngularJS Batarang</a>. This will add AngularJS tab in developer Tools. It lists all scopes in the current page. But finding the correct scope for a particualr element quite difficult. The &ldquo;Enable Inspector&rdquo; button in batarang doesn&rsquo;t work that well. So far the <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> is the best way to debug binding issues.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Debugging Angular Ui-router]]></title>
