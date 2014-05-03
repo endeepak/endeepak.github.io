@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="tech.endeepak.com/atom.xml" rel="self"/>
   <link href="tech.endeepak.com/"/>
-  <updated>2014-05-01T21:06:05+05:30</updated>
+  <updated>2014-05-03T09:09:17+05:30</updated>
   <id>tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Debugging Angular Ui-router]]></title>
+    <link href="tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router/"/>
+    <updated>2014-05-03T08:21:40+05:30</updated>
+    <id>tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>
+    <content type="html"><![CDATA[<p>The <a href="https://github.com/angular-ui/ui-router">ui-router</a> from <a href="https://github.com/angular-ui">angular-ui</a> gives power of nested states and multiple named views which is essential for angular apps with non-trivial layout and workflow.</p>
+
+<p>The main problem with angular ui-router is getting the route configurations right in the first time. You start seeing blank pages for misconfigured views. The sad part is these errors are not logged to console. It gets quite frustrating in tracking down the cause.</p>
+
+<p>This where I found this <a href="http://stackoverflow.com/a/20786262/69362">stackoverflow link</a> which helps in solving this issue. If you find yourself in trouble with ui-router, just open the developer console on the browser and paste the beloew code.</p>
+
+<script src="https://gist.github.com/endeepak/387102e7bc94f2ef505e.js"></script>
+
+
+<h4>Some of the common mistakes made while moving fron angular&rsquo;s ng-route to ui-router are</h4>
+
+<ul>
+<li>Dependency on ui-router is not added</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Make sure &#39;ui.router&#39; module is added as dependency</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">myApp</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;myApp&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ui.router&#39;</span><span class="p">]);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>The parent state doesn&rsquo;t have template with ui-view</li>
+</ul>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$stateProvider</span>
+</span><span class='line'><span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="c1">//parent state</span>
+</span><span class='line'>    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/user/:userId&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="c1">// Important that parent has a template with ui-view which the child states can replace</span>
+</span><span class='line'>    <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;ui-view/&gt;&#39;</span>
+</span><span class='line'><span class="p">})</span>
+</span><span class='line'><span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;user.projects&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="c1">//child state</span>
+</span><span class='line'>    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;projects&#39;</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;projects.html&#39;</span><span class="p">,</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Introducing f.js]]></title>
@@ -32,7 +90,7 @@
 <p>compare this with javascript code</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">book</span><span class="p">.</span><span class="nx">title</span> <span class="p">})</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">book</span><span class="p">.</span><span class="nx">title</span> <span class="p">})</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -41,7 +99,7 @@
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">y</span><span class="p">(</span><span class="s1">&#39;book =&gt; book.title&#39;</span><span class="p">))</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">y</span><span class="p">(</span><span class="s1">&#39;book =&gt; book.title&#39;</span><span class="p">))</span>
 </span><span class='line'><span class="c1">// or</span>
 </span><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">))</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -60,7 +118,7 @@
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
 <span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!watched&#39;</span><span class="p">))</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!watched&#39;</span><span class="p">))</span>
 </span><span class='line'><span class="nx">people</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;fullName()&#39;</span><span class="p">))</span>
 </span><span class='line'><span class="nx">shows</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!isGood()&#39;</span><span class="p">))</span>
 </span><span class='line'>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: f.js | !geek]]></title>
   <link href="tech.endeepak.com/blog/categories/f-dot-js/atom.xml" rel="self"/>
   <link href="tech.endeepak.com/"/>
-  <updated>2014-05-01T21:06:05+05:30</updated>
+  <updated>2014-05-03T09:09:17+05:30</updated>
   <id>tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -29,13 +29,13 @@ books.map { |book| => book.title }</p>
 ```
 compare this with javascript code</p>
 
-<p><code>javascript
+<p><code>js
 books.map(function(book) { return book.title })
 </code></p>
 
 <p>Good news is ES6 might come with proposed <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions">arrow functions</a>, but it might take a while before all the browsers implement this. This is where <a href="https://github.com/endeepak/f.js">f.js</a> can be handy. This library will help to write redable code by writing less. You can write the above code as</p>
 
-<p><code>javascript
+<p><code>js
 books.map(f.y('book =&gt; book.title'))
 // or
 books.map(f.x('title'))
@@ -43,7 +43,7 @@ books.map(f.x('title'))
 
 <p><a href="https://github.com/endeepak/f.js">f.js</a> supports methods, negation and includes utilities like noop and identity. Examples</p>
 
-<p>```javascript
+<p>```js
 movies.filter(f.x(&lsquo;!watched&rsquo;))
 people.map(f.x(&lsquo;fullName()&rsquo;))
 shows.filter(f.x(&lsquo;!isGood()&rsquo;))</p>
