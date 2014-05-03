@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Angular-ui | !geek]]></title>
+  <title><![CDATA[Category: angular-ui | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/angular-ui/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T13:48:27+05:30</updated>
+  <updated>2014-05-03T15:21:13+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Debugging Angular Ui-router]]></title>
+    <title type="html"><![CDATA[Debugging angular ui-router]]></title>
     <link href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router"/>
     <updated>2014-05-03T08:21:40+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>

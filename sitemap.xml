@@ -13,12 +13,18 @@
         <lastmod>2014-05-03T13:03:13+05:30</lastmod>
     </url>
     <url>
+        <loc>
+            http://tech.endeepak.com/blog/2014/05/03/octopress-config-dot-yml-changes-not-picked-up
+        </loc>
+        <lastmod>2014-05-03T15:19:12+05:30</lastmod>
+    </url>
+    <url>
         <loc>http://tech.endeepak.com/blog/archives/</loc>
-        <lastmod>2014-05-03T13:03:13+05:30</lastmod>
+        <lastmod>2014-05-03T15:19:12+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/</loc>
-        <lastmod>2014-05-03T13:03:13+05:30</lastmod>
+        <lastmod>2014-05-03T15:19:12+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/robots.txt</loc>
