@@ -18,6 +18,7 @@ compare this with javascript code
 ```js
 books.map(function(book) { return book.title })
 ```
+<!-- more -->
 
 Good news is ES6 might come with proposed [arrow functions](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions), but it might take a while before all the browsers implement this. This is where [f.js](https://github.com/endeepak/f.js) can be handy. This library will help to write redable code by writing less. You can write the above code as
 

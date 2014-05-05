@@ -8,6 +8,8 @@ categories: javascript angularjs debug
 
 The way to debug problems with <code>\{\{\}\}</code> or <code>ng-bind</code> or any other directive is to use [angular.element](https://docs.angularjs.org/api/ng/function/angular.element) method. 
 
+<!-- more -->
+
 Example: If you want to debug missing data in <code>\<span>Name : \{\{person.fullName()\}\}\</span></code>
 
 * Right click on the span and click Inspect element. Make sure span is selected in the elements tab
@@ -16,7 +18,6 @@ Example: If you want to debug missing data in <code>\<span>Name : \{\{person.ful
 ```js
 angular.element($0).scope().pesron.fullName()
 ```
-
 Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.
 
 ```js

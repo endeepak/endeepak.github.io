@@ -24,6 +24,8 @@ function printHtml(html)
 ```
 The issues with above solution:
 
+<!-- more -->
+
 1. The new window pop up would be blocked by browsers. Users need to enable pop up.
 2. If you have external css files, you will notice the styling not applied some times.
 3. If you have images(like logo), the print will be missing these images intermittently.

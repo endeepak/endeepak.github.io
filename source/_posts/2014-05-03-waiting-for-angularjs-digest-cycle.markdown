@@ -11,6 +11,8 @@ The million dollar question most of the AngularJS users(devs) end up asking is
 * How to wait for angular digest cycle to be completed?  _or in simple terms_ 
 * How to wait for browser to complete rendering the view with angular bindings? 
 
+<!-- more -->
+
 AngularJS does not raise any event to notify this. The suggested simple solution is to use $timeout to queue your work to be run after current digest cycle (also waits for DOM renedering to be completed by the browser).
 
 ```js

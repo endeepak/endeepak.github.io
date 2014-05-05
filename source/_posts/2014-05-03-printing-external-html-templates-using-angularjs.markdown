@@ -16,6 +16,8 @@ printer.print(templateUrl, data)
 //This would called on clicking the print button
 printer.print('/config/registrationCardTempate.html', {patient: {name: 'Ram Kumar', dateOfBirth: '1978-08-23', gender: 'M'}})
 ```
+<!-- more -->
+
 Sample html template
 
 ```html
