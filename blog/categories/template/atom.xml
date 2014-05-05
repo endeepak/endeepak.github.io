@@ -4,7 +4,7 @@
   <title><![CDATA[Category: template | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/template/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T22:13:38+05:30</updated>
+  <updated>2014-05-06T00:42:55+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -28,8 +28,12 @@ printer.print(templateUrl, data)</p>
 
 <p>//This would called on clicking the print button
 printer.print(&lsquo;/config/registrationCardTempate.html&rsquo;, {patient: {name: &lsquo;Ram Kumar&rsquo;, dateOfBirth: &lsquo;1978-08-23&rsquo;, gender: &rsquo;M'}})
-```
-Sample html template</p>
+```</p>
+
+<!-- more -->
+
+
+<p>Sample html template</p>
 
 <p>```html
 <link rel="stylesheet" href="http://tech.endeepak.com/config/registrationCard.css"/>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: angular-ui | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/angular-ui/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T22:13:38+05:30</updated>
+  <updated>2014-05-06T00:42:55+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -22,7 +22,10 @@
 
 <p>The main problem with angular ui-router is getting the route configurations right in the first time. You start seeing blank pages for misconfigured views. The sad part is these errors are not logged to console. It gets quite frustrating in tracking down the cause.</p>
 
-<p>This where I found this <a href="http://stackoverflow.com/a/20786262/69362">stackoverflow link</a> which helps in solving this issue. If you find yourself in trouble with ui-router, just open the developer console on the browser and paste the beloew code.</p>
+<!-- more -->
+
+
+<p>This where I found this <a href="http://stackoverflow.com/a/20786262/69362">stackoverflow link</a> which helps in solving this issue. If you find yourself in trouble with ui-router, just open the developer console on the browser and paste the below code.</p>
 
 <script src="https://gist.github.com/endeepak/387102e7bc94f2ef505e.js"></script>
 

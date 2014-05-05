@@ -4,7 +4,7 @@
   <title><![CDATA[Category: f.js | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/f-dot-js/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T22:13:38+05:30</updated>
+  <updated>2014-05-06T00:42:55+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -32,6 +32,9 @@ compare this with javascript code</p>
 <p><code>js
 books.map(function(book) { return book.title })
 </code></p>
+
+<!-- more -->
+
 
 <p>Good news is ES6 might come with proposed <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions">arrow functions</a>, but it might take a while before all the browsers implement this. This is where <a href="https://github.com/endeepak/f.js">f.js</a> can be handy. This library will help to write redable code by writing less. You can write the above code as</p>
 

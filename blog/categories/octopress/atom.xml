@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T22:13:38+05:30</updated>
+  <updated>2014-05-06T00:42:55+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<h4>Issue:</h4>
 
 <p>The <code>_confg.yml</code> changes are not picked when you deploy to github pages using <code>rake generate deploy</code></p>
+
+<!-- more -->
+
 
 <h4>Cause</h4>
 

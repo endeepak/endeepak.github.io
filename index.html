@@ -9,9 +9,10 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="Use case In Bahmni EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We &hellip;">
+  <meta name="description" content="Code, learn & share">
   
-
+  
+  <meta name="keywords" content="technology, code, learn, software, programming, share">
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -112,77 +113,12 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Sample html template</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href=</span><span class="s">&quot;/config/registrationCard.css&quot;</span><span class="nt">/&gt;</span>
-</span><span class='line'><span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;/config/logo.jpg&quot;</span><span class="nt">&gt;&lt;img&gt;</span>
-</span><span class='line'><span class="nt">&lt;h1&gt;</span>The hospital name<span class="nt">&lt;/h1&gt;</span>
-</span><span class='line'><span class="nt">&lt;table&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Name<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.name&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Age<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.dateOfBirth | age&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
-</span><span class='line'>  <span class="nt">&lt;tr&gt;&lt;td&gt;</span>Gender<span class="nt">&lt;/td&gt;&lt;td</span> <span class="na">ng-bind=</span><span class="s">&quot;patient.gender&quot;</span><span class="nt">&gt;&lt;/td&gt;&lt;/tr&gt;</span>
-</span><span class='line'><span class="nt">&lt;/table&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Implementation</h2>
-
-<p>As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps</p>
-
-<ol>
-<li>Fetch the html template</li>
-<li>Compile the html template with given data using angular&rsquo;s $complile</li>
-<li>Wait for angular to complete rendering the template (Explained <a href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle">here</a>)</li>
-<li>Print the html(Explained <a href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css">here</a>)</li>
-</ol>
-
-
-<p>The code for print function looks like this</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">print</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">templateUrl</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">templateUrl</span><span class="p">).</span><span class="nx">success</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">template</span><span class="p">){</span>
-</span><span class='line'>        <span class="kd">var</span> <span class="nx">printScope</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$rootScope</span><span class="p">.</span><span class="nx">$new</span><span class="p">(),</span> <span class="nx">data</span><span class="p">);</span>
-</span><span class='line'>        <span class="kd">var</span> <span class="nx">element</span> <span class="o">=</span> <span class="nx">$compile</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;div&gt;&#39;</span> <span class="o">+</span> <span class="nx">template</span> <span class="o">+</span> <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">))(</span><span class="nx">printScope</span><span class="p">);</span>
-</span><span class='line'>        <span class="kd">var</span> <span class="nx">waitForRenderAndPrint</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>            <span class="k">if</span><span class="p">(</span><span class="nx">printScope</span><span class="p">.</span><span class="nx">$$phase</span> <span class="o">||</span> <span class="nx">$http</span><span class="p">.</span><span class="nx">pendingRequests</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndPrint</span><span class="p">);</span>
-</span><span class='line'>            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>                <span class="nx">printHtml</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">html</span><span class="p">());</span>
-</span><span class='line'>                <span class="nx">printScope</span><span class="p">.</span><span class="nx">$destroy</span><span class="p">();</span> <span class="c1">// To avoid memory leaks from scope create by $rootScope.$new()</span>
-</span><span class='line'>            <span class="p">}</span>
-</span><span class='line'>        <span class="p">}</span>
-</span><span class='line'>        <span class="nx">waitForRenderAndPrint</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">});</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The complete solution is available on <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/printer.js">github</a>.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/03/printing-external-html-templates-using-angularjs">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -224,45 +160,12 @@
 </ul>
 
 
-<p>AngularJS does not raise any event to notify this. The suggested simple solution is to use $timeout to queue your work to be run after current digest cycle (also waits for DOM renedering to be completed by the browser).</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$timeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
-</span><span class='line'>  <span class="c1">//the code which needs to run after dom rendering</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The above solution works only for views which don&rsquo;t have ng-include or directives with template url. In this case you have to wait for all the templates to be loaded(async) and then run your code. This can be achived by waiting for <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> to be zero. The enhanced solution is</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">waitForRenderAndDoSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>  <span class="k">if</span><span class="p">(</span><span class="nx">$http</span><span class="p">.</span><span class="nx">pendingRequests</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>      <span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndDoSomething</span><span class="p">);</span> <span class="c1">// Wait for all templates to be loaded</span>
-</span><span class='line'>  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span class='line'>      <span class="c1">//the code which needs to run after dom rendering</span>
-</span><span class='line'>  <span class="p">}</span>
-</span><span class='line'><span class="p">}</span>
-</span><span class='line'><span class="nx">$timeout</span><span class="p">(</span><span class="nx">waitForRenderAndDoSomething</span><span class="p">);</span> <span class="c1">// Waits for first digest cycle</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Hopefully AngularJS will come up with a easier solution in future releases.</p>
-
-<h4>Note</h4>
-
-<p>The <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> supposed to be used for debugging purpose only. If angular team decides to remove this, you can implement the same using http interceptors as suggested in this <a href="http://stackoverflow.com/a/20062899/69362">link</a>.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -327,66 +230,12 @@
 
 <p>The issues with above solution:</p>
 
-<ol>
-<li>The new window pop up would be blocked by browsers. Users need to enable pop up.</li>
-<li>If you have external css files, you will notice the styling not applied some times.</li>
-<li>If you have images(like logo), the print will be missing these images intermittently.</li>
-</ol>
-
-
-<p>The first issue can be addressed by using an iframe instead of new window. The 2nd and 3rd issues are addressed by making sure print happens after page has loaded css files and images. The working solution we use in <a href="http://www.bahmni.org">Bahmni</a> for printing patient registration cards looks like this</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="kd">var</span> <span class="nx">printHtml</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">html</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">hiddenFrame</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;&lt;iframe style=&quot;display: none&quot;&gt;&lt;/iframe&gt;&#39;</span><span class="p">).</span><span class="nx">appendTo</span><span class="p">(</span><span class="s1">&#39;body&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-</span><span class='line'>    <span class="nx">hiddenFrame</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">printAndRemove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-</span><span class='line'>        <span class="nx">hiddenFrame</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">print</span><span class="p">();</span>
-</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="nx">hiddenFrame</span><span class="p">).</span><span class="nx">remove</span><span class="p">();</span>
-</span><span class='line'>    <span class="p">};</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">htmlDocument</span> <span class="o">=</span> <span class="s2">&quot;&lt;!doctype html&gt;&quot;</span><span class="o">+</span>
-</span><span class='line'>                <span class="s2">&quot;&lt;html&gt;&quot;</span><span class="o">+</span>
-</span><span class='line'>                    <span class="s1">&#39;&lt;body onload=&quot;printAndRemove();&quot;&gt;&#39;</span> <span class="o">+</span> <span class="c1">// Print only after document is loaded</span>
-</span><span class='line'>                        <span class="nx">html</span> <span class="o">+</span>
-</span><span class='line'>                    <span class="s1">&#39;&lt;/body&gt;&#39;</span><span class="o">+</span>
-</span><span class='line'>                <span class="s2">&quot;&lt;/html&gt;&quot;</span><span class="p">;</span>
-</span><span class='line'>    <span class="kd">var</span> <span class="nx">doc</span> <span class="o">=</span> <span class="nx">hiddenFrame</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nb">document</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&quot;text/html&quot;</span><span class="p">,</span> <span class="s2">&quot;replace&quot;</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">doc</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nx">htmlDocument</span><span class="p">);</span>
-</span><span class='line'>    <span class="nx">doc</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>For printing contents of an element you can use this</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//element can be found by document.querySelectorAll(slector)[0]</span>
-</span><span class='line'><span class="c1">//or using jQuery(selector)[0]</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">printElement</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">element</span><span class="p">)</span> <span class="p">{</span>
-</span><span class='line'>  <span class="nx">printHtml</span><span class="p">(</span><span class="nx">element</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">)</span>
-</span><span class='line'><span class="p">};</span>
-</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/03/printing-html-with-image-and-css">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -424,15 +273,12 @@
 
 <p>The <code>_confg.yml</code> changes are not picked when you deploy to github pages using <code>rake generate deploy</code></p>
 
-<h4>Cause</h4>
-
-<p>I had <code>rake preview</code> running another tab, it was started with older version of the <code>_confg.yml</code>. This was also generating the html files into same <code>_deploy</code> folder. Hence when you run <code>rake generate deploy</code>, it was pushing html generated by <code>rake preview</code> task.</p>
-
-<h4>Solution</h4>
-
-<p>Before running <code>rake generate deploy</code>, make sure you are not running <code>rake preview</code> or <code>rake watch</code> in any window or tab.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/03/octopress-config-dot-yml-changes-not-picked-up">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -468,41 +314,12 @@
 
   <div class="entry-content"><p>The way to debug problems with <code>{{}}</code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
 
-<p>Example: If you want to debug missing data in <code>&lt;span>Name : {{person.fullName()}}&lt;/span></code></p>
-
-<ul>
-<li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>
-<li>Go to console tab and type</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">scope</span><span class="p">().</span><span class="nx">pesron</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Get controller</span>
-</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">controller</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//Getting injector and other objects</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">injector</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">injector</span><span class="p">()</span>
-</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;$rootScope&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;myService&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The other alternative is to use chrome extension <a href="https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en">AngularJS Batarang</a>. This will add AngularJS tab in developer Tools. It lists all scopes in the current page. But finding the correct scope for a particualr element quite difficult. The &ldquo;Enable Inspector&rdquo; button in batarang doesn&rsquo;t work that well. So far the <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> is the best way to debug binding issues.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/03/debugging-angular-view-bindings">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -540,54 +357,12 @@
 
 <p>The main problem with angular ui-router is getting the route configurations right in the first time. You start seeing blank pages for misconfigured views. The sad part is these errors are not logged to console. It gets quite frustrating in tracking down the cause.</p>
 
-<p>This where I found this <a href="http://stackoverflow.com/a/20786262/69362">stackoverflow link</a> which helps in solving this issue. If you find yourself in trouble with ui-router, just open the developer console on the browser and paste the beloew code.</p>
-
-<script src="https://gist.github.com/endeepak/387102e7bc94f2ef505e.js"></script>
-
-
-<h4>Some of the common mistakes made while moving fron angular&rsquo;s ng-route to ui-router are</h4>
-
-<ul>
-<li>Dependency on ui-router is not added</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Make sure &#39;ui.router&#39; module is added as dependency</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">myApp</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;myApp&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;ui.router&#39;</span><span class="p">]);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<ul>
-<li>The parent state doesn&rsquo;t have template with ui-view</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">$stateProvider</span>
-</span><span class='line'><span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="c1">//parent state</span>
-</span><span class='line'>    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/user/:userId&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="c1">// Important that parent has a template with ui-view which the child states can replace</span>
-</span><span class='line'>    <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;ui-view/&gt;&#39;</span>
-</span><span class='line'><span class="p">})</span>
-</span><span class='line'><span class="p">.</span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;user.projects&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="c1">//child state</span>
-</span><span class='line'>    <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;projects&#39;</span><span class="p">,</span>
-</span><span class='line'>    <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;projects.html&#39;</span><span class="p">,</span>
-</span><span class='line'><span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/03/debugging-angular-ui-router">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -639,49 +414,12 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Good news is ES6 might come with proposed <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions">arrow functions</a>, but it might take a while before all the browsers implement this. This is where <a href="https://github.com/endeepak/f.js">f.js</a> can be handy. This library will help to write redable code by writing less. You can write the above code as</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">y</span><span class="p">(</span><span class="s1">&#39;book =&gt; book.title&#39;</span><span class="p">))</span>
-</span><span class='line'><span class="c1">// or</span>
-</span><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">))</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p><a href="https://github.com/endeepak/f.js">f.js</a> supports methods, negation and includes utilities like noop and identity. Examples</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!watched&#39;</span><span class="p">))</span>
-</span><span class='line'><span class="nx">people</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;fullName()&#39;</span><span class="p">))</span>
-</span><span class='line'><span class="nx">shows</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">x</span><span class="p">(</span><span class="s1">&#39;!isGood()&#39;</span><span class="p">))</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//Lambda with multiple parameters</span>
-</span><span class='line'><span class="c1">//sort movies in descending order on rating</span>
-</span><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">sort</span><span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">y</span><span class="p">(</span><span class="s1">&#39;(m1, m2) =&gt; m2.rating - m1.rating&#39;</span><span class="p">));</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//Noop and identity examples</span>
-</span><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">callback</span> <span class="o">||</span> <span class="nx">f</span><span class="p">())</span> <span class="c1">//f() returns noop function</span>
-</span><span class='line'><span class="nx">movies</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">filterFunction</span> <span class="o">||</span> <span class="nx">f</span><span class="p">(</span><span class="kc">true</span><span class="p">))</span> <span class="c1">//f(arg) returns identity function</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The f.y(lambda) method uses same syntax as arrow functions. Once ES6 arrow functions feature is available on all browsers, write a regex to remove usage of f.y and say bye to f.js</p>
-
-<p>Code &amp; Documentation: <a href="https://github.com/endeepak/f.js">https://github.com/endeepak/f.js</a></p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/01/introducing-f-dot-js">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -720,6 +458,10 @@
       </li>
     
   </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/angular-ui' style='font-size: 110.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 140.0%'>angularjs(4)</a> <a href='/blog/categories/debug' style='font-size: 120.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 110.0%'>f.js(1)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(6)</a> <a href='/blog/categories/octopress' style='font-size: 110.0%'>octopress(1)</a> <a href='/blog/categories/print' style='font-size: 120.0%'>print(2)</a> <a href='/blog/categories/template' style='font-size: 110.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 110.0%'>ui-router(1)</a> </span>
 </section>
 
   
@@ -760,6 +502,14 @@
 }(document, 'script', 'facebook-jssdk'));</script>
 
 
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
 
 
 

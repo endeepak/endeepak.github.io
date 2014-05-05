@@ -4,7 +4,7 @@
   <title><![CDATA[Category: debug | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/debug/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-03T22:13:38+05:30</updated>
+  <updated>2014-05-06T00:42:55+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -20,6 +20,9 @@
     <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
     <content type="html"><![CDATA[<p>The way to debug problems with <code></code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
 
+<!-- more -->
+
+
 <p>Example: If you want to debug missing data in <code>&lt;span>Name : &lt;/span></code></p>
 
 <ul>
@@ -30,9 +33,8 @@
 
 <p><code>js
 angular.element($0).scope().pesron.fullName()
-</code></p>
-
-<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
+</code>
+Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
 
 <p>```js
 //Get controller
@@ -57,7 +59,10 @@ injector.get(&lsquo;myService&rsquo;)
 
 <p>The main problem with angular ui-router is getting the route configurations right in the first time. You start seeing blank pages for misconfigured views. The sad part is these errors are not logged to console. It gets quite frustrating in tracking down the cause.</p>
 
-<p>This where I found this <a href="http://stackoverflow.com/a/20786262/69362">stackoverflow link</a> which helps in solving this issue. If you find yourself in trouble with ui-router, just open the developer console on the browser and paste the beloew code.</p>
+<!-- more -->
+
+
+<p>This where I found this <a href="http://stackoverflow.com/a/20786262/69362">stackoverflow link</a> which helps in solving this issue. If you find yourself in trouble with ui-router, just open the developer console on the browser and paste the below code.</p>
 
 <script src="https://gist.github.com/endeepak/387102e7bc94f2ef505e.js"></script>
 

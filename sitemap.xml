@@ -2,46 +2,46 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</loc>
-        <lastmod>2014-05-03T09:05:47+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</loc>
-        <lastmod>2014-05-03T09:35:24+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</loc>
-        <lastmod>2014-05-03T13:03:13+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://tech.endeepak.com/blog/2014/05/03/octopress-config-dot-yml-changes-not-picked-up
         </loc>
-        <lastmod>2014-05-03T15:19:12+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</loc>
-        <lastmod>2014-05-03T17:38:49+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</loc>
-        <lastmod>2014-05-03T18:31:45+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>
             http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs
         </loc>
-        <lastmod>2014-05-03T22:12:27+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/blog/archives/</loc>
-        <lastmod>2014-05-03T22:12:27+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/</loc>
-        <lastmod>2014-05-03T22:12:27+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
     <url>
         <loc>http://tech.endeepak.com/robots.txt</loc>
-        <lastmod>2014-05-01T18:18:31+05:30</lastmod>
+        <lastmod>2014-05-06T00:34:42+05:30</lastmod>
     </url>
 </urlset>
