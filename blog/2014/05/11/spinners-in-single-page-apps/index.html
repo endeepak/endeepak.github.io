@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Spinners in single page apps - !geek</title>
+  <meta name="author" content="Deepak Narayana Rao">
+
+  
+  <meta name="description" content="Spinners in single page apps">
+  
+  
+  <meta name="keywords" content="SPA, javascript, overlay, spinner">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">!geek</a></h1>
+  
+    <h2>Code, learn & share</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tech.endeepak.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.endeepak.com">Author</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Spinners in single page apps</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-11T16:55:23+05:30" pubdate data-updated="true">May 11<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>One of the good practices in single page apps, is to show spinners (overlay + loading icon) while retrieving data or saving asynchronously. Often people tend to add a generic interceptor to show spinner for all ajax calls. In any mid size app, you will realize that the assumption <strong>&ldquo;Show an overlay for all ajax call&rdquo;</strong> is incorrect. Few examples</p>
+
+<ul>
+<li>An <a href="http://jqueryui.com/autocomplete/">autocomplete</a> input box fetching reote data</li>
+<li>An infininte scroll fetching more data as the use scrolls down the list.</li>
+</ul>
+
+
+<!-- More -->
+
+
+<p>To solve this, one might add an option in interceptor to not show spinner for certain calls. This leads to complicated code due to initial wrong assumption. A better soultion is to have simple reusable code to show/hide spinner and use it explicitly for calls which need spinner.</p>
+
+<p>If you are using a library which returns a promise for ajax call(or object like xhr returned by jQuery.ajax), the API and implementation would look like this.</p>
+
+<figure class='code'><figcaption><span>Api should be simple as</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">spinner</span><span class="p">.</span><span class="nx">forPromise</span><span class="p">(</span><span class="nx">$http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;/items&#39;</span><span class="p">))</span> <span class="c1">//AngularJS</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">spinner</span><span class="p">.</span><span class="nx">forPromise</span><span class="p">(</span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">(</span><span class="s1">&#39;/items&#39;</span><span class="p">))</span> <span class="c1">//jQuery</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Simple Spinner Implementation in AngularJS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">myModule</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;spinner&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">forPromise</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">promise</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#overlay&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>      <span class="nx">promise</span><span class="p">[</span><span class="s1">&#39;finally&#39;</span><span class="p">](</span><span class="kd">function</span><span class="p">(){</span> <span class="c1">//use promise.always(hide) in jQuery</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#overlay&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+</span><span class='line'>      <span class="p">});</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span> <span class="nx">forPromise</span><span class="o">:</span> <span class="nx">forPromise</span> <span class="p">}</span>
+</span><span class='line'> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you have a multiple components of the page using same spinner, we need to enhance the the code to make sure spinner is hidden only after both components have completed async calls. This can be implemented by keeping spinner count as shown below.</p>
+
+<figure class='code'><figcaption><span>Muliple Call Supported Spinner Implementation in AngularJS</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">myModule</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;spinner&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">showCount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">show</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">showCount</span><span class="o">++</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#overlay&#39;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">hide</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">showCount</span><span class="o">--</span><span class="p">;</span>
+</span><span class='line'>      <span class="k">if</span><span class="p">(</span><span class="nx">showCount</span> <span class="o">===</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#overlay&#39;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">forPromise</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">promise</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">show</span><span class="p">();</span>
+</span><span class='line'>      <span class="nx">promise</span><span class="p">[</span><span class="s1">&#39;finally&#39;</span><span class="p">](</span><span class="nx">hide</span><span class="p">);</span> <span class="c1">//use promise.always(hide) in jQuery</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span> <span class="nx">forPromise</span><span class="o">:</span> <span class="nx">forPromise</span> <span class="p">};</span>
+</span><span class='line'> <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In <a href="http://www.bahmni.org">Bahmni</a>, we use a spinner with animation which can be found <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/spinner.js">here</a>.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Deepak Narayana Rao</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-11T16:55:23+05:30" pubdate data-updated="true">May 11<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/spa/'>SPA</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/overlay/'>overlay</a>, <a class='category' href='/blog/categories/spinner/'>spinner</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/03/printing-external-html-templates-using-angularjs" title="Previous Post: Printing external html templates using AngularJS">&laquo; Printing external html templates using AngularJS</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/11/spinners-in-single-page-apps">Spinners in single page apps</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/printing-external-html-templates-using-angularjs">Printing external html templates using AngularJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/printing-html-with-image-and-css">Printing html with image and css</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/octopress-config-dot-yml-changes-not-picked-up">Octopress config.yml changes not picked up?</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/angular-ui' style='font-size: 108.57142857142857%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 134.28571428571428%'>angularjs(4)</a> <a href='/blog/categories/debug' style='font-size: 117.14285714285714%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 108.57142857142857%'>f.js(1)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(7)</a> <a href='/blog/categories/octopress' style='font-size: 108.57142857142857%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 108.57142857142857%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 117.14285714285714%'>print(2)</a> <a href='/blog/categories/spa' style='font-size: 108.57142857142857%'>SPA(1)</a> <a href='/blog/categories/spinner' style='font-size: 108.57142857142857%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 108.57142857142857%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 108.57142857142857%'>ui-router(1)</a> </span>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Deepak Narayana Rao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tech-endeepak';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps';
+        var disqus_url = 'http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
