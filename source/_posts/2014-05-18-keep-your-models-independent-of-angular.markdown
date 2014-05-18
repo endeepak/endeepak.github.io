@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Keep your models indepenednt of angular"
+title: "Keep your models independent of angular"
 date: 2014-05-18 16:38:01 +0530
 comments: true
 categories: angularjs javascript refactor
