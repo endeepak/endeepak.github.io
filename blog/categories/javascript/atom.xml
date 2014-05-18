@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-18T16:33:40+05:30</updated>
+  <updated>2014-05-18T20:31:05+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,100 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Keep your models indepenednt of angular]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-indepenednt-of-angular"/>
+    <updated>2014-05-18T16:38:01+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-indepenednt-of-angular</id>
+    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models &ndash; Wise People</p></blockquote>
+
+<p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
+
+<p>Alright lets get to some code. Let&rsquo;s consider a simple example where we have a form to capture person&rsquo;s information such as firstName, lastName, age or dateOfBirth. The age or dateOfBirth should be auto populated based on its counter part.</p>
+
+<p>```js Bad code
+//In controller
+$scope.firstName = &ldquo;&rdquo;
+$scope.lastName = &ldquo;&rdquo;
+$scope.fullName = function() {</p>
+
+<pre><code>return $scope.firstName + ' ' + $scope.lastName; 
+</code></pre>
+
+<p>}
+$scope.age = &ldquo;&rdquo;
+$scope.dateOfBirth = &ldquo;&rdquo;
+$scope.$watch(&lsquo;age&rsquo;, setDateOfBirthBasedOnAge);
+$scope.$watch(&lsquo;dateOfBirth&rsquo;, setAgeBasedOnDateOfBirth);
+```</p>
+
+<p>If you want to test the logic to compute fullName or age&lt;&ndash;>dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
+
+<h4>Refactor 1 : Introduce a model</h4>
+
+<p>```js
+//Model
+var Person = function() {</p>
+
+<pre><code>this.firstName = ""
+this.lastName = ""
+this.fullName = function() { 
+    return this.firstName + ' ' + this.lastName; 
+}
+this.age = ""
+this.dateOfBirth = ""
+</code></pre>
+
+<p>}</p>
+
+<p>//In controller
+$scope.person = new Person();
+$scope.$watch(&lsquo;person.age&rsquo;, setDateOfBirthBasedOnAge);
+$scope.$watch(&lsquo;person.dateOfBirth&rsquo;, setAgeBasedOnDateOfBirth);
+```
+Now you can simply instante a person object and test the fullName method.</p>
+
+<h4>Refactor 2 : Remove dependency on $scope.$watch</h4>
+
+<p>In this step we will use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a>, ES5 API which works on <a href="http://kangax.github.io/compat-table/es5/#Object.defineProperty">most of the browsers</a></p>
+
+<p>```js
+//Model
+var Person = function() {</p>
+
+<pre><code>..      //lastName, firstName, fullName code remains same as above
+var _age, _dateOfBirth; // Private fields
+
+Object.defineProperty(this, 'age', {
+    get: function() { return _age; }
+    set: fubction(value) {
+        _age = value;
+        setDateOfBirthBasedOnAge();
+    }
+});
+
+Object.defineProperty(this, 'dateOfBirth', {
+    get: function() { return _dateOfBirth; }
+    set: fubction(value) {
+        _dateOfBirth = value;
+        setAgeBasedOnDateOfBirth();
+    }
+});
+</code></pre>
+
+<p>}</p>
+
+<p>//In controller
+$scope.person = new Person();
+```
+After this step, your domain logic can be tested without having to use angular-mock or injectors etc.</p>
+
+<h3>Conclusion</h3>
+
+<p>One of the boasted feature in AngualrJS is using POJOs for data binding, compared to using special observables or models  in knockout, ember etc. If this is one of the reason you are using AngularJS, it is very important to make sure your domain logic doesn&rsquo;t leak into controllers.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Javascript functions in JSON configuration]]></title>
@@ -301,81 +395,6 @@ $timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
 <h4>Note</h4>
 
 <p>The <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> supposed to be used for debugging purpose only. If angular team decides to remove this, you can implement the same using http interceptors as suggested in this <a href="http://stackoverflow.com/a/20062899/69362">link</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Printing html with image and css]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css"/>
-    <updated>2014-05-03T16:54:00+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</id>
-    <content type="html"><![CDATA[<p>There are plenty of examples for printing html of an element. Most of them look like this</p>
-
-<p>```js
-//The simple soultion but has few problems listed below.
-function printHtml(html)
-{</p>
-
-<pre><code>var mywindow = window.open();
-mywindow.document.write('&lt;html&gt;&lt;head&gt;&lt;title&gt;My App&lt;/title&gt;');
-mywindow.document.write('&lt;/head&gt;&lt;body&gt;');
-mywindow.document.write(html);
-mywindow.document.write('&lt;/body&gt;&lt;/html&gt;');
-mywindow.print();
-mywindow.close();
-return true;
-</code></pre>
-
-<p>}
-```
-The issues with above solution:</p>
-
-<!-- more -->
-
-
-<ol>
-<li>The new window pop up would be blocked by browsers. Users need to enable pop up.</li>
-<li>If you have external css files, you will notice the styling not applied some times.</li>
-<li>If you have images(like logo), the print will be missing these images intermittently.</li>
-</ol>
-
-
-<p>The first issue can be addressed by using an iframe instead of new window. The 2nd and 3rd issues are addressed by making sure print happens after page has loaded css files and images. The working solution we use in <a href="http://www.bahmni.org">Bahmni</a> for printing patient registration cards looks like this</p>
-
-<p>```js
-var printHtml = function (html) {</p>
-
-<pre><code>var hiddenFrame = $('&lt;iframe style="display: none"&gt;&lt;/iframe&gt;').appendTo('body')[0];
-hiddenFrame.contentWindow.printAndRemove = function() {
-    hiddenFrame.contentWindow.print();
-    $(hiddenFrame).remove();
-};
-var htmlDocument = "&lt;!doctype html&gt;"+
-            "&lt;html&gt;"+
-                '&lt;body onload="printAndRemove();"&gt;' + // Print only after document is loaded
-                    html +
-                '&lt;/body&gt;'+
-            "&lt;/html&gt;";
-var doc = hiddenFrame.contentWindow.document.open("text/html", "replace");
-doc.write(htmlDocument);
-doc.close();
-</code></pre>
-
-<p>};
-```</p>
-
-<p>For printing contents of an element you can use this</p>
-
-<p>```js
-//element can be found by document.querySelectorAll(slector)[0]
-//or using jQuery(selector)[0]
-var printElement = function (element) {</p>
-
-<pre><code>printHtml(element.innerHTML)
-</code></pre>
-
-<p>};
-```</p>
 ]]></content>
   </entry>
   
