@@ -4,7 +4,7 @@
   <title><![CDATA[Category: angularjs | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/angularjs/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-18T20:31:05+05:30</updated>
+  <updated>2014-05-18T20:34:15+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Keep your models indepenednt of angular]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-indepenednt-of-angular"/>
+    <title type="html"><![CDATA[Keep your models independent of angular]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-indepenednt-of-angular</id>
+    <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
     <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models &ndash; Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
