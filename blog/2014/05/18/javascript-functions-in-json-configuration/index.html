@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Javascript functions in JSON configuration - !geek</title>
+  <meta name="author" content="Deepak Narayana Rao">
+
+  
+  <meta name="description" content="Javascript functions in JSON configuration">
+  
+  
+  <meta name="keywords" content="JSON, javascript">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">!geek</a></h1>
+  
+    <h2>Code, learn & share</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tech.endeepak.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.endeepak.com">Author</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Javascript functions in JSON configuration</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-18T15:20:32+05:30" pubdate data-updated="true">May 18<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>There is no native support for defining functions in JSON. Commonly used approach is to define function as string and use <code>eval()</code> or <code>new Function()</code> to contruct the function. The basic difference between these two are</p>
+
+<ul>
+<li><code>eval()</code> works within the current execution scope. It can access or modify local variables.</li>
+<li><code>new Function()</code> runs in a separate scope. It cannot access or modify local variables.</li>
+</ul>
+
+
+<p>These samples show how the json would differ in these two cases</p>
+
+<!-- More -->
+
+
+
+
+<figure class='code'><figcaption><span>Using eval()</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// JSON config</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nx">section</span><span class="o">:</span> <span class="s2">&quot;Additional Details&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">showIf</span><span class="o">:</span> <span class="s2">&quot;function(context) { return context.person.age &gt; 60; }&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//This can parsed in javascript as</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">showIf</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="nx">config</span><span class="p">.</span><span class="nx">showIf</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">shouldShowThisSection</span> <span class="o">=</span> <span class="nx">showIf</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="nx">personData</span><span class="p">}));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<figure class='code'><figcaption><span>Using new Function()</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// JSON config</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nx">section</span><span class="o">:</span> <span class="s2">&quot;Additional Details&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">showIf</span><span class="o">:</span> <span class="s2">&quot;return context.person.age &gt; 60&quot;</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//This can parsed in javascript as</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">showIf</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">showIf</span><span class="p">)</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">shouldShowThisSection</span> <span class="o">=</span> <span class="nx">showIf</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="nx">personData</span><span class="p">}));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can use either based on the use case in your application. In <a href="http://bahmni.org">bahmni</a>, we went with <code>new Function()</code> for couple of reasons</p>
+
+<ul>
+<li>We did not want config code to modify variables in application execution scope by mistake.</li>
+<li>We wanted to control the function signature such as number of parameters and its name to keep it simple and less error prone.</li>
+</ul>
+
+
+<p>If you prefer using <code>eval</code> syntax, try <a href="https://github.com/vkiryukhin/jsonfn">vkiryukhin/jsonfn</a>.</p>
+
+<h4>Multi line functions</h4>
+
+<p>The above examples work fine for sinle line expressions. If you need multiple line functions, you need to tweak it a bit. Firstly, JSON does not support multiline string. The work around is to define an array of strings as shown below.</p>
+
+<figure class='code'><figcaption><span>Multi line functions parsed using new Function()</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">// JSON config</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="nx">section</span><span class="o">:</span> <span class="s2">&quot;Additional Details&quot;</span><span class="p">,</span>
+</span><span class='line'>  <span class="nx">showIf</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;if(context.person.gender === &#39;M&#39; &amp;&amp; context.person.age &gt; 60)&quot;</span><span class="p">,</span>
+</span><span class='line'>              <span class="s2">&quot;return true;&quot;</span><span class="p">,</span>
+</span><span class='line'>           <span class="s2">&quot;else if(context.person.gender === &#39;F&#39; &amp;&amp; context.person.age &gt; 55)&quot;</span><span class="p">,</span>
+</span><span class='line'>              <span class="s2">&quot;return true;&quot;</span><span class="p">,</span>
+</span><span class='line'>          <span class="s2">&quot;else&quot;</span><span class="p">,</span>
+</span><span class='line'>              <span class="s2">&quot;return false;&quot;</span><span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//This can parsed in javascript as</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">showIf</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Function</span><span class="p">(</span><span class="s1">&#39;context&#39;</span><span class="p">,</span> <span class="nx">config</span><span class="p">.</span><span class="nx">showIf</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">))</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">shouldShowThisSection</span> <span class="o">=</span> <span class="nx">showIf</span><span class="p">({</span><span class="nx">person</span><span class="o">:</span> <span class="nx">personData</span><span class="p">}));</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Performance</h4>
+
+<p>There is not much difference in performance when you define a function using <code>function() {}</code> expression <code>eval(&lsquo;function() {}&rsquo;)</code> or <code>new Function()</code>. Have a look at this <a href="http://jsperf.com/function-vs-new-function-vs-eval-function">benchmark</a> using jsperf.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Deepak Narayana Rao</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-18T15:20:32+05:30" pubdate data-updated="true">May 18<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/json/'>JSON</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/05/11/spinners-in-single-page-apps" title="Previous Post: Spinners in single page apps">&laquo; Spinners in single page apps</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/05/18/javascript-functions-in-json-configuration">Javascript functions in JSON configuration</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/11/spinners-in-single-page-apps">Spinners in single page apps</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/printing-external-html-templates-using-angularjs">Printing external html templates using AngularJS</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/03/printing-html-with-image-and-css">Printing html with image and css</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/angular-ui' style='font-size: 107.5%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(4)</a> <a href='/blog/categories/debug' style='font-size: 115.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 107.5%'>f.js(1)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(8)</a> <a href='/blog/categories/json' style='font-size: 107.5%'>JSON(1)</a> <a href='/blog/categories/octopress' style='font-size: 107.5%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 107.5%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 115.0%'>print(2)</a> <a href='/blog/categories/spa' style='font-size: 107.5%'>SPA(1)</a> <a href='/blog/categories/spinner' style='font-size: 107.5%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 107.5%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 107.5%'>ui-router(1)</a> </span>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Deepak Narayana Rao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tech-endeepak';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration';
+        var disqus_url = 'http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
