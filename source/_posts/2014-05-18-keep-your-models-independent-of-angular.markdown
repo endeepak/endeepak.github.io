@@ -10,6 +10,8 @@ categories: angularjs javascript refactor
 
 In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular's digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.
 
+<!-- More -->
+
 Alright lets get to some code. Let's consider a simple example where we have a form to capture person's information such as firstName, lastName, age or dateOfBirth. The age or dateOfBirth should be auto populated based on its counter part.
 
 ```js Bad code
