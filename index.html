@@ -73,6 +73,49 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic">Make sure functional tests are technology agnostic</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-27T16:43:49+05:30" pubdate data-updated="true">Jul 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. When writing functional tests, we need to make sure assertions wait till completion of ajax call and HTML is generated from templates.</p>
+
+<p>Sometimes people end up with either using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2014/05/18/keep-your-models-independent-of-angular">Keep your models independent of angular</a></h1>
     
     
@@ -507,64 +550,9 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/01/introducing-f-dot-js">Introducing f.js</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-05-01T18:59:39+05:30" pubdate data-updated="true">May 1<span>st</span>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&amp;:</code> sugar.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">books</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">book</span><span class="o">|</span> <span class="o">=&gt;</span> <span class="n">book</span><span class="o">.</span><span class="n">title</span> <span class="p">}</span>
-</span><span class='line'><span class="c1"># or even better</span>
-</span><span class='line'><span class="n">books</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:title</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>compare this with javascript code</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">book</span><span class="p">.</span><span class="nx">title</span> <span class="p">})</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/01/introducing-f-dot-js">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
@@ -575,6 +563,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic">Make sure functional tests are technology agnostic</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2014/05/18/keep-your-models-independent-of-angular">Keep your models independent of angular</a>
@@ -592,15 +584,11 @@
         <a href="/blog/2014/05/03/printing-external-html-templates-using-angularjs">Printing external html templates using AngularJS</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/angular-ui' style='font-size: 106.66666666666667%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 133.33333333333334%'>angularjs(5)</a> <a href='/blog/categories/debug' style='font-size: 113.33333333333333%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.66666666666667%'>f.js(1)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(9)</a> <a href='/blog/categories/json' style='font-size: 106.66666666666667%'>JSON(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.66666666666667%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.66666666666667%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 113.33333333333333%'>print(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.66666666666667%'>refactor(1)</a> <a href='/blog/categories/spa' style='font-size: 106.66666666666667%'>SPA(1)</a> <a href='/blog/categories/spinner' style='font-size: 106.66666666666667%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 106.66666666666667%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.66666666666667%'>ui-router(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 106.0%'>functional-tests(1)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>JSON(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>SPA(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> </span>
 </section>
 
   

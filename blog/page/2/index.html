@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: f.js - !geek</title>
+  <title>!geek</title>
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="Category: f.js">
+  <meta name="description" content="Code, learn & share">
   
   
   <meta name="keywords" content="technology, code, learn, software, programming, share">
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tech.endeepak.comblog/categories/f-dot-js">
+  <link rel="canonical" href="http://tech.endeepak.com/blog/page/2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
@@ -65,40 +65,74 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div>
-<article role="article">
+      <div class="blog-index">
   
+  
+  
+    <article>
+      
   <header>
-    <h1 class="entry-title">Category: f.js</h1>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/01/introducing-f-dot-js">Introducing f.js</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-05-01T18:59:39+05:30" pubdate data-updated="true">May 1<span>st</span>, 2014</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+  <div class="entry-content"><p>Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&amp;:</code> sugar.</p>
 
-  
-  <h2>2014</h2>
-
-<article>
-  
-<h1><a href="/blog/2014/05/01/introducing-f-dot-js">Introducing f.js</a></h1>
-<time datetime="2014-05-01T18:59:39+05:30" pubdate><span class='month'>May</span> <span class='day'>01</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/f-dot-js/'>f.js</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a></span>
-</footer>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">books</span><span class="o">.</span><span class="n">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">book</span><span class="o">|</span> <span class="o">=&gt;</span> <span class="n">book</span><span class="o">.</span><span class="n">title</span> <span class="p">}</span>
+</span><span class='line'><span class="c1"># or even better</span>
+</span><span class='line'><span class="n">books</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:title</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
 
 
-</article>
+<p>compare this with javascript code</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">books</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">book</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">book</span><span class="p">.</span><span class="nx">title</span> <span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 </div>
-
   
-</article>
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/01/introducing-f-dot-js">Read on &rarr;</a>
+    </footer>
+  
 
+
+    </article>
+  
+  <div class="pagination">
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/">Newer &rarr;</a>
+    
+  </div>
 </div>
-
 <aside class="sidebar">
   
     <section>
@@ -134,7 +168,6 @@
 
   
 </aside>
-
 
     </div>
   </div>

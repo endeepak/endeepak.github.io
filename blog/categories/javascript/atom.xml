@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-18T20:37:07+05:30</updated>
+  <updated>2014-07-27T18:23:21+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,76 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Make sure functional tests are technology agnostic]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic"/>
+    <updated>2014-07-27T16:43:49+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic</id>
+    <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. When writing functional tests, we need to make sure assertions wait till completion of ajax call and HTML is generated from templates.</p>
+
+<p>Sometimes people end up with either using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
+
+<!-- More -->
+
+
+<p>``` ruby
+fiil_in &lsquo;name&rsquo;, :with => &lsquo;foo&rsquo; # you might be using a page object pattern in real code
+click_on &lsquo;Save&rsquo;
+wait_for_ajax
+expect(find(&lsquo;#number_of_people&rsquo;).text).to be(10)</p>
+
+<h1>The implementation of wait_for_ajax which depends on jQuery.active</h1>
+
+<p>def wait_for_ajax</p>
+
+<pre><code>wait_until { page.evaluate_script('jQuery.active') == 0 }
+</code></pre>
+
+<p>end
+```</p>
+
+<p>The above solutions make your tests indeterministic or dependent on javascript framework used in application. Fortunately frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
+
+<p><code>ruby
+click_on 'Save'
+expect(find('#number_of_people').to have_content(10) # Implicit wait
+</code></p>
+
+<p>But, you may not be able to use this when</p>
+
+<ul>
+<li>You are not using framework like capybara <em>or</em></li>
+<li>The assertion is done on data saved in a database or file system</li>
+</ul>
+
+
+<p> In these cases, you should not go back to <code>wait_for_ajax</code> or <code>sleep</code> solutions. Instead of depending on technical details of the app, you need to think in terms of</p>
+
+<blockquote><p>How does the user know app is done loading or saving data?</p></blockquote>
+
+<p>This will give you a hint on any missing usability requirements in the app. You must have a visual clue in the app to indicate the progress. Your functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
+
+<p>``` ruby</p>
+
+<h1>click</h1>
+
+<p>wait_for_completion</p>
+
+<h1>assert</h1>
+
+<h1>Example implementation of wait_for_completion</h1>
+
+<p>def wait_for_completion</p>
+
+<pre><code>wait_until { page.find('#loading-indicator').visible? == false }
+</code></pre>
+
+<p>end
+```
+These type of tests can provide early feedback on the user experience.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Keep your models independent of angular]]></title>
@@ -347,57 +417,6 @@ var print = function (templateUrl, data) {</p>
 <p>};
 ```
 The complete solution is available on <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/printer.js">github</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Waiting for AngularJS digest cycle]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle"/>
-    <updated>2014-05-03T17:43:34+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</id>
-    <content type="html"><![CDATA[<p>The million dollar question most of the AngularJS users(devs) end up asking is</p>
-
-<ul>
-<li>How to wait for angular digest cycle to be completed?  <em>or in simple terms</em></li>
-<li>How to wait for browser to complete rendering the view with angular bindings?</li>
-</ul>
-
-
-<!-- more -->
-
-
-<p>AngularJS does not raise any event to notify this. The suggested simple solution is to use $timeout to queue your work to be run after current digest cycle (also waits for DOM renedering to be completed by the browser).</p>
-
-<p>```js
-$timeout(function(){</p>
-
-<pre><code>//the code which needs to run after dom rendering
-</code></pre>
-
-<p>})
-```</p>
-
-<p>The above solution works only for views which don&rsquo;t have ng-include or directives with template url. In this case you have to wait for all the templates to be loaded(async) and then run your code. This can be achived by waiting for <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> to be zero. The enhanced solution is</p>
-
-<p>```js
-var waitForRenderAndDoSomething = function() {</p>
-
-<pre><code>if($http.pendingRequests.length &gt; 0) {
-    $timeout(waitForRenderAndDoSomething); // Wait for all templates to be loaded
-} else {
-    //the code which needs to run after dom rendering
-}
-</code></pre>
-
-<p>}
-$timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
-```</p>
-
-<p>Hopefully AngularJS will come up with a easier solution in future releases.</p>
-
-<h4>Note</h4>
-
-<p>The <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> supposed to be used for debugging purpose only. If angular team decides to remove this, you can implement the same using http interceptors as suggested in this <a href="http://stackoverflow.com/a/20062899/69362">link</a>.</p>
 ]]></content>
   </entry>
   

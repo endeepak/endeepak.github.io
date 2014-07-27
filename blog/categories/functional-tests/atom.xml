@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: SPA | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/spa/atom.xml" rel="self"/>
+  <title><![CDATA[Category: functional-tests | !geek]]></title>
+  <link href="http://tech.endeepak.com/blog/categories/functional-tests/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
   <updated>2014-07-27T18:23:21+05:30</updated>
   <id>http://tech.endeepak.com/</id>
@@ -80,82 +80,6 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
 <p>end
 ```
 These type of tests can provide early feedback on the user experience.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spinners in single page apps]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
-    <updated>2014-05-11T16:55:23+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
-    <content type="html"><![CDATA[<p>One of the good practices in single page apps, is to show spinners (overlay + loading icon) while retrieving data or saving asynchronously. Often people tend to add a generic interceptor to show spinner for all ajax calls. In any mid size app, you will realize that the assumption <strong>&ldquo;Show an overlay for all ajax call&rdquo;</strong> is incorrect. Few examples</p>
-
-<ul>
-<li>An <a href="http://jqueryui.com/autocomplete/">autocomplete</a> input box fetching reote data</li>
-<li>An infininte scroll fetching more data as the use scrolls down the list.</li>
-</ul>
-
-
-<!-- More -->
-
-
-<p>To solve this, one might add an option in interceptor to not show spinner for certain calls. This leads to complicated code due to initial wrong assumption. A better soultion is to have simple reusable code to show/hide spinner and use it explicitly for calls which need spinner.</p>
-
-<p>If you are using a library which returns a promise for ajax call(or object like xhr returned by jQuery.ajax), the API and implementation would look like this.</p>
-
-<p>```js Api should be simple as
-spinner.forPromise($http.get(&lsquo;/items&rsquo;)) //AngularJS</p>
-
-<p>spinner.forPromise($.ajax(&lsquo;/items&rsquo;)) //jQuery
-```</p>
-
-<p>```js Simple Spinner Implementation in AngularJS
-myModule.factory(&lsquo;spinner&rsquo;, function () {</p>
-
-<pre><code>var forPromise = function(promise) {
-    $('#overlay').show();
-    promise['finally'](function(){ //use promise.always(hide) in jQuery
-        $('#overlay').hide();
-    }); 
-};
-
-return { forPromise: forPromise }
-</code></pre>
-
-<p> )
-```</p>
-
-<p>If you have a multiple components of the page using same spinner, we need to enhance the the code to make sure spinner is hidden only after both components have completed async calls. This can be implemented by keeping spinner count as shown below.</p>
-
-<p>```js Muliple Call Supported Spinner Implementation in AngularJS
-myModule.factory(&lsquo;spinner&rsquo;, function () {</p>
-
-<pre><code>var showCount = 0;
-
-var show = function () {
-    showCount++;
-    $('#overlay').show();
-}
-
-var hide = function () {
-    showCount--;
-    if(showCount === 0) {
-        $('#overlay').hide();
-    }
-}
-
-var forPromise = function(promise) {
-    show();
-    promise['finally'](hide); //use promise.always(hide) in jQuery
-};
-
-return { forPromise: forPromise };
-</code></pre>
-
-<p> )
-```</p>
-
-<p>In <a href="http://www.bahmni.org">Bahmni</a>, we use a spinner with animation which can be found <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/spinner.js">here</a>.</p>
 ]]></content>
   </entry>
   

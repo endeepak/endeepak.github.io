@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-05-18T20:37:07+05:30</updated>
+  <updated>2014-07-27T18:23:21+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,87 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Make sure functional tests are technology agnostic]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic"/>
+    <updated>2014-07-27T16:43:49+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic</id>
+    <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. When writing functional tests, we need to make sure assertions wait till completion of ajax call and HTML is generated from templates.</p>
+
+<p>Sometimes people end up with either using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
+
+<!-- More -->
+
+
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">fiil_in</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="ss">:with</span> <span class="o">=&gt;</span> <span class="s1">&#39;foo&#39;</span> <span class="c1"># you might be using a page object pattern in real code</span>
+</span><span class='line'><span class="n">click_on</span> <span class="s1">&#39;Save&#39;</span>
+</span><span class='line'><span class="n">wait_for_ajax</span>
+</span><span class='line'><span class="n">expect</span><span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;#number_of_people&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">be</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># The implementation of wait_for_ajax which depends on jQuery.active</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">wait_for_ajax</span>
+</span><span class='line'>  <span class="n">wait_until</span> <span class="p">{</span> <span class="n">page</span><span class="o">.</span><span class="n">evaluate_script</span><span class="p">(</span><span class="s1">&#39;jQuery.active&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The above solutions make your tests indeterministic or dependent on javascript framework used in application. Fortunately frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">click_on</span> <span class="s1">&#39;Save&#39;</span>
+</span><span class='line'><span class="n">expect</span><span class="p">(</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;#number_of_people&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">have_content</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># Implicit wait</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>But, you may not be able to use this when</p>
+
+<ul>
+<li>You are not using framework like capybara <em>or</em></li>
+<li>The assertion is done on data saved in a database or file system</li>
+</ul>
+
+
+<p> In these cases, you should not go back to <code>wait_for_ajax</code> or <code>sleep</code> solutions. Instead of depending on technical details of the app, you need to think in terms of</p>
+
+<blockquote><p>How does the user know app is done loading or saving data?</p></blockquote>
+
+<p>This will give you a hint on any missing usability requirements in the app. You must have a visual clue in the app to indicate the progress. Your functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># click</span>
+</span><span class='line'><span class="n">wait_for_completion</span>
+</span><span class='line'><span class="c1"># assert</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># Example implementation of wait_for_completion</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">wait_for_completion</span>
+</span><span class='line'>  <span class="n">wait_until</span> <span class="p">{</span> <span class="n">page</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;#loading-indicator&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">visible?</span> <span class="o">==</span> <span class="kp">false</span> <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These type of tests can provide early feedback on the user experience.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Keep your models independent of angular]]></title>
