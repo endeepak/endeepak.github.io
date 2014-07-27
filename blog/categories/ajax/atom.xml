@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ajax | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/ajax/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-27T18:23:21+05:30</updated>
+  <updated>2014-07-27T18:26:01+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Make sure functional tests are technology agnostic]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic"/>
+    <title type="html"><![CDATA[Make sure functional tests are application technology agnostic]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic"/>
     <updated>2014-07-27T16:43:49+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-technology-agnostic</id>
+    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic</id>
     <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. When writing functional tests, we need to make sure assertions wait till completion of ajax call and HTML is generated from templates.</p>
 
 <p>Sometimes people end up with either using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
