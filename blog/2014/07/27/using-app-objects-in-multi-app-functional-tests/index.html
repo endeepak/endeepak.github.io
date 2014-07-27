@@ -1,0 +1,391 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using app objects in multi app functional tests - !geek</title>
+  <meta name="author" content="Deepak Narayana Rao">
+
+  
+  <meta name="description" content="Using app objects in multi app functional tests">
+  
+  
+  <meta name="keywords" content="app-objects, capybara, functional-tests">
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">!geek</a></h1>
+  
+    <h2>Code, learn & share</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tech.endeepak.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="http://www.endeepak.com">Author</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using app objects in multi app functional tests</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-27T18:40:04+05:30" pubdate data-updated="true">Jul 27<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>It is better to create small modular apps instead of single monolithic application. In <a href="http://www.bahmni.org">Bahmni EMR</a> we have small apps for Patient Registration, Consultation, etc. An end to end <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">functional test</a> covering patient registration and consultation goes through multiple apps. We needed to abstract the concept of an app in test code to increase the readability and maintainability.</p>
+
+<p>The app objects are natural extension of <a href="https://code.google.com/p/selenium/wiki/PageObjects">page objects</a> recommended for writing functional tests. An app encapsulates all pages and coarse level actions in the app.</p>
+
+<!-- More -->
+
+
+<p>An simple implementation of app class would be</p>
+
+<figure class='code'><figcaption><span>registration/app.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Registration</span><span class="o">::</span><span class="no">App</span>
+</span><span class='line'>    <span class="c1"># Pages in this apps    </span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">patient_page</span>
+</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:PatientPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">visit_details_page</span>
+</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:VisitDetailsPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># Coarse level action in this app</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">register_new_patient</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">click_link</span> <span class="s2">&quot;Create New&quot;</span>
+</span><span class='line'>        <span class="n">patient_page</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:patient</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">start_visit</span><span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:visit_type</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test using this simple implementation would look like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">registration</span> <span class="o">=</span> <span class="ss">Registration</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">register_new_patient</span> <span class="ss">:patient</span> <span class="o">=&gt;</span> <span class="n">new_patient</span><span class="p">,</span> <span class="ss">:visit_type</span> <span class="o">=&gt;</span> <span class="s1">&#39;OPD&#39;</span>
+</span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">should_be_current_page</span>
+</span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">save_new_patient_visit</span><span class="p">(</span><span class="n">visit_info</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">clinical</span> <span class="o">=</span> <span class="ss">Clinical</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">should_have_active_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">view_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">test code</a> is structured as</p>
+
+<pre>
+apps
+    registration
+        app.rb
+        patient_page.rb
+        visit_details_page.rb
+    clinical
+        app.rb
+        patient_search_page.rb
+features
+    new_patient_visit.rb
+framework
+    app.rb # Base class for other apps
+    page.rb # Base class for other pages
+</pre>
+
+
+<h3>Nicer DSL</h3>
+
+<p>We are using capybara and Rspec. The lambda syntax, meta programming constructs in ruby and convention based programming allowed us to implement a DSL shown below. The complete code can be found <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">here</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">feature</span> <span class="s2">&quot;new patient visit&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">background</span> <span class="p">{</span> <span class="n">login</span><span class="p">(</span><span class="s1">&#39;superuser&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">scenario</span> <span class="s2">&quot;registration and consultation&quot;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">new_patient</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:given_name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Ram&quot;</span><span class="p">,</span> <span class="ss">:family_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Singh&#39;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">go_to_app</span><span class="p">(</span><span class="ss">:registration</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">register_new_patient</span><span class="p">(</span><span class="ss">:patient</span> <span class="o">=&gt;</span> <span class="n">new_patient</span><span class="p">,</span> <span class="ss">:visit_type</span> <span class="o">=&gt;</span> <span class="s1">&#39;OPD&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">visit_page</span><span class="o">.</span><span class="n">should_be_current_page</span>
+</span><span class='line'>            <span class="n">visit_page</span><span class="o">.</span><span class="n">save_new_patient_visit</span><span class="p">(</span><span class="n">visit_info</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">go_to_app</span><span class="p">(</span><span class="ss">:clinical</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">patient_search_page</span><span class="o">.</span><span class="n">should_have_active_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">patient_search_page</span><span class="o">.</span><span class="n">view_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span><span class='line'>            <span class="c1"># ....</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I didn&rsquo;t into details of implementing the DSL. If people are interested, I can write a part 2 of this post.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Deepak Narayana Rao</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-27T18:40:04+05:30" pubdate data-updated="true">Jul 27<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/app-objects/'>app-objects</a>, <a class='category' href='/blog/categories/capybara/'>capybara</a>, <a class='category' href='/blog/categories/functional-tests/'>functional-tests</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic" title="Previous Post: Make sure functional tests are application technology agnostic">&laquo; Make sure functional tests are application technology agnostic</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests">Using app objects in multi app functional tests</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic">Make sure functional tests are application technology agnostic</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/18/keep-your-models-independent-of-angular">Keep your models independent of angular</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/18/javascript-functions-in-json-configuration">Javascript functions in JSON configuration</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/11/spinners-in-single-page-apps">Spinners in single page apps</a>
+      </li>
+    
+  </ul>
+</section>
+<section>
+  <h1>Tag Cloud</h1>
+    <span id="tag-cloud"><a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>JSON(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>SPA(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> </span>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Deepak Narayana Rao -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tech-endeepak';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests';
+        var disqus_url = 'http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

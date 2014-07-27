@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-27T18:26:01+05:30</updated>
+  <updated>2014-07-27T20:29:01+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,144 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Using app objects in multi app functional tests]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
+    <updated>2014-07-27T18:40:04+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
+    <content type="html"><![CDATA[<p>It is better to create small modular apps instead of single monolithic application. In <a href="http://www.bahmni.org">Bahmni EMR</a> we have small apps for Patient Registration, Consultation, etc. An end to end <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">functional test</a> covering patient registration and consultation goes through multiple apps. We needed to abstract the concept of an app in test code to increase the readability and maintainability.</p>
+
+<p>The app objects are natural extension of <a href="https://code.google.com/p/selenium/wiki/PageObjects">page objects</a> recommended for writing functional tests. An app encapsulates all pages and coarse level actions in the app.</p>
+
+<!-- More -->
+
+
+<p>An simple implementation of app class would be</p>
+
+<figure class='code'><figcaption><span>registration/app.rb</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Registration</span><span class="o">::</span><span class="no">App</span>
+</span><span class='line'>    <span class="c1"># Pages in this apps    </span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">patient_page</span>
+</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:PatientPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">visit_details_page</span>
+</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:VisitDetailsPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1"># Coarse level action in this app</span>
+</span><span class='line'>    <span class="k">def</span> <span class="nf">register_new_patient</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</span><span class='line'>        <span class="n">click_link</span> <span class="s2">&quot;Create New&quot;</span>
+</span><span class='line'>        <span class="n">patient_page</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:patient</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">start_visit</span><span class="p">(</span><span class="n">options</span><span class="o">[</span><span class="ss">:visit_type</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The test using this simple implementation would look like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">registration</span> <span class="o">=</span> <span class="ss">Registration</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">register_new_patient</span> <span class="ss">:patient</span> <span class="o">=&gt;</span> <span class="n">new_patient</span><span class="p">,</span> <span class="ss">:visit_type</span> <span class="o">=&gt;</span> <span class="s1">&#39;OPD&#39;</span>
+</span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">should_be_current_page</span>
+</span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">save_new_patient_visit</span><span class="p">(</span><span class="n">visit_info</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">clinical</span> <span class="o">=</span> <span class="ss">Clinical</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">should_have_active_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">view_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">test code</a> is structured as</p>
+
+<pre>
+apps
+    registration
+        app.rb
+        patient_page.rb
+        visit_details_page.rb
+    clinical
+        app.rb
+        patient_search_page.rb
+features
+    new_patient_visit.rb
+framework
+    app.rb # Base class for other apps
+    page.rb # Base class for other pages
+</pre>
+
+
+<h3>Nicer DSL</h3>
+
+<p>We are using capybara and Rspec. The lambda syntax, meta programming constructs in ruby and convention based programming allowed us to implement a DSL shown below. The complete code can be found <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">here</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">feature</span> <span class="s2">&quot;new patient visit&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">background</span> <span class="p">{</span> <span class="n">login</span><span class="p">(</span><span class="s1">&#39;superuser&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">scenario</span> <span class="s2">&quot;registration and consultation&quot;</span> <span class="k">do</span>
+</span><span class='line'>        <span class="n">new_patient</span> <span class="o">=</span> <span class="p">{</span><span class="ss">:given_name</span> <span class="o">=&gt;</span> <span class="s2">&quot;Ram&quot;</span><span class="p">,</span> <span class="ss">:family_name</span> <span class="o">=&gt;</span> <span class="s1">&#39;Singh&#39;</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">go_to_app</span><span class="p">(</span><span class="ss">:registration</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">register_new_patient</span><span class="p">(</span><span class="ss">:patient</span> <span class="o">=&gt;</span> <span class="n">new_patient</span><span class="p">,</span> <span class="ss">:visit_type</span> <span class="o">=&gt;</span> <span class="s1">&#39;OPD&#39;</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">visit_page</span><span class="o">.</span><span class="n">should_be_current_page</span>
+</span><span class='line'>            <span class="n">visit_page</span><span class="o">.</span><span class="n">save_new_patient_visit</span><span class="p">(</span><span class="n">visit_info</span><span class="p">)</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">go_to_app</span><span class="p">(</span><span class="ss">:clinical</span><span class="p">)</span> <span class="k">do</span>
+</span><span class='line'>            <span class="n">patient_search_page</span><span class="o">.</span><span class="n">should_have_active_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span><span class='line'>            <span class="n">patient_search_page</span><span class="o">.</span><span class="n">view_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
+</span><span class='line'>            <span class="c1"># ....</span>
+</span><span class='line'>        <span class="k">end</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I didn&rsquo;t into details of implementing the DSL. If people are interested, I can write a part 2 of this post.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Make sure functional tests are application technology agnostic]]></title>
