@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Make sure functional tests are technology agnostic"
+title: "Make sure functional tests are application technology agnostic"
 date: 2014-07-27 16:43:49 +0530
 comments: true
 categories: javascript ajax SPA functional-tests
