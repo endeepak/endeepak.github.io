@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Make sure functional tests are application technology agnostic - !geek</title>
+  <title>Make sure functional tests are user centric - !geek</title>
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="Make sure functional tests are application technology agnostic">
+  <meta name="description" content="Make sure functional tests are user centric">
   
   
   <meta name="keywords" content="SPA, ajax, functional-tests, javascript">
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic">
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
@@ -70,7 +70,7 @@
   
   <header>
     
-      <h1 class="entry-title">Make sure functional tests are application technology agnostic</h1>
+      <h1 class="entry-title">Make sure functional tests are user centric</h1>
     
     
       <p class="meta">
@@ -93,9 +93,9 @@
   </header>
 
 
-<div class="entry-content"><p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. When writing functional tests, we need to make sure assertions wait till completion of ajax call and HTML is generated from templates.</p>
+<div class="entry-content"><p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.</p>
 
-<p>Sometimes people end up with either using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
+<p>Couple of bad ways to achieve this is by using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
 
 <!-- More -->
 
@@ -123,7 +123,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The above solutions make your tests indeterministic or dependent on javascript framework used in application. Fortunately frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
+<p>The <code>sleep(xSeconds)</code> makes your tests indeterministic and <code>wait_for_ajax</code> makes it dependent on javascript framework used in application.</p>
+
+<h2>Solution 1 : Choose a good framework</h2>
+
+<p>Frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -132,7 +136,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>But, you may not be able to use this when</p>
+<p>But what happens when</p>
 
 <ul>
 <li>You are not using framework like capybara <em>or</em></li>
@@ -140,11 +144,15 @@
 </ul>
 
 
-<p> In these cases, you should not go back to <code>wait_for_ajax</code> or <code>sleep</code> solutions. Instead of depending on technical details of the app, you need to think in terms of</p>
+<p> In these cases, don&rsquo;t go back to <code>wait_for_ajax</code> or <code>sleep</code> solutions. Instead of depending on technical details of the app, you need to think in terms of</p>
 
 <blockquote><p>How does the user know app is done loading or saving data?</p></blockquote>
 
-<p>This will give you a hint on any missing usability requirements in the app. You must have a visual clue in the app to indicate the progress. Your functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
+<p>This will give you a hint on any missing usability requirements in the app.</p>
+
+<h2>Solution 2 : Think like a user</h2>
+
+<p>When you think like user, you will realize there must be a visual clue in the app to indicate the progress. The functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -165,7 +173,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>These type of tests can provide early feedback on the user experience.</p>
+<p>When your tests are written from point of view of the user, they provide valuable feedback on the user experience.</p>
 </div>
 
 
@@ -202,7 +210,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -243,7 +251,7 @@
       </li>
     
       <li class="post">
-        <a href="/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic">Make sure functional tests are application technology agnostic</a>
+        <a href="/blog/2014/07/27/make-sure-functional-tests-are-user-centric">Make sure functional tests are user centric</a>
       </li>
     
       <li class="post">
@@ -284,8 +292,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic';
-        var disqus_url = 'http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic';
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric';
+        var disqus_url = 'http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric';
         var disqus_script = 'embed.js';
       
     (function () {

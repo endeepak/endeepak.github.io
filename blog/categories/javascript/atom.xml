@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-27T20:29:01+05:30</updated>
+  <updated>2014-07-30T23:50:27+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -14,13 +14,13 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Make sure functional tests are application technology agnostic]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic"/>
+    <title type="html"><![CDATA[Make sure functional tests are user centric]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
     <updated>2014-07-27T16:43:49+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-application-technology-agnostic</id>
-    <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. When writing functional tests, we need to make sure assertions wait till completion of ajax call and HTML is generated from templates.</p>
+    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
+    <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.</p>
 
-<p>Sometimes people end up with either using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
+<p>Couple of bad ways to achieve this is by using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
 
 <!-- More -->
 
@@ -41,14 +41,18 @@ expect(find(&lsquo;#number_of_people&rsquo;).text).to be(10)</p>
 <p>end
 ```</p>
 
-<p>The above solutions make your tests indeterministic or dependent on javascript framework used in application. Fortunately frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
+<p>The <code>sleep(xSeconds)</code> makes your tests indeterministic and <code>wait_for_ajax</code> makes it dependent on javascript framework used in application.</p>
+
+<h2>Solution 1 : Choose a good framework</h2>
+
+<p>Frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
 
 <p><code>ruby
 click_on 'Save'
 expect(find('#number_of_people').to have_content(10) # Implicit wait
 </code></p>
 
-<p>But, you may not be able to use this when</p>
+<p>But what happens when</p>
 
 <ul>
 <li>You are not using framework like capybara <em>or</em></li>
@@ -56,11 +60,15 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
 </ul>
 
 
-<p> In these cases, you should not go back to <code>wait_for_ajax</code> or <code>sleep</code> solutions. Instead of depending on technical details of the app, you need to think in terms of</p>
+<p> In these cases, don&rsquo;t go back to <code>wait_for_ajax</code> or <code>sleep</code> solutions. Instead of depending on technical details of the app, you need to think in terms of</p>
 
 <blockquote><p>How does the user know app is done loading or saving data?</p></blockquote>
 
-<p>This will give you a hint on any missing usability requirements in the app. You must have a visual clue in the app to indicate the progress. Your functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
+<p>This will give you a hint on any missing usability requirements in the app.</p>
+
+<h2>Solution 2 : Think like a user</h2>
+
+<p>When you think like user, you will realize there must be a visual clue in the app to indicate the progress. The functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
 
 <p>``` ruby</p>
 
@@ -78,8 +86,9 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
 </code></pre>
 
 <p>end
-```
-These type of tests can provide early feedback on the user experience.</p>
+```</p>
+
+<p>When your tests are written from point of view of the user, they provide valuable feedback on the user experience.</p>
 ]]></content>
   </entry>
   
