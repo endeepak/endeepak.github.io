@@ -4,7 +4,7 @@
   <title><![CDATA[Category: angularjs | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/angularjs/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -18,7 +18,7 @@
     <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
-    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models &ndash; Wise People</p></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
 
@@ -27,82 +27,72 @@
 
 <p>Alright lets get to some code. Let&rsquo;s consider a simple example where we have a form to capture person&rsquo;s information such as firstName, lastName, age or dateOfBirth. The age or dateOfBirth should be auto populated based on its counter part.</p>
 
-<p>```js Bad code
-//In controller
-$scope.firstName = &ldquo;&rdquo;
-$scope.lastName = &ldquo;&rdquo;
-$scope.fullName = function() {</p>
-
-<pre><code>return $scope.firstName + ' ' + $scope.lastName; 
+<pre><code class="js Bad code">//In controller
+$scope.firstName = ""
+$scope.lastName = ""
+$scope.fullName = function() { 
+    return $scope.firstName + ' ' + $scope.lastName; 
+}
+$scope.age = ""
+$scope.dateOfBirth = ""
+$scope.$watch('age', setDateOfBirthBasedOnAge);
+$scope.$watch('dateOfBirth', setAgeBasedOnDateOfBirth);
 </code></pre>
 
-<p>}
-$scope.age = &ldquo;&rdquo;
-$scope.dateOfBirth = &ldquo;&rdquo;
-$scope.$watch(&lsquo;age&rsquo;, setDateOfBirthBasedOnAge);
-$scope.$watch(&lsquo;dateOfBirth&rsquo;, setAgeBasedOnDateOfBirth);
-```</p>
-
-<p>If you want to test the logic to compute fullName or age&lt;&ndash;>dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
+<p>If you want to test the logic to compute fullName or age<->dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
 
 <h4>Refactor 1 : Introduce a model</h4>
 
-<p>```js
-//Model
-var Person = function() {</p>
-
-<pre><code>this.firstName = ""
-this.lastName = ""
-this.fullName = function() { 
-    return this.firstName + ' ' + this.lastName; 
+<pre><code class="js">//Model
+var Person = function() {
+    this.firstName = ""
+    this.lastName = ""
+    this.fullName = function() { 
+        return this.firstName + ' ' + this.lastName; 
+    }
+    this.age = ""
+    this.dateOfBirth = ""
 }
-this.age = ""
-this.dateOfBirth = ""
+
+//In controller
+$scope.person = new Person();
+$scope.$watch('person.age', setDateOfBirthBasedOnAge);
+$scope.$watch('person.dateOfBirth', setAgeBasedOnDateOfBirth);
 </code></pre>
 
-<p>}</p>
-
-<p>//In controller
-$scope.person = new Person();
-$scope.$watch(&lsquo;person.age&rsquo;, setDateOfBirthBasedOnAge);
-$scope.$watch(&lsquo;person.dateOfBirth&rsquo;, setAgeBasedOnDateOfBirth);
-```
-Now you can simply instante a person object and test the fullName method.</p>
+<p>Now you can simply instante a person object and test the fullName method.</p>
 
 <h4>Refactor 2 : Remove dependency on $scope.$watch</h4>
 
 <p>In this step we will use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a>, ES5 API which works on <a href="http://kangax.github.io/compat-table/es5/#Object.defineProperty">most of the browsers</a></p>
 
-<p>```js
-//Model
-var Person = function() {</p>
+<pre><code class="js">//Model
+var Person = function() {
+    ..      //lastName, firstName, fullName code remains same as above
+    var _age, _dateOfBirth; // Private fields
 
-<pre><code>..      //lastName, firstName, fullName code remains same as above
-var _age, _dateOfBirth; // Private fields
+    Object.defineProperty(this, 'age', {
+        get: function() { return _age; }
+        set: fubction(value) {
+            _age = value;
+            setDateOfBirthBasedOnAge();
+        }
+    });
 
-Object.defineProperty(this, 'age', {
-    get: function() { return _age; }
-    set: fubction(value) {
-        _age = value;
-        setDateOfBirthBasedOnAge();
-    }
-});
+    Object.defineProperty(this, 'dateOfBirth', {
+        get: function() { return _dateOfBirth; }
+        set: fubction(value) {
+            _dateOfBirth = value;
+            setAgeBasedOnDateOfBirth();
+        }
+    });
+}
 
-Object.defineProperty(this, 'dateOfBirth', {
-    get: function() { return _dateOfBirth; }
-    set: fubction(value) {
-        _dateOfBirth = value;
-        setAgeBasedOnDateOfBirth();
-    }
-});
+//In controller
+$scope.person = new Person();
 </code></pre>
 
-<p>}</p>
-
-<p>//In controller
-$scope.person = new Person();
-```
-After this step, your domain logic can be tested without having to use angular-mock or injectors etc.</p>
+<p>After this step, your domain logic can be tested without having to use angular-mock or injectors etc.</p>
 
 <h3>Conclusion</h3>
 
@@ -119,20 +109,19 @@ After this step, your domain logic can be tested without having to use angular-m
 
 <p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
 
-<p>```js
-//Contract
-printer.print(templateUrl, data)</p>
+<pre><code class="js">//Contract
+printer.print(templateUrl, data)
 
-<p>//This would called on clicking the print button
-printer.print(&lsquo;/config/registrationCardTempate.html&rsquo;, {patient: {name: &lsquo;Ram Kumar&rsquo;, dateOfBirth: &lsquo;1978-08-23&rsquo;, gender: &rsquo;M'}})
-```</p>
+//This would called on clicking the print button
+printer.print('/config/registrationCardTempate.html', {patient: {name: 'Ram Kumar', dateOfBirth: '1978-08-23', gender: 'M'}})
+</code></pre>
 
 <!-- more -->
 
 
 <p>Sample html template</p>
 
-<p>```html
+<p>&#8220;`html
 <link rel="stylesheet" href="http://tech.endeepak.com/config/registrationCard.css"/>
 <img src="http://tech.endeepak.com/config/logo.jpg"><img></p>
 
@@ -146,42 +135,35 @@ printer.print(&lsquo;/config/registrationCardTempate.html&rsquo;, {patient: {nam
 </table>
 
 
-<p>```</p>
+<pre><code>
+## Implementation
 
-<h2>Implementation</h2>
+As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps
 
-<p>As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps</p>
+1. Fetch the html template
+2. Compile the html template with given data using angular's $complile
+3. Wait for angular to complete rendering the template (Explained [here](http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle))
+4. Print the html(Explained [here](http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css))
 
-<ol>
-<li>Fetch the html template</li>
-<li>Compile the html template with given data using angular&rsquo;s $complile</li>
-<li>Wait for angular to complete rendering the template (Explained <a href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle">here</a>)</li>
-<li>Print the html(Explained <a href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css">here</a>)</li>
-</ol>
-
-
-<p>The code for print function looks like this</p>
-
-<p>```js
-var print = function (templateUrl, data) {</p>
-
-<pre><code>$http.get(templateUrl).success(function(template){
-    var printScope = angular.extend($rootScope.$new(), data);
-    var element = $compile($('&lt;div&gt;' + template + '&lt;/div&gt;'))(printScope);
-    var waitForRenderAndPrint = function() {
-        if(printScope.$$phase || $http.pendingRequests.length) {
-            $timeout(waitForRenderAndPrint);
-        } else {
-            printHtml(element.html());
-            printScope.$destroy(); // To avoid memory leaks from scope create by $rootScope.$new()
-        }
-    }
-    waitForRenderAndPrint();
-});
+The code for print function looks like this
 </code></pre>
 
-<p>};
-```
+<p>var print = function (templateUrl, data) {
+    $http.get(templateUrl).success(function(template){
+        var printScope = angular.extend($rootScope.$new(), data);
+        var element = $compile($(&lsquo;<div>&rsquo; + template + &lsquo;</div>&rsquo;))(printScope);
+        var waitForRenderAndPrint = function() {
+            if(printScope.$$phase || $http.pendingRequests.length) {
+                $timeout(waitForRenderAndPrint);
+            } else {
+                printHtml(element.html());
+                printScope.$destroy(); // To avoid memory leaks from scope create by $rootScope.$new()
+            }
+        }
+        waitForRenderAndPrint();
+    });
+};
+&#8220;`
 The complete solution is available on <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/printer.js">github</a>.</p>
 ]]></content>
   </entry>
@@ -204,30 +186,22 @@ The complete solution is available on <a href="https://github.com/Bhamni/openmrs
 
 <p>AngularJS does not raise any event to notify this. The suggested simple solution is to use $timeout to queue your work to be run after current digest cycle (also waits for DOM renedering to be completed by the browser).</p>
 
-<p>```js
-$timeout(function(){</p>
-
-<pre><code>//the code which needs to run after dom rendering
+<pre><code class="js">$timeout(function(){
+    //the code which needs to run after dom rendering
+})
 </code></pre>
-
-<p>})
-```</p>
 
 <p>The above solution works only for views which don&rsquo;t have ng-include or directives with template url. In this case you have to wait for all the templates to be loaded(async) and then run your code. This can be achived by waiting for <a href="https://docs.angularjs.org/api/ng/service/$http#pendingRequests">$http.pendingRequests</a> to be zero. The enhanced solution is</p>
 
-<p>```js
-var waitForRenderAndDoSomething = function() {</p>
-
-<pre><code>if($http.pendingRequests.length &gt; 0) {
-    $timeout(waitForRenderAndDoSomething); // Wait for all templates to be loaded
-} else {
-    //the code which needs to run after dom rendering
+<pre><code class="js">var waitForRenderAndDoSomething = function() {
+    if($http.pendingRequests.length &gt; 0) {
+        $timeout(waitForRenderAndDoSomething); // Wait for all templates to be loaded
+    } else {
+        //the code which needs to run after dom rendering
+    }
 }
-</code></pre>
-
-<p>}
 $timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
-```</p>
+</code></pre>
 
 <p>Hopefully AngularJS will come up with a easier solution in future releases.</p>
 
@@ -247,7 +221,7 @@ $timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
 <!-- more -->
 
 
-<p>Example: If you want to debug missing data in <code>&lt;span>Name : &lt;/span></code></p>
+<p>Example: If you want to debug missing data in <code>\<span>Name : \</span></code></p>
 
 <ul>
 <li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>
@@ -255,20 +229,19 @@ $timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
 </ul>
 
 
-<p><code>js
-angular.element($0).scope().pesron.fullName()
-</code>
-Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
+<pre><code class="js">angular.element($0).scope().pesron.fullName()
+</code></pre>
 
-<p>```js
-//Get controller
-angular.element($0).controller()</p>
+<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
 
-<p>//Getting injector and other objects
+<pre><code class="js">//Get controller
+angular.element($0).controller()
+
+//Getting injector and other objects
 var injector = angular.element($0).injector()
-injector.get(&lsquo;$rootScope&rsquo;)
-injector.get(&lsquo;myService&rsquo;)
-```</p>
+injector.get('$rootScope')
+injector.get('myService')
+</code></pre>
 
 <p>The other alternative is to use chrome extension <a href="https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en">AngularJS Batarang</a>. This will add AngularJS tab in developer Tools. It lists all scopes in the current page. But finding the correct scope for a particualr element quite difficult. The &ldquo;Enable Inspector&rdquo; button in batarang doesn&rsquo;t work that well. So far the <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> is the best way to debug binding issues.</p>
 ]]></content>
@@ -298,34 +271,26 @@ injector.get(&lsquo;myService&rsquo;)
 </ul>
 
 
-<p><code>js
-//Make sure 'ui.router' module is added as dependency
+<pre><code class="js">//Make sure 'ui.router' module is added as dependency
 var myApp = angular.module('myApp', ['ui.router']);
-</code></p>
+</code></pre>
 
 <ul>
 <li>The parent state doesn&rsquo;t have template with ui-view</li>
 </ul>
 
 
-<p>```js
-$stateProvider
-.state(&lsquo;user&rsquo;, { //parent state</p>
-
-<pre><code>url: '/user/:userId',
-// Important that parent has a template with ui-view which the child states can replace
-template: '&lt;ui-view/&gt;' 
+<pre><code class="js">$stateProvider
+.state('user', { //parent state
+    url: '/user/:userId',
+    // Important that parent has a template with ui-view which the child states can replace
+    template: '&lt;ui-view/&gt;' 
+})
+.state('user.projects', { //child state
+    url: 'projects',
+    templateUrl: 'projects.html',
+})
 </code></pre>
-
-<p>})
-.state(&lsquo;user.projects&rsquo;, { //child state</p>
-
-<pre><code>url: 'projects',
-templateUrl: 'projects.html',
-</code></pre>
-
-<p>})
-```</p>
 ]]></content>
   </entry>
   

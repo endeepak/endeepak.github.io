@@ -4,7 +4,7 @@
   <title><![CDATA[Category: javascript | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -25,21 +25,16 @@
 <!-- More -->
 
 
-<p>``` ruby
-fiil_in &lsquo;name&rsquo;, :with => &lsquo;foo&rsquo; # you might be using a page object pattern in real code
-click_on &lsquo;Save&rsquo;
+<pre><code class="ruby">fiil_in 'name', :with =&gt; 'foo' # you might be using a page object pattern in real code
+click_on 'Save' 
 wait_for_ajax
-expect(find(&lsquo;#number_of_people&rsquo;).text).to be(10)</p>
+expect(find('#number_of_people').text).to be(10)
 
-<h1>The implementation of wait_for_ajax which depends on jQuery.active</h1>
-
-<p>def wait_for_ajax</p>
-
-<pre><code>wait_until { page.evaluate_script('jQuery.active') == 0 }
+# The implementation of wait_for_ajax which depends on jQuery.active
+def wait_for_ajax
+    wait_until { page.evaluate_script('jQuery.active') == 0 }
+end
 </code></pre>
-
-<p>end
-```</p>
 
 <p>The <code>sleep(xSeconds)</code> makes your tests indeterministic and <code>wait_for_ajax</code> makes it dependent on javascript framework used in application.</p>
 
@@ -47,10 +42,9 @@ expect(find(&lsquo;#number_of_people&rsquo;).text).to be(10)</p>
 
 <p>Frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
 
-<p><code>ruby
-click_on 'Save'
+<pre><code class="ruby">click_on 'Save' 
 expect(find('#number_of_people').to have_content(10) # Implicit wait
-</code></p>
+</code></pre>
 
 <p>But what happens when</p>
 
@@ -70,25 +64,17 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
 
 <p>When you think like user, you will realize there must be a visual clue in the app to indicate the progress. The functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
 
-<p>``` ruby</p>
+<pre><code class="ruby"># click
+wait_for_completion
+# assert
 
-<h1>click</h1>
-
-<p>wait_for_completion</p>
-
-<h1>assert</h1>
-
-<h1>Example implementation of wait_for_completion</h1>
-
-<p>def wait_for_completion</p>
-
-<pre><code>wait_until { page.find('#loading-indicator').visible? == false }
+# Example implementation of wait_for_completion
+def wait_for_completion
+    wait_until { page.find('#loading-indicator').visible? == false }
+end
 </code></pre>
 
-<p>end
-```</p>
-
-<p>When your tests are written from point of view of the user, they provide valuable feedback on the user experience.</p>
+<p>When your tests user centric, they provide valuable feedback on the user experience.</p>
 ]]></content>
   </entry>
   
@@ -97,7 +83,7 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
     <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
-    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models &ndash; Wise People</p></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
 
@@ -106,82 +92,72 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
 
 <p>Alright lets get to some code. Let&rsquo;s consider a simple example where we have a form to capture person&rsquo;s information such as firstName, lastName, age or dateOfBirth. The age or dateOfBirth should be auto populated based on its counter part.</p>
 
-<p>```js Bad code
-//In controller
-$scope.firstName = &ldquo;&rdquo;
-$scope.lastName = &ldquo;&rdquo;
-$scope.fullName = function() {</p>
-
-<pre><code>return $scope.firstName + ' ' + $scope.lastName; 
+<pre><code class="js Bad code">//In controller
+$scope.firstName = ""
+$scope.lastName = ""
+$scope.fullName = function() { 
+    return $scope.firstName + ' ' + $scope.lastName; 
+}
+$scope.age = ""
+$scope.dateOfBirth = ""
+$scope.$watch('age', setDateOfBirthBasedOnAge);
+$scope.$watch('dateOfBirth', setAgeBasedOnDateOfBirth);
 </code></pre>
 
-<p>}
-$scope.age = &ldquo;&rdquo;
-$scope.dateOfBirth = &ldquo;&rdquo;
-$scope.$watch(&lsquo;age&rsquo;, setDateOfBirthBasedOnAge);
-$scope.$watch(&lsquo;dateOfBirth&rsquo;, setAgeBasedOnDateOfBirth);
-```</p>
-
-<p>If you want to test the logic to compute fullName or age&lt;&ndash;>dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
+<p>If you want to test the logic to compute fullName or age<->dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
 
 <h4>Refactor 1 : Introduce a model</h4>
 
-<p>```js
-//Model
-var Person = function() {</p>
-
-<pre><code>this.firstName = ""
-this.lastName = ""
-this.fullName = function() { 
-    return this.firstName + ' ' + this.lastName; 
+<pre><code class="js">//Model
+var Person = function() {
+    this.firstName = ""
+    this.lastName = ""
+    this.fullName = function() { 
+        return this.firstName + ' ' + this.lastName; 
+    }
+    this.age = ""
+    this.dateOfBirth = ""
 }
-this.age = ""
-this.dateOfBirth = ""
+
+//In controller
+$scope.person = new Person();
+$scope.$watch('person.age', setDateOfBirthBasedOnAge);
+$scope.$watch('person.dateOfBirth', setAgeBasedOnDateOfBirth);
 </code></pre>
 
-<p>}</p>
-
-<p>//In controller
-$scope.person = new Person();
-$scope.$watch(&lsquo;person.age&rsquo;, setDateOfBirthBasedOnAge);
-$scope.$watch(&lsquo;person.dateOfBirth&rsquo;, setAgeBasedOnDateOfBirth);
-```
-Now you can simply instante a person object and test the fullName method.</p>
+<p>Now you can simply instante a person object and test the fullName method.</p>
 
 <h4>Refactor 2 : Remove dependency on $scope.$watch</h4>
 
 <p>In this step we will use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty">Object.defineProperty</a>, ES5 API which works on <a href="http://kangax.github.io/compat-table/es5/#Object.defineProperty">most of the browsers</a></p>
 
-<p>```js
-//Model
-var Person = function() {</p>
+<pre><code class="js">//Model
+var Person = function() {
+    ..      //lastName, firstName, fullName code remains same as above
+    var _age, _dateOfBirth; // Private fields
 
-<pre><code>..      //lastName, firstName, fullName code remains same as above
-var _age, _dateOfBirth; // Private fields
+    Object.defineProperty(this, 'age', {
+        get: function() { return _age; }
+        set: fubction(value) {
+            _age = value;
+            setDateOfBirthBasedOnAge();
+        }
+    });
 
-Object.defineProperty(this, 'age', {
-    get: function() { return _age; }
-    set: fubction(value) {
-        _age = value;
-        setDateOfBirthBasedOnAge();
-    }
-});
+    Object.defineProperty(this, 'dateOfBirth', {
+        get: function() { return _dateOfBirth; }
+        set: fubction(value) {
+            _dateOfBirth = value;
+            setAgeBasedOnDateOfBirth();
+        }
+    });
+}
 
-Object.defineProperty(this, 'dateOfBirth', {
-    get: function() { return _dateOfBirth; }
-    set: fubction(value) {
-        _dateOfBirth = value;
-        setAgeBasedOnDateOfBirth();
-    }
-});
+//In controller
+$scope.person = new Person();
 </code></pre>
 
-<p>}</p>
-
-<p>//In controller
-$scope.person = new Person();
-```
-After this step, your domain logic can be tested without having to use angular-mock or injectors etc.</p>
+<p>After this step, your domain logic can be tested without having to use angular-mock or injectors etc.</p>
 
 <h3>Conclusion</h3>
 
@@ -207,35 +183,27 @@ After this step, your domain logic can be tested without having to use angular-m
 <!-- More -->
 
 
-<p>```js Using eval()
-// JSON config
-{</p>
+<pre><code class="js Using eval()">// JSON config
+{
+    section: "Additional Details",
+    showIf: "function(context) { return context.person.age &gt; 60; }"
+}
 
-<pre><code>section: "Additional Details",
-showIf: "function(context) { return context.person.age &gt; 60; }"
+//This can parsed in javascript as
+var showIf = eval('(' + config.showIf + ')')
+var shouldShowThisSection = showIf({person: personData}));
 </code></pre>
 
-<p>}</p>
+<pre><code class="js Using new Function()">// JSON config
+{
+    section: "Additional Details",
+    showIf: "return context.person.age &gt; 60"
+}
 
-<p>//This can parsed in javascript as
-var showIf = eval(&lsquo;(&rsquo; + config.showIf + &lsquo;)&rsquo;)
+//This can parsed in javascript as
+var showIf = new Function('context', config.showIf)
 var shouldShowThisSection = showIf({person: personData}));
-```</p>
-
-<p>```js Using new Function()
-// JSON config
-{</p>
-
-<pre><code>section: "Additional Details",
-showIf: "return context.person.age &gt; 60"
 </code></pre>
-
-<p>}</p>
-
-<p>//This can parsed in javascript as
-var showIf = new Function(&lsquo;context&rsquo;, config.showIf)
-var shouldShowThisSection = showIf({person: personData}));
-```</p>
 
 <p>You can use either based on the use case in your application. In <a href="http://bahmni.org">bahmni</a>, we went with <code>new Function()</code> for couple of reasons</p>
 
@@ -251,25 +219,21 @@ var shouldShowThisSection = showIf({person: personData}));
 
 <p>The above examples work fine for sinle line expressions. If you need multiple line functions, you need to tweak it a bit. Firstly, JSON does not support multiline string. The work around is to define an array of strings as shown below.</p>
 
-<p>```js Multi line functions parsed using new Function()
-// JSON config
-{</p>
+<pre><code class="js Multi line functions parsed using new Function()">// JSON config
+{
+    section: "Additional Details",
+    showIf: ["if(context.person.gender === 'M' &amp;&amp; context.person.age &gt; 60)",
+                "return true;", 
+             "else if(context.person.gender === 'F' &amp;&amp; context.person.age &gt; 55)",
+                "return true;", 
+            "else",
+                "return false;"] 
+}
 
-<pre><code>section: "Additional Details",
-showIf: ["if(context.person.gender === 'M' &amp;&amp; context.person.age &gt; 60)",
-            "return true;", 
-         "else if(context.person.gender === 'F' &amp;&amp; context.person.age &gt; 55)",
-            "return true;", 
-        "else",
-            "return false;"] 
-</code></pre>
-
-<p>}</p>
-
-<p>//This can parsed in javascript as
-var showIf = new Function(&lsquo;context&rsquo;, config.showIf.join(&ldquo;\n&rdquo;))
+//This can parsed in javascript as
+var showIf = new Function('context', config.showIf.join("\n"))
 var shouldShowThisSection = showIf({person: personData}));
-```</p>
+</code></pre>
 
 <h4>Performance</h4>
 
@@ -297,57 +261,48 @@ var shouldShowThisSection = showIf({person: personData}));
 
 <p>If you are using a library which returns a promise for ajax call(or object like xhr returned by jQuery.ajax), the API and implementation would look like this.</p>
 
-<p>```js Api should be simple as
-spinner.forPromise($http.get(&lsquo;/items&rsquo;)) //AngularJS</p>
+<pre><code class="js Api should be simple as">spinner.forPromise($http.get('/items')) //AngularJS
 
-<p>spinner.forPromise($.ajax(&lsquo;/items&rsquo;)) //jQuery
-```</p>
-
-<p>```js Simple Spinner Implementation in AngularJS
-myModule.factory(&lsquo;spinner&rsquo;, function () {</p>
-
-<pre><code>var forPromise = function(promise) {
-    $('#overlay').show();
-    promise['finally'](function(){ //use promise.always(hide) in jQuery
-        $('#overlay').hide();
-    }); 
-};
-
-return { forPromise: forPromise }
+spinner.forPromise($.ajax('/items')) //jQuery
 </code></pre>
 
-<p> )
-```</p>
+<pre><code class="js Simple Spinner Implementation in AngularJS">myModule.factory('spinner', function () {
+    var forPromise = function(promise) {
+        $('#overlay').show();
+        promise['finally'](function(){ //use promise.always(hide) in jQuery
+            $('#overlay').hide();
+        }); 
+    };
+
+    return { forPromise: forPromise }
+ )
+</code></pre>
 
 <p>If you have a multiple components of the page using same spinner, we need to enhance the the code to make sure spinner is hidden only after both components have completed async calls. This can be implemented by keeping spinner count as shown below.</p>
 
-<p>```js Muliple Call Supported Spinner Implementation in AngularJS
-myModule.factory(&lsquo;spinner&rsquo;, function () {</p>
+<pre><code class="js Muliple Call Supported Spinner Implementation in AngularJS">myModule.factory('spinner', function () {
+    var showCount = 0;
 
-<pre><code>var showCount = 0;
-
-var show = function () {
-    showCount++;
-    $('#overlay').show();
-}
-
-var hide = function () {
-    showCount--;
-    if(showCount === 0) {
-        $('#overlay').hide();
+    var show = function () {
+        showCount++;
+        $('#overlay').show();
     }
-}
 
-var forPromise = function(promise) {
-    show();
-    promise['finally'](hide); //use promise.always(hide) in jQuery
-};
+    var hide = function () {
+        showCount--;
+        if(showCount === 0) {
+            $('#overlay').hide();
+        }
+    }
 
-return { forPromise: forPromise };
+    var forPromise = function(promise) {
+        show();
+        promise['finally'](hide); //use promise.always(hide) in jQuery
+    };
+
+    return { forPromise: forPromise };
+ )
 </code></pre>
-
-<p> )
-```</p>
 
 <p>In <a href="http://www.bahmni.org">Bahmni</a>, we use a spinner with animation which can be found <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/spinner.js">here</a>.</p>
 ]]></content>
@@ -362,20 +317,19 @@ return { forPromise: forPromise };
 
 <p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
 
-<p>```js
-//Contract
-printer.print(templateUrl, data)</p>
+<pre><code class="js">//Contract
+printer.print(templateUrl, data)
 
-<p>//This would called on clicking the print button
-printer.print(&lsquo;/config/registrationCardTempate.html&rsquo;, {patient: {name: &lsquo;Ram Kumar&rsquo;, dateOfBirth: &lsquo;1978-08-23&rsquo;, gender: &rsquo;M'}})
-```</p>
+//This would called on clicking the print button
+printer.print('/config/registrationCardTempate.html', {patient: {name: 'Ram Kumar', dateOfBirth: '1978-08-23', gender: 'M'}})
+</code></pre>
 
 <!-- more -->
 
 
 <p>Sample html template</p>
 
-<p>```html
+<p>&#8220;`html
 <link rel="stylesheet" href="http://tech.endeepak.com/config/registrationCard.css"/>
 <img src="http://tech.endeepak.com/config/logo.jpg"><img></p>
 
@@ -389,42 +343,35 @@ printer.print(&lsquo;/config/registrationCardTempate.html&rsquo;, {patient: {nam
 </table>
 
 
-<p>```</p>
+<pre><code>
+## Implementation
 
-<h2>Implementation</h2>
+As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps
 
-<p>As the app is built using angularjs, we decided to use angular as the templating engine for rendering these templates as well. This also helped to reuse filters and other templating features of angular. The implementation consists of following steps</p>
+1. Fetch the html template
+2. Compile the html template with given data using angular's $complile
+3. Wait for angular to complete rendering the template (Explained [here](http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle))
+4. Print the html(Explained [here](http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css))
 
-<ol>
-<li>Fetch the html template</li>
-<li>Compile the html template with given data using angular&rsquo;s $complile</li>
-<li>Wait for angular to complete rendering the template (Explained <a href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle">here</a>)</li>
-<li>Print the html(Explained <a href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css">here</a>)</li>
-</ol>
-
-
-<p>The code for print function looks like this</p>
-
-<p>```js
-var print = function (templateUrl, data) {</p>
-
-<pre><code>$http.get(templateUrl).success(function(template){
-    var printScope = angular.extend($rootScope.$new(), data);
-    var element = $compile($('&lt;div&gt;' + template + '&lt;/div&gt;'))(printScope);
-    var waitForRenderAndPrint = function() {
-        if(printScope.$$phase || $http.pendingRequests.length) {
-            $timeout(waitForRenderAndPrint);
-        } else {
-            printHtml(element.html());
-            printScope.$destroy(); // To avoid memory leaks from scope create by $rootScope.$new()
-        }
-    }
-    waitForRenderAndPrint();
-});
+The code for print function looks like this
 </code></pre>
 
-<p>};
-```
+<p>var print = function (templateUrl, data) {
+    $http.get(templateUrl).success(function(template){
+        var printScope = angular.extend($rootScope.$new(), data);
+        var element = $compile($(&lsquo;<div>&rsquo; + template + &lsquo;</div>&rsquo;))(printScope);
+        var waitForRenderAndPrint = function() {
+            if(printScope.$$phase || $http.pendingRequests.length) {
+                $timeout(waitForRenderAndPrint);
+            } else {
+                printHtml(element.html());
+                printScope.$destroy(); // To avoid memory leaks from scope create by $rootScope.$new()
+            }
+        }
+        waitForRenderAndPrint();
+    });
+};
+&#8220;`
 The complete solution is available on <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/printer.js">github</a>.</p>
 ]]></content>
   </entry>

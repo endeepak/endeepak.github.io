@@ -4,7 +4,7 @@
   <title><![CDATA[Category: spinner | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/spinner/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -33,57 +33,48 @@
 
 <p>If you are using a library which returns a promise for ajax call(or object like xhr returned by jQuery.ajax), the API and implementation would look like this.</p>
 
-<p>```js Api should be simple as
-spinner.forPromise($http.get(&lsquo;/items&rsquo;)) //AngularJS</p>
+<pre><code class="js Api should be simple as">spinner.forPromise($http.get('/items')) //AngularJS
 
-<p>spinner.forPromise($.ajax(&lsquo;/items&rsquo;)) //jQuery
-```</p>
-
-<p>```js Simple Spinner Implementation in AngularJS
-myModule.factory(&lsquo;spinner&rsquo;, function () {</p>
-
-<pre><code>var forPromise = function(promise) {
-    $('#overlay').show();
-    promise['finally'](function(){ //use promise.always(hide) in jQuery
-        $('#overlay').hide();
-    }); 
-};
-
-return { forPromise: forPromise }
+spinner.forPromise($.ajax('/items')) //jQuery
 </code></pre>
 
-<p> )
-```</p>
+<pre><code class="js Simple Spinner Implementation in AngularJS">myModule.factory('spinner', function () {
+    var forPromise = function(promise) {
+        $('#overlay').show();
+        promise['finally'](function(){ //use promise.always(hide) in jQuery
+            $('#overlay').hide();
+        }); 
+    };
+
+    return { forPromise: forPromise }
+ )
+</code></pre>
 
 <p>If you have a multiple components of the page using same spinner, we need to enhance the the code to make sure spinner is hidden only after both components have completed async calls. This can be implemented by keeping spinner count as shown below.</p>
 
-<p>```js Muliple Call Supported Spinner Implementation in AngularJS
-myModule.factory(&lsquo;spinner&rsquo;, function () {</p>
+<pre><code class="js Muliple Call Supported Spinner Implementation in AngularJS">myModule.factory('spinner', function () {
+    var showCount = 0;
 
-<pre><code>var showCount = 0;
-
-var show = function () {
-    showCount++;
-    $('#overlay').show();
-}
-
-var hide = function () {
-    showCount--;
-    if(showCount === 0) {
-        $('#overlay').hide();
+    var show = function () {
+        showCount++;
+        $('#overlay').show();
     }
-}
 
-var forPromise = function(promise) {
-    show();
-    promise['finally'](hide); //use promise.always(hide) in jQuery
-};
+    var hide = function () {
+        showCount--;
+        if(showCount === 0) {
+            $('#overlay').hide();
+        }
+    }
 
-return { forPromise: forPromise };
+    var forPromise = function(promise) {
+        show();
+        promise['finally'](hide); //use promise.always(hide) in jQuery
+    };
+
+    return { forPromise: forPromise };
+ )
 </code></pre>
-
-<p> )
-```</p>
 
 <p>In <a href="http://www.bahmni.org">Bahmni</a>, we use a spinner with animation which can be found <a href="https://github.com/Bhamni/openmrs-module-bahmniapps/blob/master/ui/app/common/ui-helper/spinner.js">here</a>.</p>
 ]]></content>

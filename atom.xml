@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -46,11 +46,11 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Registration</span><span class="o">::</span><span class="no">App</span>
 </span><span class='line'>    <span class="c1"># Pages in this apps    </span>
 </span><span class='line'>    <span class="k">def</span> <span class="nf">patient_page</span>
-</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:PatientPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>        <span class="no">Registration</span><span class="o">::</span><span class="no">PatientPage</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'>    <span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="k">def</span> <span class="nf">visit_details_page</span>
-</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:VisitDetailsPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>        <span class="no">Registration</span><span class="o">::</span><span class="no">VisitDetailsPage</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'>    <span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1"># Coarse level action in this app</span>
@@ -72,12 +72,12 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">registration</span> <span class="o">=</span> <span class="ss">Registration</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">registration</span> <span class="o">=</span> <span class="no">Registration</span><span class="o">::</span><span class="no">App</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">register_new_patient</span> <span class="ss">:patient</span> <span class="o">=&gt;</span> <span class="n">new_patient</span><span class="p">,</span> <span class="ss">:visit_type</span> <span class="o">=&gt;</span> <span class="s1">&#39;OPD&#39;</span>
 </span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">should_be_current_page</span>
 </span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">save_new_patient_visit</span><span class="p">(</span><span class="n">visit_info</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">clinical</span> <span class="o">=</span> <span class="ss">Clinical</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">clinical</span> <span class="o">=</span> <span class="no">Clinical</span><span class="o">::</span><span class="no">App</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">should_have_active_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
 </span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">view_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -236,7 +236,7 @@ framework
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>When your tests are written from point of view of the user, they provide valuable feedback on the user experience.</p>
+<p>When your tests user centric, they provide valuable feedback on the user experience.</p>
 ]]></content>
   </entry>
   
@@ -245,7 +245,7 @@ framework
     <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
-    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models &ndash; Wise People</p></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
 
@@ -277,7 +277,7 @@ framework
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>If you want to test the logic to compute fullName or age&lt;&ndash;>dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
+<p>If you want to test the logic to compute fullName or age<->dateOfBirth logic, you will have to use angular-mock and inject $scope in your tests. This leads to lot of unnecessary boilerplate code. Lets look at how to refactor this code.</p>
 
 <h4>Refactor 1 : Introduce a model</h4>
 
@@ -886,7 +886,7 @@ framework
 <!-- more -->
 
 
-<p>Example: If you want to debug missing data in <code>&lt;span>Name : {{person.fullName()}}&lt;/span></code></p>
+<p>Example: If you want to debug missing data in <code>\<span>Name : {{person.fullName()}}\</span></code></p>
 
 <ul>
 <li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>

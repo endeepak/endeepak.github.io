@@ -4,7 +4,7 @@
   <title><![CDATA[Category: functional-tests | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/functional-tests/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -27,39 +27,35 @@
 
 <p>An simple implementation of app class would be</p>
 
-<p>```ruby registration/app.rb
-class Registration::App</p>
+<pre><code class="ruby registration/app.rb">class Registration::App
+    # Pages in this apps    
+    def patient_page
+        Registration::PatientPage.new
+    end
 
-<pre><code># Pages in this apps    
-def patient_page
-    Registration::PatientPage.new
-end
+    def visit_details_page
+        Registration::VisitDetailsPage.new
+    end
 
-def visit_details_page
-    Registration::VisitDetailsPage.new
-end
-
-# Coarse level action in this app
-def register_new_patient(options)
-    click_link "Create New"
-    patient_page.fill(options[:patient]).start_visit(options[:visit_type])
+    # Coarse level action in this app
+    def register_new_patient(options)
+        click_link "Create New"
+        patient_page.fill(options[:patient]).start_visit(options[:visit_type])
+    end
 end
 </code></pre>
 
-<p>end
-```
-The test using this simple implementation would look like</p>
+<p>The test using this simple implementation would look like</p>
 
-<p>```ruby
-registration = Registration::App.new
-registration.register_new_patient :patient => new_patient, :visit_type => &lsquo;OPD&rsquo;
+<pre><code class="ruby">registration = Registration::App.new
+registration.register_new_patient :patient =&gt; new_patient, :visit_type =&gt; 'OPD'
 registration.visit_page.should_be_current_page
-registration.visit_page.save_new_patient_visit(visit_info)</p>
+registration.visit_page.save_new_patient_visit(visit_info)
 
-<p>clinical = Clinical::App.new
+clinical = Clinical::App.new
 clinical.patient_search_page.should_have_active_patient(new_patient)
 clinical.patient_search_page.view_patient(new_patient)
-```</p>
+</code></pre>
 
 <p>The <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">test code</a> is structured as</p>
 
@@ -84,30 +80,26 @@ framework
 
 <p>We are using capybara and Rspec. The lambda syntax, meta programming constructs in ruby and convention based programming allowed us to implement a DSL shown below. The complete code can be found <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">here</a></p>
 
-<p>```ruby
-feature &ldquo;new patient visit&rdquo; do</p>
+<pre><code class="ruby">feature "new patient visit" do
+    background { login('superuser', 'password') }
 
-<pre><code>background { login('superuser', 'password') }
+    scenario "registration and consultation" do
+        new_patient = {:given_name =&gt; "Ram", :family_name =&gt; 'Singh'}
 
-scenario "registration and consultation" do
-    new_patient = {:given_name =&gt; "Ram", :family_name =&gt; 'Singh'}
+        go_to_app(:registration) do
+            register_new_patient(:patient =&gt; new_patient, :visit_type =&gt; 'OPD')
+            visit_page.should_be_current_page
+            visit_page.save_new_patient_visit(visit_info)
+        end
 
-    go_to_app(:registration) do
-        register_new_patient(:patient =&gt; new_patient, :visit_type =&gt; 'OPD')
-        visit_page.should_be_current_page
-        visit_page.save_new_patient_visit(visit_info)
-    end
-
-    go_to_app(:clinical) do
-        patient_search_page.should_have_active_patient(new_patient)
-        patient_search_page.view_patient(new_patient)
-        # ....
+        go_to_app(:clinical) do
+            patient_search_page.should_have_active_patient(new_patient)
+            patient_search_page.view_patient(new_patient)
+            # ....
+        end
     end
 end
 </code></pre>
-
-<p>end
-```</p>
 
 <p>I didn&rsquo;t into details of implementing the DSL. If people are interested, I can write a part 2 of this post.</p>
 ]]></content>
@@ -125,21 +117,16 @@ end
 <!-- More -->
 
 
-<p>``` ruby
-fiil_in &lsquo;name&rsquo;, :with => &lsquo;foo&rsquo; # you might be using a page object pattern in real code
-click_on &lsquo;Save&rsquo;
+<pre><code class="ruby">fiil_in 'name', :with =&gt; 'foo' # you might be using a page object pattern in real code
+click_on 'Save' 
 wait_for_ajax
-expect(find(&lsquo;#number_of_people&rsquo;).text).to be(10)</p>
+expect(find('#number_of_people').text).to be(10)
 
-<h1>The implementation of wait_for_ajax which depends on jQuery.active</h1>
-
-<p>def wait_for_ajax</p>
-
-<pre><code>wait_until { page.evaluate_script('jQuery.active') == 0 }
+# The implementation of wait_for_ajax which depends on jQuery.active
+def wait_for_ajax
+    wait_until { page.evaluate_script('jQuery.active') == 0 }
+end
 </code></pre>
-
-<p>end
-```</p>
 
 <p>The <code>sleep(xSeconds)</code> makes your tests indeterministic and <code>wait_for_ajax</code> makes it dependent on javascript framework used in application.</p>
 
@@ -147,10 +134,9 @@ expect(find(&lsquo;#number_of_people&rsquo;).text).to be(10)</p>
 
 <p>Frameworks like capybara have implicit wait mechanism which eliminates the need for <code>wait_for_ajax</code></p>
 
-<p><code>ruby
-click_on 'Save'
+<pre><code class="ruby">click_on 'Save' 
 expect(find('#number_of_people').to have_content(10) # Implicit wait
-</code></p>
+</code></pre>
 
 <p>But what happens when</p>
 
@@ -170,25 +156,17 @@ expect(find('#number_of_people').to have_content(10) # Implicit wait
 
 <p>When you think like user, you will realize there must be a visual clue in the app to indicate the progress. The functional tests should also depend on this indicator (like a spinner, overlay etc) to figure out when to assert on data.</p>
 
-<p>``` ruby</p>
+<pre><code class="ruby"># click
+wait_for_completion
+# assert
 
-<h1>click</h1>
-
-<p>wait_for_completion</p>
-
-<h1>assert</h1>
-
-<h1>Example implementation of wait_for_completion</h1>
-
-<p>def wait_for_completion</p>
-
-<pre><code>wait_until { page.find('#loading-indicator').visible? == false }
+# Example implementation of wait_for_completion
+def wait_for_completion
+    wait_until { page.find('#loading-indicator').visible? == false }
+end
 </code></pre>
 
-<p>end
-```</p>
-
-<p>When your tests are written from point of view of the user, they provide valuable feedback on the user experience.</p>
+<p>When your tests user centric, they provide valuable feedback on the user experience.</p>
 ]]></content>
   </entry>
   

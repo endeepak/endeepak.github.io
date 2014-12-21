@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ui-router | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/ui-router/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -37,34 +37,26 @@
 </ul>
 
 
-<p><code>js
-//Make sure 'ui.router' module is added as dependency
+<pre><code class="js">//Make sure 'ui.router' module is added as dependency
 var myApp = angular.module('myApp', ['ui.router']);
-</code></p>
+</code></pre>
 
 <ul>
 <li>The parent state doesn&rsquo;t have template with ui-view</li>
 </ul>
 
 
-<p>```js
-$stateProvider
-.state(&lsquo;user&rsquo;, { //parent state</p>
-
-<pre><code>url: '/user/:userId',
-// Important that parent has a template with ui-view which the child states can replace
-template: '&lt;ui-view/&gt;' 
+<pre><code class="js">$stateProvider
+.state('user', { //parent state
+    url: '/user/:userId',
+    // Important that parent has a template with ui-view which the child states can replace
+    template: '&lt;ui-view/&gt;' 
+})
+.state('user.projects', { //child state
+    url: 'projects',
+    templateUrl: 'projects.html',
+})
 </code></pre>
-
-<p>})
-.state(&lsquo;user.projects&rsquo;, { //child state</p>
-
-<pre><code>url: 'projects',
-templateUrl: 'projects.html',
-</code></pre>
-
-<p>})
-```</p>
 ]]></content>
   </entry>
   

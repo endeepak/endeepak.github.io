@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: JSON | !geek]]></title>
+  <title><![CDATA[Category: json | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/json/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -31,35 +31,27 @@
 <!-- More -->
 
 
-<p>```js Using eval()
-// JSON config
-{</p>
+<pre><code class="js Using eval()">// JSON config
+{
+    section: "Additional Details",
+    showIf: "function(context) { return context.person.age &gt; 60; }"
+}
 
-<pre><code>section: "Additional Details",
-showIf: "function(context) { return context.person.age &gt; 60; }"
+//This can parsed in javascript as
+var showIf = eval('(' + config.showIf + ')')
+var shouldShowThisSection = showIf({person: personData}));
 </code></pre>
 
-<p>}</p>
+<pre><code class="js Using new Function()">// JSON config
+{
+    section: "Additional Details",
+    showIf: "return context.person.age &gt; 60"
+}
 
-<p>//This can parsed in javascript as
-var showIf = eval(&lsquo;(&rsquo; + config.showIf + &lsquo;)&rsquo;)
+//This can parsed in javascript as
+var showIf = new Function('context', config.showIf)
 var shouldShowThisSection = showIf({person: personData}));
-```</p>
-
-<p>```js Using new Function()
-// JSON config
-{</p>
-
-<pre><code>section: "Additional Details",
-showIf: "return context.person.age &gt; 60"
 </code></pre>
-
-<p>}</p>
-
-<p>//This can parsed in javascript as
-var showIf = new Function(&lsquo;context&rsquo;, config.showIf)
-var shouldShowThisSection = showIf({person: personData}));
-```</p>
 
 <p>You can use either based on the use case in your application. In <a href="http://bahmni.org">bahmni</a>, we went with <code>new Function()</code> for couple of reasons</p>
 
@@ -75,25 +67,21 @@ var shouldShowThisSection = showIf({person: personData}));
 
 <p>The above examples work fine for sinle line expressions. If you need multiple line functions, you need to tweak it a bit. Firstly, JSON does not support multiline string. The work around is to define an array of strings as shown below.</p>
 
-<p>```js Multi line functions parsed using new Function()
-// JSON config
-{</p>
+<pre><code class="js Multi line functions parsed using new Function()">// JSON config
+{
+    section: "Additional Details",
+    showIf: ["if(context.person.gender === 'M' &amp;&amp; context.person.age &gt; 60)",
+                "return true;", 
+             "else if(context.person.gender === 'F' &amp;&amp; context.person.age &gt; 55)",
+                "return true;", 
+            "else",
+                "return false;"] 
+}
 
-<pre><code>section: "Additional Details",
-showIf: ["if(context.person.gender === 'M' &amp;&amp; context.person.age &gt; 60)",
-            "return true;", 
-         "else if(context.person.gender === 'F' &amp;&amp; context.person.age &gt; 55)",
-            "return true;", 
-        "else",
-            "return false;"] 
-</code></pre>
-
-<p>}</p>
-
-<p>//This can parsed in javascript as
-var showIf = new Function(&lsquo;context&rsquo;, config.showIf.join(&ldquo;\n&rdquo;))
+//This can parsed in javascript as
+var showIf = new Function('context', config.showIf.join("\n"))
 var shouldShowThisSection = showIf({person: personData}));
-```</p>
+</code></pre>
 
 <h4>Performance</h4>
 

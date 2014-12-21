@@ -9,10 +9,9 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="Using app objects in multi app functional tests">
+  <meta name="description" content="It is better to create small modular apps instead of single monolithic application. In Bahmni EMR we have small apps for Patient Registration, &hellip;">
   
-  
-  <meta name="keywords" content="app-objects, capybara, functional-tests">
+
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
@@ -51,7 +50,7 @@
   
 <form action="https://www.google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:tech.endeepak.com" />
+    <input type="hidden" name="sitesearch" value="tech.endeepak.com">
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -79,14 +78,7 @@
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-07-27T18:40:04+05:30" pubdate data-updated="true">Jul 27<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-07-27T18:40:04+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>6:40 pm</span></time>
         
       </p>
     
@@ -121,11 +113,11 @@
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Registration</span><span class="o">::</span><span class="no">App</span>
 </span><span class='line'>    <span class="c1"># Pages in this apps    </span>
 </span><span class='line'>    <span class="k">def</span> <span class="nf">patient_page</span>
-</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:PatientPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>        <span class="no">Registration</span><span class="o">::</span><span class="no">PatientPage</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'>    <span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="k">def</span> <span class="nf">visit_details_page</span>
-</span><span class='line'>        <span class="ss">Registration</span><span class="p">:</span><span class="ss">:VisitDetailsPage</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'>        <span class="no">Registration</span><span class="o">::</span><span class="no">VisitDetailsPage</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'>    <span class="k">end</span>
 </span><span class='line'>
 </span><span class='line'>    <span class="c1"># Coarse level action in this app</span>
@@ -147,12 +139,12 @@
 <span class='line-number'>6</span>
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">registration</span> <span class="o">=</span> <span class="ss">Registration</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">registration</span> <span class="o">=</span> <span class="no">Registration</span><span class="o">::</span><span class="no">App</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">register_new_patient</span> <span class="ss">:patient</span> <span class="o">=&gt;</span> <span class="n">new_patient</span><span class="p">,</span> <span class="ss">:visit_type</span> <span class="o">=&gt;</span> <span class="s1">&#39;OPD&#39;</span>
 </span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">should_be_current_page</span>
 </span><span class='line'><span class="n">registration</span><span class="o">.</span><span class="n">visit_page</span><span class="o">.</span><span class="n">save_new_patient_visit</span><span class="p">(</span><span class="n">visit_info</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">clinical</span> <span class="o">=</span> <span class="ss">Clinical</span><span class="p">:</span><span class="ss">:App</span><span class="o">.</span><span class="n">new</span>
+</span><span class='line'><span class="n">clinical</span> <span class="o">=</span> <span class="no">Clinical</span><span class="o">::</span><span class="no">App</span><span class="o">.</span><span class="n">new</span>
 </span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">should_have_active_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
 </span><span class='line'><span class="n">clinical</span><span class="o">.</span><span class="n">patient_search_page</span><span class="o">.</span><span class="n">view_patient</span><span class="p">(</span><span class="n">new_patient</span><span class="p">)</span>
 </span></code></pre></td></tr></table></div></figure>
@@ -238,14 +230,7 @@ framework
 
 
 
-
-
-
-
-  
-
-
-<time datetime="2014-07-27T18:40:04+05:30" pubdate data-updated="true">Jul 27<span>th</span>, 2014</time>
+<time class='entry-date' datetime='2014-07-27T18:40:04+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>27</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>6:40 pm</span></time>
       
 
 <span class="categories">
@@ -317,7 +302,7 @@ framework
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>JSON(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>SPA(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> </span>
 </section>
 
   

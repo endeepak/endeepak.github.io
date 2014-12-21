@@ -4,7 +4,7 @@
   <title><![CDATA[Category: debug | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/debug/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -23,7 +23,7 @@
 <!-- more -->
 
 
-<p>Example: If you want to debug missing data in <code>&lt;span>Name : &lt;/span></code></p>
+<p>Example: If you want to debug missing data in <code>\<span>Name : \</span></code></p>
 
 <ul>
 <li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>
@@ -31,20 +31,19 @@
 </ul>
 
 
-<p><code>js
-angular.element($0).scope().pesron.fullName()
-</code>
-Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
+<pre><code class="js">angular.element($0).scope().pesron.fullName()
+</code></pre>
 
-<p>```js
-//Get controller
-angular.element($0).controller()</p>
+<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
 
-<p>//Getting injector and other objects
+<pre><code class="js">//Get controller
+angular.element($0).controller()
+
+//Getting injector and other objects
 var injector = angular.element($0).injector()
-injector.get(&lsquo;$rootScope&rsquo;)
-injector.get(&lsquo;myService&rsquo;)
-```</p>
+injector.get('$rootScope')
+injector.get('myService')
+</code></pre>
 
 <p>The other alternative is to use chrome extension <a href="https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en">AngularJS Batarang</a>. This will add AngularJS tab in developer Tools. It lists all scopes in the current page. But finding the correct scope for a particualr element quite difficult. The &ldquo;Enable Inspector&rdquo; button in batarang doesn&rsquo;t work that well. So far the <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> is the best way to debug binding issues.</p>
 ]]></content>
@@ -74,34 +73,26 @@ injector.get(&lsquo;myService&rsquo;)
 </ul>
 
 
-<p><code>js
-//Make sure 'ui.router' module is added as dependency
+<pre><code class="js">//Make sure 'ui.router' module is added as dependency
 var myApp = angular.module('myApp', ['ui.router']);
-</code></p>
+</code></pre>
 
 <ul>
 <li>The parent state doesn&rsquo;t have template with ui-view</li>
 </ul>
 
 
-<p>```js
-$stateProvider
-.state(&lsquo;user&rsquo;, { //parent state</p>
-
-<pre><code>url: '/user/:userId',
-// Important that parent has a template with ui-view which the child states can replace
-template: '&lt;ui-view/&gt;' 
+<pre><code class="js">$stateProvider
+.state('user', { //parent state
+    url: '/user/:userId',
+    // Important that parent has a template with ui-view which the child states can replace
+    template: '&lt;ui-view/&gt;' 
+})
+.state('user.projects', { //child state
+    url: 'projects',
+    templateUrl: 'projects.html',
+})
 </code></pre>
-
-<p>})
-.state(&lsquo;user.projects&rsquo;, { //child state</p>
-
-<pre><code>url: 'projects',
-templateUrl: 'projects.html',
-</code></pre>
-
-<p>})
-```</p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: f.js | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/f-dot-js/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2014-07-30T23:50:27+05:30</updated>
+  <updated>2014-12-21T20:08:25+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -20,45 +20,40 @@
     <id>http://tech.endeepak.com/blog/2014/05/01/introducing-f-dot-js</id>
     <content type="html"><![CDATA[<p>Javascript code is quite verbose when compared to other langauges. One of the features I missed coming from the ruby world is lambdas and the <code>&amp;:</code> sugar.</p>
 
-<p>```ruby
-books.map { |book| => book.title }</p>
+<pre><code class="ruby">books.map { |book| =&gt; book.title }
+# or even better
+books.map(&amp;:title)
+</code></pre>
 
-<h1>or even better</h1>
+<p>compare this with javascript code</p>
 
-<p>books.map(&amp;:title)
-```
-compare this with javascript code</p>
-
-<p><code>js
-books.map(function(book) { return book.title })
-</code></p>
+<pre><code class="js">books.map(function(book) { return book.title })
+</code></pre>
 
 <!-- more -->
 
 
 <p>Good news is ES6 might come with proposed <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/arrow_functions">arrow functions</a>, but it might take a while before all the browsers implement this. This is where <a href="https://github.com/endeepak/f.js">f.js</a> can be handy. This library will help to write redable code by writing less. You can write the above code as</p>
 
-<p><code>js
-books.map(f.y('book =&gt; book.title'))
+<pre><code class="js">books.map(f.y('book =&gt; book.title'))
 // or
 books.map(f.x('title'))
-</code></p>
+</code></pre>
 
 <p><a href="https://github.com/endeepak/f.js">f.js</a> supports methods, negation and includes utilities like noop and identity. Examples</p>
 
-<p>```js
-movies.filter(f.x(&lsquo;!watched&rsquo;))
-people.map(f.x(&lsquo;fullName()&rsquo;))
-shows.filter(f.x(&lsquo;!isGood()&rsquo;))</p>
+<pre><code class="js">movies.filter(f.x('!watched'))
+people.map(f.x('fullName()'))
+shows.filter(f.x('!isGood()'))
 
-<p>//Lambda with multiple parameters
+//Lambda with multiple parameters
 //sort movies in descending order on rating
-movies.sort(f.y(&lsquo;(m1, m2) => m2.rating &ndash; m1.rating&rsquo;));</p>
+movies.sort(f.y('(m1, m2) =&gt; m2.rating - m1.rating'));
 
-<p>//Noop and identity examples
+//Noop and identity examples
 books.forEach(callback || f()) //f() returns noop function
 movies.filter(filterFunction || f(true)) //f(arg) returns identity function
-```</p>
+</code></pre>
 
 <p>The f.y(lambda) method uses same syntax as arrow functions. Once ES6 arrow functions feature is available on all browsers, write a regex to remove usage of f.y and say bye to f.js</p>
 
