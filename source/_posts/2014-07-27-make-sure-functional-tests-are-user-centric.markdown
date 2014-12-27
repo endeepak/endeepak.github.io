@@ -3,7 +3,7 @@ layout: post
 title: "Make sure functional tests are user centric"
 date: 2014-07-27 16:43:49 +0530
 comments: true
-categories: javascript ajax SPA functional-tests
+categories: javascript ajax SPA functional-tests ruby
 ---
 
 In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.

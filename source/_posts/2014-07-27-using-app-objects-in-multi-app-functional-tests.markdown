@@ -3,7 +3,7 @@ layout: post
 title: "Using app objects in multi app functional tests"
 date: 2014-07-27 18:40:04 +0530
 comments: true
-categories: functional-tests capybara app-objects
+categories: functional-tests capybara app-objects ruby
 ---
 
 It is better to create small modular apps instead of single monolithic application. In [Bahmni EMR](http://www.bahmni.org) we have small apps for Patient Registration, Consultation, etc. An end to end [functional test](https://github.com/Bhamni/emr-functional-tests/tree/master/spec) covering patient registration and consultation goes through multiple apps. We needed to abstract the concept of an app in test code to increase the readability and maintainability. 
