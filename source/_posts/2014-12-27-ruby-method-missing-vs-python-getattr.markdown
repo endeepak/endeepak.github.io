@@ -8,6 +8,8 @@ categories: ruby python metaprogramming
 
 I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement `method_missing` you need to make sure to implement `respond_to_missing?`, otherwise [bad things will happen to you](http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding). The below ruby example shows minimal parts recomonded for providing dynamic methods
 
+<!-- More -->
+
 ```rb
 class Foo
 	def method_missing(method_name, *args, &block)
