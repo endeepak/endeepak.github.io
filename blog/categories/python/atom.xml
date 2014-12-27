@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: python | !geek]]></title>
+  <link href="http://tech.endeepak.com/blog/categories/python/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2014-12-27T18:37:00+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
+  <author>
+    <name><![CDATA[Deepak Narayana Rao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Python's elegance in dynamic methods compared to ruby]]></title>
+    <link href="http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
+    <updated>2014-12-27T16:48:17+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
+    <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recomonded for providing dynamic methods</p>
+
+<pre><code class="rb">class Foo
+    def method_missing(method_name, *args, &amp;block)
+        if method_name.to_s.start_with?('bar_')
+            #do_some_thing...
+    end
+
+    # You should define this for your good
+    # Read http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding for more details
+    def respond_to_missing?(method_name)
+        method_name.to_s.start_with?('bar_') || super
+    end
+end
+
+# So that following will work consistently
+foo = Foo.new
+foo.bar_qux
+foo.bar_qux() 
+foo.respond_to?(:bar_qux)
+foo.method(:bar_qux)
+</code></pre>
+
+<p>The same can be achived in python using <code>__getattr__</code> with lesser code.</p>
+
+<pre><code class="py">class Foo(object):
+    def __getattr__(self, attr):
+        if attr.startswith('bar_'):
+            #return method or an attribute..
+
+# Following will work consistently
+foo = Foo()
+foo.bar_qux
+foo.bar_qux() 
+hasattr(foo, 'bar_qux')
+</code></pre>
+
+<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintainance cost.</p>
+
+<h3>Can ruby have a similar implementation?</h3>
+
+<p>May be not. It is because of the fact that ruby functions are not first class objects which can be retuned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without paranthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
+]]></content>
+  </entry>
+  
+</feed>
