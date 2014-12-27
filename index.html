@@ -90,79 +90,12 @@
 
   <div class="entry-content"><p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recomonded for providing dynamic methods</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Foo</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">method_missing</span><span class="p">(</span><span class="n">method_name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">method_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;bar_&#39;</span><span class="p">)</span>
-</span><span class='line'>          <span class="c1">#do_some_thing...</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="c1"># You should define this for your good</span>
-</span><span class='line'>  <span class="c1"># Read http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding for more details</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">respond_to_missing?</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
-</span><span class='line'>      <span class="n">method_name</span><span class="o">.</span><span class="n">to_s</span><span class="o">.</span><span class="n">start_with?</span><span class="p">(</span><span class="s1">&#39;bar_&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="k">super</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1"># So that following will work consistently</span>
-</span><span class='line'><span class="n">foo</span> <span class="o">=</span> <span class="no">Foo</span><span class="o">.</span><span class="n">new</span>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">bar_qux</span>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">bar_qux</span><span class="p">()</span>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">respond_to?</span><span class="p">(</span><span class="ss">:bar_qux</span><span class="p">)</span>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="ss">:bar_qux</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The same can be achived in python using <code>__getattr__</code> with lesser code.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
-</span><span class='line'>      <span class="k">if</span> <span class="n">attr</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;bar_&#39;</span><span class="p">):</span>
-</span><span class='line'>          <span class="c">#return method or an attribute..</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># Following will work consistently</span>
-</span><span class='line'><span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">bar_qux</span>
-</span><span class='line'><span class="n">foo</span><span class="o">.</span><span class="n">bar_qux</span><span class="p">()</span>
-</span><span class='line'><span class="nb">hasattr</span><span class="p">(</span><span class="n">foo</span><span class="p">,</span> <span class="s">&#39;bar_qux&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintainance cost.</p>
-
-<h3>Can ruby have a similar implementation?</h3>
-
-<p>May be not. It is because of the fact that ruby functions are not first class objects which can be retuned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without paranthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/12/27/ruby-method-missing-vs-python-getattr">Read on &rarr;</a>
+    </footer>
   
 
 
