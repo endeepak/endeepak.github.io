@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: walking-skeleton | !geek]]></title>
+  <link href="http://tech.endeepak.com/blog/categories/walking-skeleton/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2015-10-17T15:12:50+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
+  <author>
+    <name><![CDATA[Deepak Narayana Rao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Working software is worth thousand assuarnces]]></title>
+    <link href="http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assuarnces"/>
+    <updated>2015-09-13T19:09:14+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assuarnces</id>
+    <content type="html"><![CDATA[<p>In the beginning of a software project, every one starts with a big list of features. If you ask the product owner, what is the minimum set of features that we can go live with? most of the times you&rsquo;ll hear a lot more than you expected.</p>
+
+<p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methdologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharinng my experience from couple of projects in past few years.</p>
+
+<p>Lets start with a story, where we are writing a new version of the popular website.</p>
+
+<!-- More -->
+
+
+<h3>Stage 1: Incpetion / Discovery</h3>
+
+<pre>
+Team: According to the stats, features X & Y used only by 5%. 
+      Can we deprioritize it for first release?
+      We can redirect to old site for users who need them.
+Product owners: No! Everything goes live or nothing does.
+</pre>
+
+
+<p>Start with implementing walking skeleton<a href="http://alistair.cockburn.us/Walking+skeleton">[1]</a> <a href="http://blog.codeclimate.com/blog/2014/03/20/kickstart-your-next-project-with-a-walking-skeleton/">[2]</a> to validate the approach. After first few iterations showcase,</p>
+
+<h3>Stage 2: Walking skeleton is ready</h3>
+
+<pre>
+Team: We have the thin slice of end to end user journey. This is how it works.
+Product owners: Wow, thats great. Whats left then?
+Team: This one does not handle some of these rare scenarios. Lets prioritize what is needed.
+</pre>
+
+
+<p>Prioritize the backlog to do most important features first. Few weeks before planned release for all features, ask the quetsion again</p>
+
+<h3>Stage 3 : Important features are production ready (MVP)</h3>
+
+<pre>
+Team: We have everything except feature X & Y. It would take another month for implementing X & Y. 
+      Can we go live with users who need X & Y being redirected to old site?
+Product owners: Lets go live!! We need to go there before our competetors
+</pre>
+
+
+<h2>Moral of the stor(y/ies):</h2>
+
+<ul>
+<li><p>You can&rsquo;t get all the answers in the begining. Prioritize your backlog to do the most importanat features first. Ask your unanswered question(s) again after each milestone, you&rsquo;ll be surprised to see how easy it is to get the answers this time.</p></li>
+<li><p>It is hard for people to undertsand the benefits of agile methdologies, kanban etc when it is just theory based on your  past experiences which they can&rsquo;t relate to. Build something small &amp; tangible, show the working software to build their confidence.</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
