@@ -9,7 +9,7 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows. Problem Context The system &hellip;">
+  <meta name="description" content="This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows. Problem &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -88,11 +88,11 @@
   </header>
 
 
-  <div class="entry-content"><p>This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows.</p>
+  <div class="entry-content"><p>This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows.</p>
 
 <h2>Problem Context</h2>
 
-<p>The system identifies the users by their mobile number. Users are soft deleted by setting <code>deleted</code> column value as <code>1</code>. A new user can register in with same mobile number as previously deactivated user (The mobile numbers can be recycled by telecoms operators). The unique check at application are susceptible to fail in case of concurrent requests, hence we needed unique constraint at DB to ensure integrity of data.</p>
+<p>The system identifies the users by their mobile number and hence mobile number must be unique across users. The users are soft deleted in the system by updating column <code>deleted = 1</code>. A new user can register in with same mobile number as previously deactivated user (since mobile numbers are recycled by telecoms). The unique check at application are susceptible to fail in case of concurrent requests, unique constraint is needed at DB to ensure integrity of data.</p>
 
 </div>
   

@@ -9,7 +9,7 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows. Problem Context The system &hellip;">
+  <meta name="description" content="This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows. Problem &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,11 +85,11 @@
   </header>
 
 
-<div class="entry-content"><p>This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows.</p>
+<div class="entry-content"><p>This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows.</p>
 
 <h2>Problem Context</h2>
 
-<p>The system identifies the users by their mobile number. Users are soft deleted by setting <code>deleted</code> column value as <code>1</code>. A new user can register in with same mobile number as previously deactivated user (The mobile numbers can be recycled by telecoms operators). The unique check at application are susceptible to fail in case of concurrent requests, hence we needed unique constraint at DB to ensure integrity of data.</p>
+<p>The system identifies the users by their mobile number and hence mobile number must be unique across users. The users are soft deleted in the system by updating column <code>deleted = 1</code>. A new user can register in with same mobile number as previously deactivated user (since mobile numbers are recycled by telecoms). The unique check at application are susceptible to fail in case of concurrent requests, unique constraint is needed at DB to ensure integrity of data.</p>
 
 <!-- More -->
 
@@ -102,9 +102,9 @@
 </ul>
 
 
-<p>We were able to find different flavors of solutions on net but they were incomplete for our case. They only served as starting point a solution that meets all of our needs mentioned above.</p>
+<p>We were able to find different flavors of solutions on net but they were incomplete for our case. They only served as starting point to a solution that meets all of our needs mentioned above.</p>
 
-<h2>Final Solution</h2>
+<h2>The Final Solution</h2>
 
 <ul>
 <li>Add a new column <code>deletion_token</code></li>
@@ -113,49 +113,6 @@
 <li>Insert a random UUID for soft deleted</li>
 <li>On soft delete of user, generate new UUID and set it on <code>deletion_token</code></li>
 </ul>
-
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;"> Left align </th>
-<th style="text-align:right;"> Right align </th>
-<th style="text-align:center;"> Center align </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;"> This       </td>
-<td style="text-align:right;">        This </td>
-<td style="text-align:center;">     This</td>
-</tr>
-<tr>
-<td style="text-align:left;"> column     </td>
-<td style="text-align:right;">      column </td>
-<td style="text-align:center;">    column</td>
-</tr>
-<tr>
-<td style="text-align:left;"> will       </td>
-<td style="text-align:right;">        will </td>
-<td style="text-align:center;">     will</td>
-</tr>
-<tr>
-<td style="text-align:left;"> be         </td>
-<td style="text-align:right;">          be </td>
-<td style="text-align:center;">      be</td>
-</tr>
-<tr>
-<td style="text-align:left;"> left       </td>
-<td style="text-align:right;">       right </td>
-<td style="text-align:center;">    center</td>
-</tr>
-<tr>
-<td style="text-align:left;"> aligned    </td>
-<td style="text-align:right;">     aligned </td>
-<td style="text-align:center;">   aligned</td>
-</tr>
-</tbody>
-</table>
 
 
 <h2>Path to the above solution</h2>
