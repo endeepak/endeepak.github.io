@@ -6,11 +6,11 @@ comments: true
 categories: database patterns
 ---
 
-This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows.
+This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows.
 
 ## Problem Context
 
-The system identifies the users by their mobile number. Users are soft deleted by setting `deleted` column value as `1`. A new user can register in with same mobile number as previously deactivated user (The mobile numbers can be recycled by telecoms operators). The unique check at application are susceptible to fail in case of concurrent requests, hence we needed unique constraint at DB to ensure integrity of data. 
+The system identifies the users by their mobile number and hence mobile number must be unique across users. The users are soft deleted in the system by updating column `deleted = 1`. A new user can register in with same mobile number as previously deactivated user (since mobile numbers are recycled by telecoms). The unique check at application are susceptible to fail in case of concurrent requests, unique constraint is needed at DB to ensure integrity of data. 
 
 <!-- More -->
 
@@ -19,25 +19,15 @@ The system identifies the users by their mobile number. Users are soft deleted b
 * work for existing rows imported from legacy system
 * work across different databases supported by product
 
-We were able to find different flavors of solutions on net but they were incomplete for our case. They only served as starting point a solution that meets all of our needs mentioned above.
+We were able to find different flavors of solutions on net but they were incomplete for our case. They only served as starting point to a solution that meets all of our needs mentioned above.
 
-## Final Solution
+## The Final Solution
 
 * Add a new column `deletion_token`
 * Add unique constraint for combination `mobile_number, deletion_token`
 * A new row added to table would have value of 'NA' `deletion_token`. This is ensured by setting up default value of `NA` at DB level and having constructor of User model(used by ORM) to initialize `deletion_token` to `NA` by default
 * Insert a random UUID for soft deleted
 * On soft delete of user, generate new UUID and set it on `deletion_token`
-
-
-| Left align | Right align | Center align |
-|:-----------|------------:|:------------:|
-| This       |        This |     This     
-| column     |      column |    column    
-| will       |        will |     will     
-| be         |          be |      be      
-| left       |       right |    center    
-| aligned    |     aligned |   aligned
 
 
 ## Path to the above solution
