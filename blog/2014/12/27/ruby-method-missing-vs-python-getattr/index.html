@@ -9,7 +9,7 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you &hellip;">
+  <meta name="description" content="I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -85,7 +85,7 @@
   </header>
 
 
-<div class="entry-content"><p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recomonded for providing dynamic methods</p>
+<div class="entry-content"><p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 <!-- More -->
 
@@ -133,7 +133,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The same can be achived in python using <code>__getattr__</code> with lesser code.</p>
+<p>The same can be achieved in python using <code>__getattr__</code> with lesser code.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -158,11 +158,11 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintainance cost.</p>
+<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintenance cost.</p>
 
 <h3>Can ruby have a similar implementation?</h3>
 
-<p>May be not. It is because of the fact that ruby functions are not first class objects which can be retuned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without paranthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
+<p>May be not. It is because of the fact that ruby functions are not first class objects which can be returned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without parenthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
 </div>
 
 
@@ -183,7 +183,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/metaprogramming/'>metaprogramming</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
+    <a class='category' href='/blog/categories/meta-programming/'>meta-programming</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>
   
 </span>
 
@@ -208,7 +208,7 @@
         <a class="basic-alignment left" href="/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python" title="Previous Post: Common mistakes while switching from ruby to python">&laquo; Common mistakes while switching from ruby to python</a>
       
       
-        <a class="basic-alignment right" href="/blog/2015/09/13/working-software-is-worth-thousand-assuarnces" title="Next Post: Working software is worth thousand assuarnces">Working software is worth thousand assuarnces &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2015/09/13/working-software-is-worth-thousand-assurances" title="Next Post: Working software is worth thousand assurances">Working software is worth thousand assurances &raquo;</a>
       
     </p>
   </footer>
@@ -229,7 +229,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/09/13/working-software-is-worth-thousand-assuarnces">Working software is worth thousand assuarnces</a>
+        <a href="/blog/2015/10/19/soft-delete-and-unique-constraint">Soft delete and unique constraint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/13/working-software-is-worth-thousand-assurances">Working software is worth thousand assurances</a>
       </li>
     
       <li class="post">
@@ -244,15 +248,11 @@
         <a href="/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests">Using app objects in multi app functional tests</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/07/27/make-sure-functional-tests-are-user-centric">Make sure functional tests are user centric</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/agile' style='font-size: 106.0%'>agile(1)</a> <a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/metaprogramming' style='font-size: 106.0%'>metaprogramming(1)</a> <a href='/blog/categories/mvp' style='font-size: 106.0%'>mvp(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/python' style='font-size: 112.0%'>python(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/ruby' style='font-size: 124.0%'>ruby(4)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/tdd' style='font-size: 106.0%'>tdd(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> <a href='/blog/categories/walking-skeleton' style='font-size: 106.0%'>walking-skeleton(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/agile' style='font-size: 106.0%'>agile(1)</a> <a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/database' style='font-size: 106.0%'>database(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/meta-programming' style='font-size: 106.0%'>meta-programming(1)</a> <a href='/blog/categories/mvp' style='font-size: 106.0%'>mvp(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/patterns' style='font-size: 106.0%'>patterns(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/python' style='font-size: 112.0%'>python(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/ruby' style='font-size: 124.0%'>ruby(4)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/tdd' style='font-size: 106.0%'>tdd(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> <a href='/blog/categories/walking-skeleton' style='font-size: 106.0%'>walking-skeleton(1)</a> </span>
 </section>
 
   

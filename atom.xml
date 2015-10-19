@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2015-10-17T15:12:50+05:30</updated>
+  <updated>2015-10-19T21:24:29+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -14,20 +14,116 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Working software is worth thousand assuarnces]]></title>
-    <link href="http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assuarnces"/>
+    <title type="html"><![CDATA[Soft delete and unique constraint]]></title>
+    <link href="http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint"/>
+    <updated>2015-10-19T17:59:41+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint</id>
+    <content type="html"><![CDATA[<p>This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows.</p>
+
+<h2>Problem Context</h2>
+
+<p>The system identifies the users by their mobile number. Users are soft deleted by setting <code>deleted</code> column value as <code>1</code>. A new user can register in with same mobile number as previously deactivated user (The mobile numbers can be recycled by telecoms operators). The unique check at application are susceptible to fail in case of concurrent requests, hence we needed unique constraint at DB to ensure integrity of data.</p>
+
+<!-- More -->
+
+
+<h2>The solution should</h2>
+
+<ul>
+<li>work for existing rows imported from legacy system</li>
+<li>work across different databases supported by product</li>
+</ul>
+
+
+<p>We were able to find different flavors of solutions on net but they were incomplete for our case. They only served as starting point a solution that meets all of our needs mentioned above.</p>
+
+<h2>Final Solution</h2>
+
+<ul>
+<li>Add a new column <code>deletion_token</code></li>
+<li>Add unique constraint for combination <code>mobile_number, deletion_token</code></li>
+<li>A new row added to table would have value of &lsquo;NA&rsquo; <code>deletion_token</code>. This is ensured by setting up default value of <code>NA</code> at DB level and having constructor of User model(used by ORM) to initialize <code>deletion_token</code> to <code>NA</code> by default</li>
+<li>Insert a random UUID for soft deleted</li>
+<li>On soft delete of user, generate new UUID and set it on <code>deletion_token</code></li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> Left align </th>
+<th style="text-align:right;"> Right align </th>
+<th style="text-align:center;"> Center align </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> This       </td>
+<td style="text-align:right;">        This </td>
+<td style="text-align:center;">     This</td>
+</tr>
+<tr>
+<td style="text-align:left;"> column     </td>
+<td style="text-align:right;">      column </td>
+<td style="text-align:center;">    column</td>
+</tr>
+<tr>
+<td style="text-align:left;"> will       </td>
+<td style="text-align:right;">        will </td>
+<td style="text-align:center;">     will</td>
+</tr>
+<tr>
+<td style="text-align:left;"> be         </td>
+<td style="text-align:right;">          be </td>
+<td style="text-align:center;">      be</td>
+</tr>
+<tr>
+<td style="text-align:left;"> left       </td>
+<td style="text-align:right;">       right </td>
+<td style="text-align:center;">    center</td>
+</tr>
+<tr>
+<td style="text-align:left;"> aligned    </td>
+<td style="text-align:right;">     aligned </td>
+<td style="text-align:center;">   aligned</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Path to the above solution</h2>
+
+<ol>
+<li><p>Add unique constraint for columns <code>mobile_number, deleted</code>
+<em>Drawback</em>: This wouldn&rsquo;t allow us to have more than one deleted user with same mobile number</p></li>
+<li><p>Add a unique constraint with a where clause eg: <code>ADD CONSTRAINT .... WHERE deleted != 1;</code>
+<em>Drawback</em>: The where clause in constraint definition is not supported by <a href="http://stackoverflow.com/a/20962904/69362">all databases</a></p></li>
+<li><p>Instead of using only 0 or 1 as values for deleted column, increment the number on each delete.
+<em>Drawback</em>: Expensive as it needs extra db call to retrieve previously soft deleted rows and also expensive to update numbers for existing soft deleted rows in legacy system. It would theoretically fail for concurrent requests without lock.</p></li>
+<li><p>Add a new time-stamp column  called <code>deleted_at</code> and add an unique constraint on <code>mobile_number, deleted_at</code> <em>Drawback</em>: The old rows in legacy system didn&rsquo;t have data for <code>deleted_at</code> and populating with dummy data wasn&rsquo;t acceptable.</p></li>
+<li><p>Add a new column  called <code>deletion_token</code> and add a constraint on <code>mobile_number, deletion_token</code> with NULL value for new rows and UUID for soft deleted rows.
+<em>Drawback</em>: Few databases don&rsquo;t consider nulls as equal and hence unique constraint does not fail for two rows with same mobile number and NULL value in <code>deletion_token</code></p></li>
+<li><p>Slight modification to point 5, to arrive at the final solution described in the beginning of the post</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Working software is worth thousand assurances]]></title>
+    <link href="http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances"/>
     <updated>2015-09-13T19:09:14+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assuarnces</id>
+    <id>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances</id>
     <content type="html"><![CDATA[<p>In the beginning of a software project, every one starts with a big list of features. If you ask the product owner, what is the minimum set of features that we can go live with? most of the times you&rsquo;ll hear a lot more than you expected.</p>
 
-<p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methdologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharinng my experience from couple of projects in past few years.</p>
+<p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methodologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharing my experience from couple of projects in past few years.</p>
 
 <p>Lets start with a story, where we are writing a new version of the popular website.</p>
 
 <!-- More -->
 
 
-<h3>Stage 1: Incpetion / Discovery</h3>
+<h3>Stage 1: Inception / Discovery</h3>
 
 <pre>
 Team: According to the stats, features X & Y used only by 5%. 
@@ -48,22 +144,22 @@ Team: This one does not handle some of these rare scenarios. Lets prioritize wha
 </pre>
 
 
-<p>Prioritize the backlog to do most important features first. Few weeks before planned release for all features, ask the quetsion again</p>
+<p>Prioritize the backlog to do most important features first. Few weeks before planned release for all features, ask the question again</p>
 
 <h3>Stage 3 : Important features are production ready (MVP)</h3>
 
 <pre>
 Team: We have everything except feature X & Y. It would take another month for implementing X & Y. 
       Can we go live with users who need X & Y being redirected to old site?
-Product owners: Lets go live!! We need to go there before our competetors
+Product owners: Lets go live!! We need to go there before our competitors
 </pre>
 
 
 <h2>Moral of the stor(y/ies):</h2>
 
 <ul>
-<li><p>You can&rsquo;t get all the answers in the begining. Prioritize your backlog to do the most importanat features first. Ask your unanswered question(s) again after each milestone, you&rsquo;ll be surprised to see how easy it is to get the answers this time.</p></li>
-<li><p>It is hard for people to undertsand the benefits of agile methdologies, kanban etc when it is just theory based on your  past experiences which they can&rsquo;t relate to. Build something small &amp; tangible, show the working software to build their confidence.</p></li>
+<li><p>You can&rsquo;t get all the answers in the beginning. Prioritize your backlog to do the most important features first. Ask your unanswered question(s) again after each milestone, you&rsquo;ll be surprised to see how easy it is to get the answers this time.</p></li>
+<li><p>It is hard for people to understand the benefits of agile methodologies, kanban etc when it is just theory based on your  past experiences which they can&rsquo;t relate to. Build something small &amp; tangible, show the working software to build their confidence.</p></li>
 </ul>
 
 ]]></content>
@@ -74,7 +170,7 @@ Product owners: Lets go live!! We need to go there before our competetors
     <link href="http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
     <updated>2014-12-27T16:48:17+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
-    <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recomonded for providing dynamic methods</p>
+    <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 <!-- More -->
 
@@ -122,7 +218,7 @@ Product owners: Lets go live!! We need to go there before our competetors
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>The same can be achived in python using <code>__getattr__</code> with lesser code.</p>
+<p>The same can be achieved in python using <code>__getattr__</code> with lesser code.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -147,11 +243,11 @@ Product owners: Lets go live!! We need to go there before our competetors
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintainance cost.</p>
+<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintenance cost.</p>
 
 <h3>Can ruby have a similar implementation?</h3>
 
-<p>May be not. It is because of the fact that ruby functions are not first class objects which can be retuned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without paranthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
+<p>May be not. It is because of the fact that ruby functions are not first class objects which can be returned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without parenthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
 ]]></content>
   </entry>
   
@@ -161,6 +257,9 @@ Product owners: Lets go live!! We need to go there before our competetors
     <updated>2014-12-17T13:50:24+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
     <content type="html"><![CDATA[<p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
+
+<!-- More -->
+
 
 <h2>Problem 1 : The method which does nothing</h2>
 
@@ -218,7 +317,7 @@ Product owners: Lets go live!! We need to go there before our competetors
 </span><span class='line'><span class="n">bob</span><span class="o">.</span><span class="n">say_hello</span> <span class="c"># Danger! Danger! Method won&#39;t be called</span>
 </span><span class='line'>
 </span><span class='line'><span class="c"># After breaking your head for a while. Correct it to</span>
-</span><span class='line'><span class="n">bob</span><span class="o">.</span><span class="n">say_hello</span><span class="p">()</span> <span class="c"># Well remember the good old pranthesis to call function?</span>
+</span><span class='line'><span class="n">bob</span><span class="o">.</span><span class="n">say_hello</span><span class="p">()</span> <span class="c"># Well remember the good old parenthesis to call function?</span>
 </span></code></pre></td></tr></table></div></figure>
 
 

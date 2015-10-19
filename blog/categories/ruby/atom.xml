@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ruby | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2015-10-17T15:12:50+05:30</updated>
+  <updated>2015-10-19T21:24:29+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -18,7 +18,7 @@
     <link href="http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
     <updated>2014-12-27T16:48:17+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
-    <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recomonded for providing dynamic methods</p>
+    <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 <!-- More -->
 
@@ -44,7 +44,7 @@ foo.respond_to?(:bar_qux)
 foo.method(:bar_qux)
 </code></pre>
 
-<p>The same can be achived in python using <code>__getattr__</code> with lesser code.</p>
+<p>The same can be achieved in python using <code>__getattr__</code> with lesser code.</p>
 
 <pre><code class="py">class Foo(object):
     def __getattr__(self, attr):
@@ -58,11 +58,11 @@ foo.bar_qux()
 hasattr(foo, 'bar_qux')
 </code></pre>
 
-<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintainance cost.</p>
+<p>Eventhough it isn&rsquo;t a lot of code in ruby, people can forget to implement both methods or implement them differently by mistake leading to tricky bugs and higher maintenance cost.</p>
 
 <h3>Can ruby have a similar implementation?</h3>
 
-<p>May be not. It is because of the fact that ruby functions are not first class objects which can be retuned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without paranthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
+<p>May be not. It is because of the fact that ruby functions are not first class objects which can be returned in a single method_missing hook. Also ruby&rsquo;s syntax of calling a method without parenthesis(i.e. <code>foo.bar_qux</code> is same as <code>foo.bar_qux()</code>) makes it hard to treat functions as callable objects.</p>
 ]]></content>
   </entry>
   
@@ -72,6 +72,9 @@ hasattr(foo, 'bar_qux')
     <updated>2014-12-17T13:50:24+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
     <content type="html"><![CDATA[<p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
+
+<!-- More -->
+
 
 <h2>Problem 1 : The method which does nothing</h2>
 
@@ -101,7 +104,7 @@ bob = Person('Bob')
 bob.say_hello # Danger! Danger! Method won't be called
 
 # After breaking your head for a while. Correct it to
-bob.say_hello() # Well remember the good old pranthesis to call function?
+bob.say_hello() # Well remember the good old parenthesis to call function?
 </code></pre>
 
 <h2>Problem 2 : The method which returns wrong value</h2>

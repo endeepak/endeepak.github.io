@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assuarnces</loc>
+    <loc>http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint</loc>
+    <lastmod>2015-10-19T17:59:41+05:30</lastmod>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances</loc>
     <lastmod>2015-09-13T19:09:14+05:30</lastmod>
   </url>
   <url>
@@ -130,7 +134,7 @@
     <loc>http://tech.endeepak.com/blog/categories/tdd/</loc>
   </url>
   <url>
-    <loc>http://tech.endeepak.com/blog/categories/metaprogramming/</loc>
+    <loc>http://tech.endeepak.com/blog/categories/meta-programming/</loc>
   </url>
   <url>
     <loc>http://tech.endeepak.com/blog/categories/agile/</loc>
@@ -140,5 +144,11 @@
   </url>
   <url>
     <loc>http://tech.endeepak.com/blog/categories/mvp/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/database/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/patterns/</loc>
   </url>
 </urlset>

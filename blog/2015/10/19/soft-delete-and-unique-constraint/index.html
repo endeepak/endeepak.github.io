@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: ajax - !geek</title>
+  <title>Soft delete and unique constraint - !geek</title>
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="Category: ajax">
+  <meta name="description" content="This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows. Problem Context The system &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tech.endeepak.com/blog/categories/ajax">
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
@@ -65,36 +65,168 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: ajax</h1>
+    
+      <h1 class="entry-title">Soft delete and unique constraint</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-19T17:59:41+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:59 pm</span></time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows.</p>
 
-  
-  <h2>2014</h2>
+<h2>Problem Context</h2>
 
-<article>
-  
-<h1><a href="/blog/2014/07/27/make-sure-functional-tests-are-user-centric">Make sure functional tests are user centric</a></h1>
-<time datetime="2014-07-27T16:43:49+05:30" pubdate><span class='month'>Jul</span> <span class='day'>27</span> <span class='year'>2014</span></time>
+<p>The system identifies the users by their mobile number. Users are soft deleted by setting <code>deleted</code> column value as <code>1</code>. A new user can register in with same mobile number as previously deactivated user (The mobile numbers can be recycled by telecoms operators). The unique check at application are susceptible to fail in case of concurrent requests, hence we needed unique constraint at DB to ensure integrity of data.</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/ajax/'>ajax</a>, <a class='category' href='/blog/categories/functional-tests/'>functional-tests</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>, <a class='category' href='/blog/categories/ruby/'>ruby</a>, <a class='category' href='/blog/categories/spa/'>spa</a></span>
-</footer>
+<!-- More -->
 
 
-</article>
+<h2>The solution should</h2>
+
+<ul>
+<li>work for existing rows imported from legacy system</li>
+<li>work across different databases supported by product</li>
+</ul>
+
+
+<p>We were able to find different flavors of solutions on net but they were incomplete for our case. They only served as starting point a solution that meets all of our needs mentioned above.</p>
+
+<h2>Final Solution</h2>
+
+<ul>
+<li>Add a new column <code>deletion_token</code></li>
+<li>Add unique constraint for combination <code>mobile_number, deletion_token</code></li>
+<li>A new row added to table would have value of &lsquo;NA&rsquo; <code>deletion_token</code>. This is ensured by setting up default value of <code>NA</code> at DB level and having constructor of User model(used by ORM) to initialize <code>deletion_token</code> to <code>NA</code> by default</li>
+<li>Insert a random UUID for soft deleted</li>
+<li>On soft delete of user, generate new UUID and set it on <code>deletion_token</code></li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> Left align </th>
+<th style="text-align:right;"> Right align </th>
+<th style="text-align:center;"> Center align </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> This       </td>
+<td style="text-align:right;">        This </td>
+<td style="text-align:center;">     This</td>
+</tr>
+<tr>
+<td style="text-align:left;"> column     </td>
+<td style="text-align:right;">      column </td>
+<td style="text-align:center;">    column</td>
+</tr>
+<tr>
+<td style="text-align:left;"> will       </td>
+<td style="text-align:right;">        will </td>
+<td style="text-align:center;">     will</td>
+</tr>
+<tr>
+<td style="text-align:left;"> be         </td>
+<td style="text-align:right;">          be </td>
+<td style="text-align:center;">      be</td>
+</tr>
+<tr>
+<td style="text-align:left;"> left       </td>
+<td style="text-align:right;">       right </td>
+<td style="text-align:center;">    center</td>
+</tr>
+<tr>
+<td style="text-align:left;"> aligned    </td>
+<td style="text-align:right;">     aligned </td>
+<td style="text-align:center;">   aligned</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>Path to the above solution</h2>
+
+<ol>
+<li><p>Add unique constraint for columns <code>mobile_number, deleted</code>
+<em>Drawback</em>: This wouldn&rsquo;t allow us to have more than one deleted user with same mobile number</p></li>
+<li><p>Add a unique constraint with a where clause eg: <code>ADD CONSTRAINT .... WHERE deleted != 1;</code>
+<em>Drawback</em>: The where clause in constraint definition is not supported by <a href="http://stackoverflow.com/a/20962904/69362">all databases</a></p></li>
+<li><p>Instead of using only 0 or 1 as values for deleted column, increment the number on each delete.
+<em>Drawback</em>: Expensive as it needs extra db call to retrieve previously soft deleted rows and also expensive to update numbers for existing soft deleted rows in legacy system. It would theoretically fail for concurrent requests without lock.</p></li>
+<li><p>Add a new time-stamp column  called <code>deleted_at</code> and add an unique constraint on <code>mobile_number, deleted_at</code> <em>Drawback</em>: The old rows in legacy system didn&rsquo;t have data for <code>deleted_at</code> and populating with dummy data wasn&rsquo;t acceptable.</p></li>
+<li><p>Add a new column  called <code>deletion_token</code> and add a constraint on <code>mobile_number, deletion_token</code> with NULL value for new rows and UUID for soft deleted rows.
+<em>Drawback</em>: Few databases don&rsquo;t consider nulls as equal and hence unique constraint does not fail for two rows with same mobile number and NULL value in <code>deletion_token</code></p></li>
+<li><p>Slight modification to point 5, to arrive at the final solution described in the beginning of the post</p></li>
+</ol>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">Deepak Narayana Rao</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2015-10-19T17:59:41+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:59 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/database/'>database</a>, <a class='category' href='/blog/categories/patterns/'>patterns</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2015/09/13/working-software-is-worth-thousand-assurances" title="Previous Post: Working software is worth thousand assurances">&laquo; Working software is worth thousand assurances</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -149,7 +281,10 @@
       var disqus_shortname = 'tech-endeepak';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint';
+        var disqus_url = 'http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

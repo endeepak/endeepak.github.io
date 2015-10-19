@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tdd | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/tdd/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2015-10-17T15:12:50+05:30</updated>
+  <updated>2015-10-19T21:24:29+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -19,6 +19,9 @@
     <updated>2014-12-17T13:50:24+05:30</updated>
     <id>http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
     <content type="html"><![CDATA[<p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
+
+<!-- More -->
+
 
 <h2>Problem 1 : The method which does nothing</h2>
 
@@ -48,7 +51,7 @@ bob = Person('Bob')
 bob.say_hello # Danger! Danger! Method won't be called
 
 # After breaking your head for a while. Correct it to
-bob.say_hello() # Well remember the good old pranthesis to call function?
+bob.say_hello() # Well remember the good old parenthesis to call function?
 </code></pre>
 
 <h2>Problem 2 : The method which returns wrong value</h2>

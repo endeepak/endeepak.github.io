@@ -9,7 +9,7 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="In the beginning of a software project, every one starts with a big list of features. If you ask the product owner, what is the minimum set of &hellip;">
+  <meta name="description" content="This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows. Problem Context The system &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -72,7 +72,45 @@
       
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2015/09/13/working-software-is-worth-thousand-assuarnces">Working software is worth thousand assuarnces</a></h1>
+      <h1 class="entry-title"><a href="/blog/2015/10/19/soft-delete-and-unique-constraint">Soft delete and unique constraint</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2015-10-19T17:59:41+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>19</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>5:59 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This post describes a working solution for having unique constraint at DB level for a table with soft deleted rows.</p>
+
+<h2>Problem Context</h2>
+
+<p>The system identifies the users by their mobile number. Users are soft deleted by setting <code>deleted</code> column value as <code>1</code>. A new user can register in with same mobile number as previously deactivated user (The mobile numbers can be recycled by telecoms operators). The unique check at application are susceptible to fail in case of concurrent requests, hence we needed unique constraint at DB to ensure integrity of data.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/10/19/soft-delete-and-unique-constraint">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2015/09/13/working-software-is-worth-thousand-assurances">Working software is worth thousand assurances</a></h1>
     
     
       <p class="meta">
@@ -90,7 +128,7 @@
 
   <div class="entry-content"><p>In the beginning of a software project, every one starts with a big list of features. If you ask the product owner, what is the minimum set of features that we can go live with? most of the times you&rsquo;ll hear a lot more than you expected.</p>
 
-<p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methdologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharinng my experience from couple of projects in past few years.</p>
+<p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methodologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharing my experience from couple of projects in past few years.</p>
 
 <p>Lets start with a story, where we are writing a new version of the popular website.</p>
 
@@ -98,7 +136,7 @@
   
   
     <footer>
-      <a rel="full-article" href="/blog/2015/09/13/working-software-is-worth-thousand-assuarnces">Read on &rarr;</a>
+      <a rel="full-article" href="/blog/2015/09/13/working-software-is-worth-thousand-assurances">Read on &rarr;</a>
     </footer>
   
 
@@ -126,7 +164,7 @@
   </header>
 
 
-  <div class="entry-content"><p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining dsls. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recomonded for providing dynamic methods</p>
+  <div class="entry-content"><p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 </div>
   
@@ -162,107 +200,12 @@
 
   <div class="entry-content"><p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
 
-<h2>Problem 1 : The method which does nothing</h2>
-
-<figure class='code'><figcaption><span>person.rb (Ruby)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">class</span> <span class="nc">Person</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
-</span><span class='line'>      <span class="vi">@name</span> <span class="o">=</span> <span class="nb">name</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">def</span> <span class="nf">say_hello</span>
-</span><span class='line'>      <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="vi">@name</span><span class="si">}</span><span class="s2"> says hello&quot;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">bob</span> <span class="o">=</span> <span class="no">Person</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="s1">&#39;Bob&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">bob</span><span class="o">.</span><span class="n">say_hello</span> <span class="c1"># Bob says hello</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>person.py (Python)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-</span><span class='line'>      <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span class='line'>  
-</span><span class='line'>  <span class="k">def</span> <span class="nf">say_hello</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span class='line'>      <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> says hello&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="n">bob</span> <span class="o">=</span> <span class="n">Person</span><span class="p">(</span><span class="s">&#39;Bob&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">bob</span><span class="o">.</span><span class="n">say_hello</span> <span class="c"># Danger! Danger! Method won&#39;t be called</span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># After breaking your head for a while. Correct it to</span>
-</span><span class='line'><span class="n">bob</span><span class="o">.</span><span class="n">say_hello</span><span class="p">()</span> <span class="c"># Well remember the good old pranthesis to call function?</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Problem 2 : The method which returns wrong value</h2>
-
-<figure class='code'><figcaption><span>calculator.rb (Ruby)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</span><span class='line'>  <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</span><span class='line'><span class="k">end</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c1"># returns 5</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-<figure class='code'><figcaption><span>calculator.py (Python)</span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='py'><span class='line'><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-</span><span class='line'>  <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">add</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="c"># Danger! Danger! Returns nil </span>
-</span><span class='line'>
-</span><span class='line'><span class="c"># After breaking your head for a while. Correct it to</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-</span><span class='line'>  <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Solution</h2>
-
-<p>Test Driven Development</p>
 </div>
   
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python">Read on &rarr;</a>
+    </footer>
   
 
 
@@ -507,46 +450,6 @@
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Waiting for AngularJS digest cycle</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2014-05-03T17:43:34+05:30'><span class='date'><span class='date-month'>May</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>5:43 pm</span></time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>The million dollar question most of the AngularJS users(devs) end up asking is</p>
-
-<ul>
-<li>How to wait for angular digest cycle to be completed?  <em>or in simple terms</em></li>
-<li>How to wait for browser to complete rendering the view with angular bindings?</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/05/03/waiting-for-angularjs-digest-cycle">Read on &rarr;</a>
-    </footer>
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/posts/2">&larr; Older</a>
@@ -562,7 +465,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2015/09/13/working-software-is-worth-thousand-assuarnces">Working software is worth thousand assuarnces</a>
+        <a href="/blog/2015/10/19/soft-delete-and-unique-constraint">Soft delete and unique constraint</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2015/09/13/working-software-is-worth-thousand-assurances">Working software is worth thousand assurances</a>
       </li>
     
       <li class="post">
@@ -577,15 +484,11 @@
         <a href="/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests">Using app objects in multi app functional tests</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2014/07/27/make-sure-functional-tests-are-user-centric">Make sure functional tests are user centric</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/agile' style='font-size: 106.0%'>agile(1)</a> <a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/metaprogramming' style='font-size: 106.0%'>metaprogramming(1)</a> <a href='/blog/categories/mvp' style='font-size: 106.0%'>mvp(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/python' style='font-size: 112.0%'>python(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/ruby' style='font-size: 124.0%'>ruby(4)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/tdd' style='font-size: 106.0%'>tdd(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> <a href='/blog/categories/walking-skeleton' style='font-size: 106.0%'>walking-skeleton(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/agile' style='font-size: 106.0%'>agile(1)</a> <a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/database' style='font-size: 106.0%'>database(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/meta-programming' style='font-size: 106.0%'>meta-programming(1)</a> <a href='/blog/categories/mvp' style='font-size: 106.0%'>mvp(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/patterns' style='font-size: 106.0%'>patterns(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/python' style='font-size: 112.0%'>python(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/ruby' style='font-size: 124.0%'>ruby(4)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/tdd' style='font-size: 106.0%'>tdd(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> <a href='/blog/categories/walking-skeleton' style='font-size: 106.0%'>walking-skeleton(1)</a> </span>
 </section>
 
   
