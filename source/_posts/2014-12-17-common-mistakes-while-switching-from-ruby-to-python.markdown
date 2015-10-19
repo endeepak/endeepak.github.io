@@ -3,11 +3,12 @@ layout: post
 title: "Common mistakes while switching from ruby to python"
 date: 2014-12-17 13:50:24 +0530
 comments: true
-categories: ruby python tdd
+categories: ruby python TDD
 ---
 
 This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.
 
+<!-- More -->
 
 ## Problem 1 : The method which does nothing
 
@@ -39,7 +40,7 @@ bob = Person('Bob')
 bob.say_hello # Danger! Danger! Method won't be called
 
 # After breaking your head for a while. Correct it to
-bob.say_hello() # Well remember the good old pranthesis to call function?
+bob.say_hello() # Well remember the good old parenthesis to call function?
 ```
 
 ## Problem 2 : The method which returns wrong value
