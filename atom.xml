@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2015-10-19T21:35:20+05:30</updated>
+  <updated>2016-01-03T16:23:49+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,174 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Simple obstacle avoiding robot using arduino]]></title>
+    <link href="http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino"/>
+    <updated>2016-01-02T16:25:48+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino</id>
+    <content type="html"><![CDATA[<p>Building obstacle avoiding robot is a simple &amp; fun way to start learning arduino and electronics. A lot of useful articles explain this, but you will be blocked if you can&rsquo;t get the same parts in your region. In this post, I&rsquo;ll explain how to build a simple and minimal robot using the parts available online in India.</p>
+
+<p>Watch the below video to get an idea of what you could build by following this article.</p>
+
+<div class="embed-video-container"><iframe src="//www.youtube.com/embed/zFlNvsFM9kY" allowfullscreen></iframe></div>
+
+
+
+
+<!-- More -->
+
+
+<h3>High level approach</h3>
+
+<p>We&rsquo;ll be using a sensor to detect an obstacle in front of robot. Depending on the sensor input we&rsquo;ll control the motor wheels of robot to either move forward or turn aside.</p>
+
+<h3>Prerequisites</h3>
+
+<ul>
+<li><a href="http://www.amazon.in/dp/B008GRTSV6">Arduino UNO</a> or its <a href="http://www.amazon.in/dp/B00H1HR576">clone</a></li>
+<li><a href="http://www.amazon.in/dp/B00YAD181I">HC-SR04 Ultra sonic sensor</a></li>
+<li><a href="http://www.amazon.in/dp/B00Q4Q1Q6Q">Robot chassis + 2 DC Motors with holder + 2 Wheels + 1 Castor Wheel + Screws &amp; Nuts</a></li>
+<li><a href="http://www.amazon.in/dp/B00LMY58TG">L293D motor driver</a></li>
+<li><a href="http://www.amazon.in/dp/B00N23YNA0">Basic electronics kit</a> contains breadboard, connecting wires, battery &amp; other small useful items</li>
+<li>Jumper Wires: <a href="http://www.amazon.in/dp/B00SJHYN4K">Male to Male</a>, <a href="http://www.amazon.in/dp/B0124BZ56Q">Male to Female</a></li>
+<li>Power source: 5V power bank or 5V battery pack (I used a phone charger power bank I had already)</li>
+<li>Tools: Screw driver, Scissor / Wire stripper</li>
+<li>Softwares: <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a></li>
+</ul>
+
+
+<h2>Steps</h2>
+
+<p>Follow the steps in the order below. If you get stuck at any point, refer to the <a href="#troubleshooting">troubleshooting</a> section.</p>
+
+<h3>Step 1 : Get to know arduino and electronics basics</h3>
+
+<p>If you are new to arduino, try out few <a href="https://www.arduino.cc/en/Tutorial/BuiltInExamples">basic examples</a></p>
+
+<ul>
+<li><a href="https://www.arduino.cc/en/Tutorial/Blink">blinking led</a> to learn controlling output</li>
+<li><a href="https://www.arduino.cc/en/Tutorial/DigitalReadSerial">push button</a> to learn reading input &amp; basic serial output for trouble shooting</li>
+<li><a href="https://learn.sparkfun.com/tutorials/how-to-use-a-breadboard">How to use breadboard</a> (vertical power rails vs horizontal terminal strips)</li>
+</ul>
+
+
+<h3>Step 2: Connect ultrasonic sensor to detect obstacle</h3>
+
+<h5>2.1: Connect the circuit as shown below</h5>
+
+<p><img class="center" src="http://tech.endeepak.com/images/obstacle-avoiding-robot-stage-1.jpg"></p>
+
+<h5>2.2: Add NewPing library to read distance.</h5>
+
+<ul>
+<li>Download the NewPing library as zip <a href="https://bitbucket.org/teckel12/arduino-new-ping/downloads">here</a></li>
+<li>In Arduino IDE go to menu Sketch -> Include Library -> Add .ZIP as library -> Choose the downloaded zip file</li>
+</ul>
+
+
+<h5>2.3: Upload the below code to arduino</h5>
+
+<script src="https://gist.github.com/endeepak/f816adad5867ee78551c.js"></script>
+
+
+<h5>2.4: Test the distance measured by sensor</h5>
+
+<ul>
+<li>In Arduino IDE go to menu Tools -> Serial Monitor</li>
+<li>Move an obstacle in front of sensor and test that correct distance is printed on serial monitor</li>
+</ul>
+
+
+<h3>Step 3: Assemble the robot chassis and test the motors &amp; wheels</h3>
+
+<ul>
+<li>The robot chassis needs to be assembled by looking at the <a href="http://www.amazon.in/dp/B00Q4Q1Q6Q">images in purchased website</a>. Bare minimum you should have the chassis base assembled with motors and wheels</li>
+<li>Cut 4 pieces of connecting wires each of length 15-20 centimeters and strip out both ends of the wire 1-2 centimeters</li>
+<li>Take 2 wires &amp; connect one end of each wire to 2 connection slots of the motor. Repeat the same with other 2 wires using 2nd motor</li>
+<li>Take out a battery (it will be in basic electronics kit) and test motor wheel rotation by connecting other ends of the wires to battery</li>
+</ul>
+
+
+<h3>Step 4: Program L293D motor driver to control the wheels</h3>
+
+<h4>4.1: Connect the L293D motor to arduino</h4>
+
+<p>I couldn&rsquo;t get a fritzing diagram for this circuit since I don&rsquo;t have the SVG for the part purchased. I&rsquo;ll list the connections needed to get it running</p>
+
+<ul>
+<li>Connect 2 wires from one motor to 2 slots in M1 and other 2 wires from other motor to slots in M2</li>
+<li>Connect 5V and 12V on L293D to power line(Red) on breadboard</li>
+<li>Connect GND on L293D to GND line(Black) on breadboard</li>
+<li>Connect C1-A, C1-B on L293D to pins 2 &amp; 3 respectively on arduino. These are motion control pins for Motor 1</li>
+<li>Connect C2-A, C2-B on L293D to pins 7 &amp; 8 respectively on arduino. These are motion control pins for Motor 2</li>
+<li>Connect EN1 and EN2 on L293D to power line(Red) on breadboard. These are enable pins for Motor 1 and Motor 2 respectively. HIGH voltage(power) enables the motor and LOW voltage(GND) disables the motor</li>
+</ul>
+
+
+<p>The connection should look somewhat like the image below</p>
+
+<p><img class="center" src="http://tech.endeepak.com/images/obstacle-avoiding-robot-stage-2.jpg"></p>
+
+<p>Please refer to <a href="http://www.amazon.in/dp/B00LMY58TG">images in purchased website</a> for additional technical details</p>
+
+<h4>4.2: Upload the below code to arduino</h4>
+
+<script src="https://gist.github.com/endeepak/5b3395c1be5597397fdc.js"></script>
+
+
+<h4>4.2: Test the wheel movement control</h4>
+
+<ul>
+<li>The <code>loop</code> function initially tests the <code>move_forward</code> function. Check both wheels are moving in forward direction.</li>
+<li>If any of the motor wheels are rotating in wrong direction swap the connections in M1 or M2 depending on malfunctioning motor</li>
+<li>Change the line in <code>loop</code> function to and replace <code>move_forward</code> with other methods like drive_backward, turn_left, turn_right to test they work as expected</li>
+</ul>
+
+
+<h3>Step 5: Integrate sensor input to control the bot movement</h3>
+
+<p>Upload the below code which has logic to move the robot depending on distance of the obstacle. Feel free to change the obstacle distance or delay or the rotation angle as per your motor speed</p>
+
+<script src="https://gist.github.com/endeepak/87c703fea2ad4e1eede2.js"></script>
+
+
+<h3>Step 6: Test it in the field and celebrate!</h3>
+
+<ul>
+<li>So far you would have used USB from your laptop as power source for arduino. Now you should use a power bank or 5V battery pack to test your robot in the field</li>
+<li>If everything works, run around&hellip;jump up &amp; down&hellip;shout to the sky&hellip;any other way to celebrate the hard earned victory :)</li>
+</ul>
+
+
+<h3>Step 7: Enhancements</h3>
+
+<p>These are optional enhancements that I wanted to try but didn&rsquo;t an opportunity to try</p>
+
+<ul>
+<li>The robot speed can be increased by connecting a 12V battery as power source for L293D</li>
+<li>The accuracy of obstacle detection can be increased by using couple of IR sensors at corners OR by using a servo to rotate the ultrasonic sensor for reading obstacles in the corners</li>
+<li>Attach leds, buzzers, laser, add a custom body to make it look like WALL-E or other funky stuff to add more jazziness the vehicle</li>
+<li>Send it to Mars or Do anything else you can imagine to save or end the human race</li>
+</ul>
+
+
+<p>The code and fritzing diagram is also shared on <a href="https://github.com/endeepak/arduino-projects/tree/master/obstacle_detection_robot">github repo</a></p>
+
+<p><a id="troubleshooting"></a></p>
+
+<h3>Troubleshooting</h3>
+
+<ul>
+<li>Double check the pin number you have connected to on arduino. You might have connected to to the wrong pin because of the angle at your are looking at these circuits. Count the pin numbers slowly to ensure you are connected to pin number x and not x + 1 or x - 1</li>
+<li>Double check the breadboard slots in which you have plugged in the wires or devices. Push the wires or devices to ensure they are plugged in firmly</li>
+<li>Test if the breadboard slots to which you have plugged-in works properly. Use a buzzer or other small equipments which can handle 5V to to test them out (Don&rsquo;t use led without a resistor). I had an issue where some of the pin slots in in power rails were not working due to defective board</li>
+<li>Test the components such as wires, sensors, motors individually and ensure they work properly when used independently</li>
+<li>If nothing helps, google is your friend</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Soft delete and unique constraint]]></title>
