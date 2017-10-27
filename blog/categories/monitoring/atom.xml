@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: monitoring | !geek]]></title>
+  <link href="http://tech.endeepak.com/blog/categories/monitoring/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2017-10-27T21:03:52+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
+  <author>
+    <name><![CDATA[Deepak Narayana Rao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Evolution of monitoring systems]]></title>
+    <link href="http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
+    <updated>2017-10-21T19:54:38+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
+    <content type="html"><![CDATA[<p>Monitoring systems have evolved over time to support evolving architecture styles and deployment strategies</p>
+
+<h2>Generation X+1: Monolithic applications, Bare metal servers</h2>
+
+<p>This was the era where you would have single deployable unit for whole application (labeled as monolithic now). Application and the database would be deployed on a known set of bare metal servers. Vertical scaling was more favorable option for scaling</p>
+
+<!-- More -->
+
+
+<p><a href="https://www.nagios.org">Nagios</a> was(probably still is) the widely used open source monitoring software in this era. You would configure a list of known severs the monitoring system needs to probe to determine the health of the system. This system was simple to configure &amp; operate</p>
+
+<p><img class="center" src="/images/evolution-of-monitoring-systems/nagios-architecture.png"></p>
+
+<p><em>Image Credit:</em> <a href="https://support.nagios.com/kb/article.php?id=141">https://support.nagios.com/kb/article.php?id=141</a></p>
+
+<h2>Generation X+2: Service Oriented Architecture, VMs on the Cloud</h2>
+
+<p>Managing monolithic applications became painful as the businesses grew. Service Oriented Architecture(SOA) became mainstream in this era. Cloud services like AWS made it very easy to launch new VMs for deploying services. Configuration management tools like puppet, ansible made it easy to deploy applications across large number of servers. <a href="https://martinfowler.com/bliki/ImmutableServer.html">Immutable server pattern</a> was evangelized by <a href="https://medium.com/netflix-techblog/how-we-build-code-at-netflix-c5d9bd727f15">well known companies</a>.</p>
+
+<p>Horizontal scalability started becoming more favorable option for scaling. One could bring up new instances of service by launching VMs from a image(eg: AMIs) and bring down VMs easily depending on the load on the system. This deployment architecture demanded a monitoring system which can handle this dynamicity.</p>
+
+<p>Monitoring systems like <a href="https://sensuapp.org/">Sensu</a> solved this issue with a different architecture style. Instead of a central server probing a static list of servers, sensu had a publish &amp; subscription model using RabbitMQ. The monitoring agent running on the application server subscribes to monitoring check messages relevant for the service and pushes the results via same messaging system. Monitoring server itself was horizontally scalable to handle varying load</p>
+
+<p><img class="center" src="/images/evolution-of-monitoring-systems/sensu-architecture.gif"></p>
+
+<p><em>Image Credit</em>: <a href="https://sensuapp.org/docs/1.0/overview/architecture.html">https://sensuapp.org/docs/1.0/overview/architecture.html</a></p>
+
+<h2>Generation X+3: Micro services, Container orchestration engines</h2>
+
+<p>Micro services are becoming mainstream now. Deploying stateless services as containers has made the concept of immutable servers very easy and efficient compared to using VMs. Container orchestration engines like kubernetes, docker swarm have made it easy to run and manage large number of services running as containers inside a cluster of servers. These orchestration engines also provide benefits like auto healing(restart on failure), easy to scale, in-built service discovery &amp; load balancing.</p>
+
+<p>Monitoring systems like sensu doesn&rsquo;t fit well in this setup. Running a monitoring agent alongside the application process in a container adds <a href="https://devops.stackexchange.com/questions/447/why-it-is-recommended-to-run-only-one-process-in-a-container">additional complexity</a> in containers. As service discovery is provided by container orchestration engines, there is no need for adding complexity of running messaging system for solving discovery problem</p>
+
+<p>During the time when Google open sourced kubernetes(most popular container orchestration engine as of now), a new monitoring system - <a href="https://prometheus.io">Prometheus</a> (built by ex-googlers in soundcloud) started gaining lot of traction. Prometheus leverages service discovery mechanisms for registering services to be monitored. It has a lot simpler setup and smaller resource requirements compared to system like sensu. Prometheus factored the containers ecosystem and fits very well for the job. The scalability argument against pull model of monitoring was also <a href="https://prometheus.io/blog/2016/07/23/pull-does-not-scale-or-does-it/">addressed</a> by the authors of the system.</p>
+
+<p><img class="center" src="/images/evolution-of-monitoring-systems/prometheus-architecture.svg"></p>
+
+<p><em>Image Credit</em>: <a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/</a></p>
+
+<h2>Conclusion</h2>
+
+<p>If you are building a new system with architecture patterns and deployment strategies of this era, <a href="https://prometheus.io">Prometheus</a> is a leading choice among open source monitoring systems</p>
+
+<p><em>PS</em>: There are lot of good things(and few limitations) about prometheus which deserves separate blog post :)</p>
+]]></content>
+  </entry>
+  
+</feed>

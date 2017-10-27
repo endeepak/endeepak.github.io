@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</loc>
+    <lastmod>2017-10-21T19:54:38+05:30</lastmod>
+  </url>
+  <url>
     <loc>http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino</loc>
     <lastmod>2016-01-02T16:25:48+05:30</lastmod>
   </url>
@@ -160,5 +164,23 @@
   </url>
   <url>
     <loc>http://tech.endeepak.com/blog/categories/robot/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/monitoring/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/micro-services/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/nagios/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/sensu/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/prometheus/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/devops/</loc>
   </url>
 </urlset>
