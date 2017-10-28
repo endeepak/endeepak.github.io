@@ -22,6 +22,8 @@ Write the missing number in below series
 x1, x2, x3, ? , y5
 ```
 
+<!-- More -->
+
 To figure out these series, my approach was to start with some series x and find a pattern which doesn't hold good after few numbers. After few unsuccessful attempts, tried my luck with series of squares
 
 ```
@@ -36,7 +38,7 @@ Voilà! difference of consecutive squares were not only a odd number, they were 
 
 From what I knew of squares of numbers, this wasn't very obvious. I was very excited to check if this is already known or I was the first one to discover this :). Simple web search presented ton of articles on this observation.
 
-This was disappointing but reading this [link](http://mathcentral.uregina.ca/QQ/database/QQ.09.99/nghiem1.html) about a mathematician appreciating a student's effort in similar finding was comforting and encouraging to carry on with my quest
+That was disappointing but reading this [link](http://mathcentral.uregina.ca/QQ/database/QQ.09.99/nghiem1.html) about a mathematician appreciating a student's effort in similar finding was comforting and encouraging to carry on with my quest
 
 
 
