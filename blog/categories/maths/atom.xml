@@ -4,7 +4,7 @@
   <title><![CDATA[Category: maths | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/maths/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2017-10-28T13:25:38+05:30</updated>
+  <updated>2017-10-28T13:29:02+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -32,6 +32,9 @@ where x1=y1, x2=y2, x3=y3 and x4!=y4, x5!=y5
 x1, x2, x3, ? , y5
 </code></pre>
 
+<!-- More -->
+
+
 <p>To figure out these series, my approach was to start with some series x and find a pattern which doesn&rsquo;t hold good after few numbers. After few unsuccessful attempts, tried my luck with series of squares</p>
 
 <pre><code>1, 4, 9, 16, 25, ...
@@ -44,7 +47,7 @@ x1, x2, x3, ? , y5
 
 <p>From what I knew of squares of numbers, this wasn&rsquo;t very obvious. I was very excited to check if this is already known or I was the first one to discover this :). Simple web search presented ton of articles on this observation.</p>
 
-<p>This was disappointing but reading this <a href="http://mathcentral.uregina.ca/QQ/database/QQ.09.99/nghiem1.html">link</a> about a mathematician appreciating a student&rsquo;s effort in similar finding was comforting and encouraging to carry on with my quest</p>
+<p>That was disappointing but reading this <a href="http://mathcentral.uregina.ca/QQ/database/QQ.09.99/nghiem1.html">link</a> about a mathematician appreciating a student&rsquo;s effort in similar finding was comforting and encouraging to carry on with my quest</p>
 ]]></content>
   </entry>
   
