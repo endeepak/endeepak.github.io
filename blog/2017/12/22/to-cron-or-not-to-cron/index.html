@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Debugging angular view bindings - !geek</title>
+  <title>To cron or not to cron - !geek</title>
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="The way to debug problems with {{}} or ng-bind or any other directive is to use angular.element method. Example: If you want to debug missing data in &hellip;">
+  <meta name="description" content="Using crontab for scheduling background jobs like database backup, purging old data is a common practice in lot of IT organizations. As these jobs &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings">
+  <link rel="canonical" href="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="!geek" type="application/atom+xml">
@@ -69,7 +69,7 @@
   
   <header>
     
-      <h1 class="entry-title">Debugging angular view bindings</h1>
+      <h1 class="entry-title">To cron or not to cron</h1>
     
     
       <p class="meta">
@@ -78,51 +78,42 @@
 
 
 
-<time class='entry-date' datetime='2014-05-03T09:34:54+05:30'><span class='date'><span class='date-month'>May</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>9:34 am</span></time>
+<time class='entry-date' datetime='2017-12-22T12:16:01+05:30'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2017</span></span> <span class='time'>12:16 pm</span></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>The way to debug problems with <code>{{}}</code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
+<div class="entry-content"><p>Using crontab for scheduling background jobs like database backup, purging old data is a common practice in lot of IT organizations. As these jobs are running in background, failures can get missed easily without proper monitoring. In most cases, failures occur due to an error in job script and some times due to mistakes in cron configuration</p>
 
-<!-- more -->
+<!-- More -->
 
 
-<p>Example: If you want to debug missing data in <code>\<span>Name : {{person.fullName()}}\</span></code></p>
+<p>Monitoring short lived cron jobs are not straight forward compared to monitoring long running services like web services. These are few well-known mechanisms for alerting cron job failures</p>
 
 <ul>
-<li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>
-<li>Go to console tab and type</li>
+<li>Cron job writes to a file on success. Monitoring system regularly reads this file and alerts based on last modified time-stamp of the file -[<a href="https://serverfault.com/questions/33145/techniques-to-monitor-cron-tasks">Refer</a>]</li>
+<li>Cron job pings a <a href="https://deadmanssnitch.com/">monitoring service</a> on success. This monitoring service acts as a <a href="https://en.wikipedia.org/wiki/Dead_man%27s_switch">dead man&rsquo;s switch</a> and alerts if there was no call made by the job within expected time interval</li>
 </ul>
 
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">scope</span><span class="p">().</span><span class="nx">pesron</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
+<h3>Pragmatic alternative for crontab</h3>
+
+<p>If you have a CI server like jenkins in your infrastructure, one of the approach that has worked well for us is - create a scheduled job in jenkins with slack/email notifications on failures.</p>
+
+<p>Advantages of this approach</p>
+
+<ul>
+<li>Simpler to setup and effective for catching job script failures</li>
+<li>UI to check job output and history of previous runs</li>
+<li>Ability to manually trigger the job when needed</li>
+</ul>
 
 
-<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
+<h3>Important note</h3>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Get controller</span>
-</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">controller</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//Getting injector and other objects</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">injector</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">injector</span><span class="p">()</span>
-</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;$rootScope&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;myService&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The other alternative is to use chrome extension <a href="https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en">AngularJS Batarang</a>. This will add AngularJS tab in developer Tools. It lists all scopes in the current page. But finding the correct scope for a particualr element quite difficult. The &ldquo;Enable Inspector&rdquo; button in batarang doesn&rsquo;t work that well. So far the <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> is the best way to debug binding issues.</p>
+<p>Whether you use scheduled jobs in crontab or jenkins, you shouldn&rsquo;t depend only on the job&rsquo;s exit status for determining success - [<a href="https://about.gitlab.com/2017/02/01/gitlab-dot-com-database-incident/">Refer</a>]. It is important to have alerting based on expected state of the system after job execution. <em>Example</em>: Timestamp of latest backup file uploaded to backup storage, minimum size of the backup file etc</p>
 </div>
 
 
@@ -138,12 +129,12 @@
 
 
 
-<time class='entry-date' datetime='2014-05-03T09:34:54+05:30'><span class='date'><span class='date-month'>May</span> <span class='date-day'>3</span><span class='date-suffix'>rd</span>, <span class='date-year'>2014</span></span> <span class='time'>9:34 am</span></time>
+<time class='entry-date' datetime='2017-12-22T12:16:01+05:30'><span class='date'><span class='date-month'>Dec</span> <span class='date-day'>22</span><span class='date-suffix'>nd</span>, <span class='date-year'>2017</span></span> <span class='time'>12:16 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/debug/'>debug</a>, <a class='category' href='/blog/categories/javascript/'>javascript</a>
+    <a class='category' href='/blog/categories/devops/'>devops</a>, <a class='category' href='/blog/categories/jenkins/'>jenkins</a>, <a class='category' href='/blog/categories/monitoring/'>monitoring</a>
   
 </span>
 
@@ -152,7 +143,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron" data-via="endeepak" data-counturl="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -165,10 +156,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/05/03/debugging-angular-ui-router" title="Previous Post: Debugging angular ui-router">&laquo; Debugging angular ui-router</a>
+        <a class="basic-alignment left" href="/blog/2017/12/22/docker-swarm-in-production" title="Previous Post: Docker swarm in production">&laquo; Docker swarm in production</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/05/03/octopress-config-dot-yml-changes-not-picked-up" title="Next Post: Octopress config.yml changes not picked up?">Octopress config.yml changes not picked up? &raquo;</a>
       
     </p>
   </footer>
@@ -234,8 +223,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings';
-        var disqus_url = 'http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings';
+        var disqus_identifier = 'http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron';
+        var disqus_url = 'http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron';
         var disqus_script = 'embed.js';
       
     (function () {

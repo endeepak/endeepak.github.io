@@ -4,7 +4,7 @@
   <title><![CDATA[Category: devops | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2017-12-22T11:46:16+05:30</updated>
+  <updated>2017-12-22T13:20:37+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,43 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[To cron or not to cron]]></title>
+    <link href="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
+    <updated>2017-12-22T12:16:01+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
+    <content type="html"><![CDATA[<p>Using crontab for scheduling background jobs like database backup, purging old data is a common practice in lot of IT organizations. As these jobs are running in background, failures can get missed easily without proper monitoring. In most cases, failures occur due to an error in job script and some times due to mistakes in cron configuration</p>
+
+<!-- More -->
+
+
+<p>Monitoring short lived cron jobs are not straight forward compared to monitoring long running services like web services. These are few well-known mechanisms for alerting cron job failures</p>
+
+<ul>
+<li>Cron job writes to a file on success. Monitoring system regularly reads this file and alerts based on last modified time-stamp of the file -[<a href="https://serverfault.com/questions/33145/techniques-to-monitor-cron-tasks">Refer</a>]</li>
+<li>Cron job pings a <a href="https://deadmanssnitch.com/">monitoring service</a> on success. This monitoring service acts as a <a href="https://en.wikipedia.org/wiki/Dead_man%27s_switch">dead man&rsquo;s switch</a> and alerts if there was no call made by the job within expected time interval</li>
+</ul>
+
+
+<h3>Pragmatic alternative for crontab</h3>
+
+<p>If you have a CI server like jenkins in your infrastructure, one of the approach that has worked well for us is - create a scheduled job in jenkins with slack/email notifications on failures.</p>
+
+<p>Advantages of this approach</p>
+
+<ul>
+<li>Simpler to setup and effective for catching job script failures</li>
+<li>UI to check job output and history of previous runs</li>
+<li>Ability to manually trigger the job when needed</li>
+</ul>
+
+
+<h3>Important note</h3>
+
+<p>Whether you use scheduled jobs in crontab or jenkins, you shouldn&rsquo;t depend only on the job&rsquo;s exit status for determining success - [<a href="https://about.gitlab.com/2017/02/01/gitlab-dot-com-database-incident/">Refer</a>]. It is important to have alerting based on expected state of the system after job execution. <em>Example</em>: Timestamp of latest backup file uploaded to backup storage, minimum size of the backup file etc</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Docker swarm in production]]></title>
