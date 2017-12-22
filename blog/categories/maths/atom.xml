@@ -4,7 +4,7 @@
   <title><![CDATA[Category: maths | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/maths/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2017-10-28T13:29:02+05:30</updated>
+  <updated>2017-12-22T11:45:21+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Joy of finding a math series]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series"/>
+    <link href="http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series%20copy"/>
     <updated>2017-10-28T12:46:47+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series</id>
+    <id>http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series copy</id>
     <content type="html"><![CDATA[<p>I was trying to come up with a question for preliminary logic round for interviewing. I decided to form a tricky math series and tried to figure out 2 math series which looks same in the beginning and diverges after a while. Something on the lines of</p>
 
 <pre><code>series x =&gt; x1, x2, x3, x4, x5

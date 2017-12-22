@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2017-10-28T13:29:02+05:30</updated>
+  <updated>2017-12-22T11:45:21+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -14,10 +14,64 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Docker swarm in production]]></title>
+    <link href="http://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production"/>
+    <updated>2017-12-22T09:58:33+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production</id>
+    <content type="html"><![CDATA[<p>This is a experience report on using docker swarm(17.06) in production for ~3 months</p>
+
+<h3>Context</h3>
+
+<p>Prior to this, we were deploying services on VMs using ansible. For a new project, we wanted to explore benefits of running service as containers and decided to use docker swarm due to its simpler setup and consistency with docker engine APIs</p>
+
+<!-- More -->
+
+
+<h3>Benefits</h3>
+
+<p>Using container orchestration engine to run services provided following benefits</p>
+
+<ul>
+<li>Cleaner boundary between Developers building/packaging the services and DevOps team providing platform for running these services. It is a great cultural shift for the organization!</li>
+<li>Consistent way to operate services - start/stop, find logs, scale. This makes it easier to operate</li>
+<li>Implementing cross cutting concerns like log aggregation, monitoring gets easier due to consistency</li>
+<li>Promotes stateless &amp; immutable infrastructure. It is easier to setup new environments &amp; tear down as and when needed</li>
+<li>You can achieve better resource utilization with same level of isolation compared to running services on VMs. Helps overcoming resource management issues when running services in public cloud VMs - which doesn&rsquo;t allow fine gained control on customizing memory, CPU and network resources for a service</li>
+</ul>
+
+
+<p>Docker swarm specific</p>
+
+<ul>
+<li>Easy to setup &amp; operate - single binary/service has all the bells and whistles</li>
+<li>Smaller learning curve due to API consistency with the standalone docker engine</li>
+<li>Built in <a href="https://docs.docker.com/engine/swarm/networking/#configure-service-discovery">service discovery</a>(via DNS)</li>
+<li>Built in <a href="https://docs.docker.com/engine/swarm/ingress/">load balancing</a> across service replicas using battle tested Linux services like IPVS. Load balancing is based on health of the instance determined by <a href="https://docs.docker.com/compose/compose-file/#healthcheck">health checks</a> defined for the service</li>
+<li>Support for distributed <a href="https://docs.docker.com/engine/swarm/configs/">configuration</a> and <a href="https://docs.docker.com/engine/swarm/secrets/">secrets</a></li>
+<li>Support for <a href="https://docs.docker.com/compose/compose-file/#update_config">rolling upgrades</a></li>
+</ul>
+
+
+<h3>Challenges</h3>
+
+<ul>
+<li>Sometimes you&rsquo;ll run into issues <a href="https://github.com/moby/moby/issues/34163">moby#34163</a>, <a href="https://github.com/moby/moby/issues/25432">moby#25432</a> during deployments. Having a <a href="https://github.com/project-sunbird/sunbird-devops/wiki/Docker-swarm-troubleshooting">play-book</a> will help in faster recovery from these failures</li>
+<li>Issues in overlay networking(<a href="https://github.com/docker/swarm/issues/2161">swarm#2161</a>) can make few containers unreachable some times. Having good monitoring is essential for identification and remediation of these issues</li>
+<li>Rolling update is harder to achieve if you are using docker config/secret. Swarm doesn&rsquo;t support updating config/secret. You would have create new config(with new version number) &amp; update the service to use new version of config. It would have been good if this was handled internally using checksum of the config</li>
+</ul>
+
+
+<h3>Conclusion</h3>
+
+<p>Overall, using a container orchestration engine in production has proven to be very productive and useful. Docker swarm is maturing over time, with improved stability it is a promising platform for running containers in production</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Joy of finding a math series]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series"/>
+    <link href="http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series%20copy"/>
     <updated>2017-10-28T12:46:47+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series</id>
+    <id>http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series copy</id>
     <content type="html"><![CDATA[<p>I was trying to come up with a question for preliminary logic round for interviewing. I decided to form a tricky math series and tried to figure out 2 math series which looks same in the beginning and diverges after a while. Something on the lines of</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>

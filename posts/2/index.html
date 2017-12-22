@@ -9,7 +9,7 @@
   <meta name="author" content="Deepak Narayana Rao">
 
   
-  <meta name="description" content="There is no native support for defining functions in JSON. Commonly used approach is to define function as string and use eval() or new Function() to &hellip;">
+  <meta name="description" content="If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -66,6 +66,42 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/05/18/keep-your-models-independent-of-angular">Keep your models independent of angular</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-05-18T16:38:01+05:30'><span class='date'><span class='date-month'>May</span> <span class='date-day'>18</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>4:38 pm</span></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
+
+<p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/05/18/keep-your-models-independent-of-angular">Read on &rarr;</a>
+    </footer>
+  
+
+
+    </article>
   
   
     <article>
@@ -472,7 +508,11 @@
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/10/28/joy-of-finding-a-math-series">Joy of finding a math series</a>
+        <a href="/blog/2017/12/22/docker-swarm-in-production">Docker swarm in production</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2017/10/28/joy-of-finding-a-math-series%20copy">Joy of finding a math series</a>
       </li>
     
       <li class="post">
@@ -487,15 +527,11 @@
         <a href="/blog/2015/10/19/soft-delete-and-unique-constraint">Soft delete and unique constraint</a>
       </li>
     
-      <li class="post">
-        <a href="/blog/2015/09/13/working-software-is-worth-thousand-assurances">Working software is worth thousand assurances</a>
-      </li>
-    
   </ul>
 </section>
 <section>
   <h1>Tag Cloud</h1>
-    <span id="tag-cloud"><a href='/blog/categories/agile' style='font-size: 106.0%'>agile(1)</a> <a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/arduino' style='font-size: 106.0%'>arduino(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/database' style='font-size: 106.0%'>database(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/devops' style='font-size: 106.0%'>devops(1)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/maths' style='font-size: 106.0%'>maths(1)</a> <a href='/blog/categories/meta-programming' style='font-size: 106.0%'>meta-programming(1)</a> <a href='/blog/categories/micro-services' style='font-size: 106.0%'>micro-services(1)</a> <a href='/blog/categories/monitoring' style='font-size: 106.0%'>monitoring(1)</a> <a href='/blog/categories/mvp' style='font-size: 106.0%'>mvp(1)</a> <a href='/blog/categories/nagios' style='font-size: 106.0%'>nagios(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/patterns' style='font-size: 106.0%'>patterns(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/prometheus' style='font-size: 106.0%'>prometheus(1)</a> <a href='/blog/categories/python' style='font-size: 112.0%'>python(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/robot' style='font-size: 106.0%'>robot(1)</a> <a href='/blog/categories/ruby' style='font-size: 124.0%'>ruby(4)</a> <a href='/blog/categories/sensu' style='font-size: 106.0%'>sensu(1)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/tdd' style='font-size: 106.0%'>tdd(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> <a href='/blog/categories/walking-skeleton' style='font-size: 106.0%'>walking-skeleton(1)</a> </span>
+    <span id="tag-cloud"><a href='/blog/categories/agile' style='font-size: 106.0%'>agile(1)</a> <a href='/blog/categories/ajax' style='font-size: 106.0%'>ajax(1)</a> <a href='/blog/categories/angular-ui' style='font-size: 106.0%'>angular-ui(1)</a> <a href='/blog/categories/angularjs' style='font-size: 130.0%'>angularjs(5)</a> <a href='/blog/categories/app-objects' style='font-size: 106.0%'>app-objects(1)</a> <a href='/blog/categories/arduino' style='font-size: 106.0%'>arduino(1)</a> <a href='/blog/categories/capybara' style='font-size: 106.0%'>capybara(1)</a> <a href='/blog/categories/database' style='font-size: 106.0%'>database(1)</a> <a href='/blog/categories/debug' style='font-size: 112.0%'>debug(2)</a> <a href='/blog/categories/devops' style='font-size: 112.0%'>devops(2)</a> <a href='/blog/categories/docker' style='font-size: 106.0%'>docker(1)</a> <a href='/blog/categories/f-dot-js' style='font-size: 106.0%'>f.js(1)</a> <a href='/blog/categories/functional-tests' style='font-size: 112.0%'>functional-tests(2)</a> <a href='/blog/categories/javascript' style='font-size: 160.0%'>javascript(10)</a> <a href='/blog/categories/json' style='font-size: 106.0%'>json(1)</a> <a href='/blog/categories/maths' style='font-size: 106.0%'>maths(1)</a> <a href='/blog/categories/meta-programming' style='font-size: 106.0%'>meta-programming(1)</a> <a href='/blog/categories/micro-services' style='font-size: 106.0%'>micro-services(1)</a> <a href='/blog/categories/monitoring' style='font-size: 106.0%'>monitoring(1)</a> <a href='/blog/categories/mvp' style='font-size: 106.0%'>mvp(1)</a> <a href='/blog/categories/nagios' style='font-size: 106.0%'>nagios(1)</a> <a href='/blog/categories/octopress' style='font-size: 106.0%'>octopress(1)</a> <a href='/blog/categories/overlay' style='font-size: 106.0%'>overlay(1)</a> <a href='/blog/categories/patterns' style='font-size: 106.0%'>patterns(1)</a> <a href='/blog/categories/print' style='font-size: 112.0%'>print(2)</a> <a href='/blog/categories/prometheus' style='font-size: 106.0%'>prometheus(1)</a> <a href='/blog/categories/python' style='font-size: 112.0%'>python(2)</a> <a href='/blog/categories/refactor' style='font-size: 106.0%'>refactor(1)</a> <a href='/blog/categories/robot' style='font-size: 106.0%'>robot(1)</a> <a href='/blog/categories/ruby' style='font-size: 124.0%'>ruby(4)</a> <a href='/blog/categories/sensu' style='font-size: 106.0%'>sensu(1)</a> <a href='/blog/categories/spa' style='font-size: 112.0%'>spa(2)</a> <a href='/blog/categories/spinner' style='font-size: 106.0%'>spinner(1)</a> <a href='/blog/categories/tdd' style='font-size: 106.0%'>tdd(1)</a> <a href='/blog/categories/template' style='font-size: 106.0%'>template(1)</a> <a href='/blog/categories/ui-router' style='font-size: 106.0%'>ui-router(1)</a> <a href='/blog/categories/walking-skeleton' style='font-size: 106.0%'>walking-skeleton(1)</a> </span>
 </section>
 
   
