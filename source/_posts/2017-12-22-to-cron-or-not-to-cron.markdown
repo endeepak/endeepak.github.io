@@ -29,3 +29,5 @@ Advantages of this approach
 ### Important note
 
 Whether you use scheduled jobs in crontab or jenkins, you shouldn't depend only on the job's exit status for determining success - [[Refer](https://about.gitlab.com/2017/02/01/gitlab-dot-com-database-incident/)]. It is important to have alerting based on expected state of the system after job execution. *Example*: Timestamp of latest backup file uploaded to backup storage, minimum size of the backup file etc
+
+**UPDATE**: Checkout [Monitoring DB backups using prometheus](https://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus/) for more details on monitoring DB backups
