@@ -50,6 +50,6 @@ As it was close to end of the day(& week), my mind dropped this problem there. B
   )
 ```
 
-This made me realise, the imperative code I had written earlier was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function again in any other language, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!
+This made me realise, the imperative code I had written earlier was more complex to digest the concept of prime factors when compared to the clojure code. If I have to write this function again in any other language, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!
 
 Well, this was my #cloju-re-alization. What is yours? Leave a comment below or write your own blog post and share
