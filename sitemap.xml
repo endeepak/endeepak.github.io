@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</loc>
+    <lastmod>2019-02-13T20:22:19+05:30</lastmod>
+  </url>
+  <url>
     <loc>http://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus</loc>
     <lastmod>2017-12-22T14:19:02+05:30</lastmod>
   </url>
@@ -89,10 +93,10 @@
     <lastmod>2014-05-01T18:59:39+05:30</lastmod>
   </url>
   <url>
-    <loc>http://tech.endeepak.com/blog/archives/</loc>
+    <loc>http://tech.endeepak.com/</loc>
   </url>
   <url>
-    <loc>http://tech.endeepak.com/</loc>
+    <loc>http://tech.endeepak.com/blog/archives/</loc>
   </url>
   <url>
     <loc>http://tech.endeepak.com/blog/categories/javascript/</loc>
@@ -207,5 +211,11 @@
   </url>
   <url>
     <loc>http://tech.endeepak.com/blog/categories/jenkins/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/clojure/</loc>
+  </url>
+  <url>
+    <loc>http://tech.endeepak.com/blog/categories/functional-programming/</loc>
   </url>
 </urlset>

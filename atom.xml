@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2017-12-22T15:29:28+05:30</updated>
+  <updated>2019-02-14T06:52:00+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -12,6 +12,88 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Cloju-re-alization]]></title>
+    <link href="http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization"/>
+    <updated>2019-02-13T20:22:19+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</id>
+    <content type="html"><![CDATA[<p>This is a story of how learning clojure made me realize one of its selling points through subconscious thinking.</p>
+
+<p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, there were many of my colleagues who had the similar feeling about clojure and purer functional programming languages.</p>
+
+<!-- More -->
+
+
+<p>Some of us attended a group training by <a href="https://www.linkedin.com/in/rjaju/">clojure evangelist and expert</a> who recommended to keep an open mind in the beginning and learn the concepts by solving few basic problems using clojure. As part of this exercise, we wrote a function to find <code>factors</code> of a number which made me curious about extending it to find <code>prime-factors</code> of a number. My mind automatically started thinking of imperative programming approach and translating it to functional style in clojure.</p>
+
+<p>After few minutes of dabbling, it seemed like a very hard(close to impossible) problem to solve in clojure. It made a dent in my confidence and it needed a fix. I decided to write it in imperative style first. Quickly I came up with below python program to regain part of my confidence :)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="k">def</span> <span class="nf">get_prime_factors</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span><span class='line'>    <span class="n">prime_factors</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span class='line'>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+</span><span class='line'>        <span class="k">if</span><span class="p">(</span><span class="n">n</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+</span><span class='line'>            <span class="n">prime_factors</span> <span class="o">+=</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">get_prime_factors</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="n">i</span><span class="p">)</span>
+</span><span class='line'>            <span class="k">break</span>
+</span><span class='line'>    <span class="k">return</span> <span class="n">prime_factors</span>
+</span><span class='line'><span class="c"># not the most optimal solution, but proved I can code function to find prime factors :)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It was close to end of the day(&amp; week), my mind dropped it there. But my subconscious mind hadn&rsquo;t let go of that and started giving me this hint at the end of a good night sleep. I needed to break down the problem into smaller abstractions i.e prime factors of number is smallest prime factor of the number and prime factors of the quotient. This is the code I wrote in clojure after this sudden flash of thoughts</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='clojure'><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">divisible?</span> <span class="p">[</span><span class="nv">n</span>, <span class="nv">x</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nb">zero? </span><span class="p">(</span><span class="nb">rem </span><span class="nv">n</span> <span class="nv">x</span><span class="p">))</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="k">def </span><span class="nv">find-first</span> <span class="p">(</span><span class="nb">comp first </span><span class="nv">filter</span><span class="p">))</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">smallest-prime-factor</span> <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="nf">find-first</span> <span class="o">#</span><span class="p">(</span><span class="nf">divisible?</span> <span class="nv">n</span> <span class="nv">%1</span><span class="p">)</span> <span class="p">(</span><span class="nb">range </span><span class="mi">2</span>, <span class="p">(</span><span class="nb">+ </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))</span>
+</span><span class='line'>  <span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">(</span><span class="kd">defn </span><span class="nv">prime-factors</span> <span class="p">[</span><span class="nv">n</span><span class="p">]</span>
+</span><span class='line'>  <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&lt;= </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>    <span class="p">()</span>
+</span><span class='line'>    <span class="p">(</span><span class="k">let </span><span class="p">[</span><span class="nv">smallest-prime-factor</span> <span class="p">(</span><span class="nf">smallest-prime-factor</span> <span class="nv">n</span><span class="p">)]</span>
+</span><span class='line'>      <span class="p">(</span><span class="nb">concat </span><span class="p">[</span><span class="nv">smallest-prime-factor</span><span class="p">]</span> <span class="p">(</span><span class="nf">prime-factors</span> <span class="p">(</span><span class="nb">/ </span><span class="nv">n</span> <span class="nv">smallest-prime-factor</span><span class="p">))</span> <span class="p">)</span>
+</span><span class='line'>      <span class="p">)</span>
+</span><span class='line'>    <span class="p">)</span>
+</span><span class='line'>  <span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It made me realise that, the function I had written in imperative style was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function in any other language again, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
+
+<p>Well, this was my #cloju-re-alization. What is yours? Leave a comment below or write your own blog post and share</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Monitoring DB backups using prometheus]]></title>
@@ -1635,52 +1717,6 @@ framework
 <h4>Solution</h4>
 
 <p>Before running <code>rake generate deploy</code>, make sure you are not running <code>rake preview</code> or <code>rake watch</code> in any window or tab.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Debugging angular view bindings]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings"/>
-    <updated>2014-05-03T09:34:54+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
-    <content type="html"><![CDATA[<p>The way to debug problems with <code>{{}}</code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
-
-<!-- more -->
-
-
-<p>Example: If you want to debug missing data in <code>\<span>Name : {{person.fullName()}}\</span></code></p>
-
-<ul>
-<li>Right click on the span and click Inspect element. Make sure span is selected in the elements tab</li>
-<li>Go to console tab and type</li>
-</ul>
-
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">scope</span><span class="p">().</span><span class="nx">pesron</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Using <code>angular.element($0).scope()</code> you can inspect the data on scope. The angular.element can also get references to controller, injector using which you can inspect other objects.</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='js'><span class='line'><span class="c1">//Get controller</span>
-</span><span class='line'><span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">controller</span><span class="p">()</span>
-</span><span class='line'>
-</span><span class='line'><span class="c1">//Getting injector and other objects</span>
-</span><span class='line'><span class="kd">var</span> <span class="nx">injector</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">element</span><span class="p">(</span><span class="nx">$0</span><span class="p">).</span><span class="nx">injector</span><span class="p">()</span>
-</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;$rootScope&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;myService&#39;</span><span class="p">)</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The other alternative is to use chrome extension <a href="https://chrome.google.com/webstore/detail/angularjs-batarang/ighdmehidhipcmcojjgiloacoafjmpfk?hl=en">AngularJS Batarang</a>. This will add AngularJS tab in developer Tools. It lists all scopes in the current page. But finding the correct scope for a particualr element quite difficult. The &ldquo;Enable Inspector&rdquo; button in batarang doesn&rsquo;t work that well. So far the <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> is the best way to debug binding issues.</p>
 ]]></content>
   </entry>
   
