@@ -4,7 +4,7 @@
   <title><![CDATA[!geek]]></title>
   <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2019-02-14T07:34:56+05:30</updated>
+  <updated>2019-02-14T07:37:51+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -89,7 +89,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>This made me realise, the imperative code I had written earlier was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function again in any other language, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
+<p>This made me realise, the imperative code I had written earlier was more complex to digest the concept of prime factors when compared to the clojure code. If I have to write this function again in any other language, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
 
 <p>Well, this was my #cloju-re-alization. What is yours? Leave a comment below or write your own blog post and share</p>
 ]]></content>
