@@ -4,7 +4,7 @@
   <title><![CDATA[Category: functional-programming | !geek]]></title>
   <link href="http://tech.endeepak.com/blog/categories/functional-programming/atom.xml" rel="self"/>
   <link href="http://tech.endeepak.com/"/>
-  <updated>2019-02-14T07:26:21+05:30</updated>
+  <updated>2019-02-14T07:34:56+05:30</updated>
   <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -20,14 +20,14 @@
     <id>http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</id>
     <content type="html"><![CDATA[<p>This is a story of how learning clojure made me realize one of its selling points through subconscious thinking.</p>
 
-<p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, there were many of my colleagues who had similar feeling about clojure and pure functional programming languages.</p>
+<p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, many of my colleagues had similar feeling about clojure and pure functional programming languages.</p>
 
 <!-- More -->
 
 
-<p>Some of us attended a group training by <a href="https://www.linkedin.com/in/rjaju/">clojure evangelist and expert</a> who recommended to keep an open mind in the beginning and learn the concepts by solving few basic problems using clojure. As part of this exercise, we wrote a function to find <code>factors</code> of a number which made me curious about extending it to find <code>prime-factors</code> of a number. My mind automatically started thinking of imperative programming approach and translating it to functional style in clojure.</p>
+<p>Some of us attended a training by <a href="https://www.linkedin.com/in/rjaju/">clojure evangelist and expert</a> who recommended to keep an open mind in the beginning and learn the concepts by solving few basic problems using clojure. As part of this exercise, we wrote a function to find <code>factors</code> of a number which made me curious about extending it to find <code>prime-factors</code> of a number. My mind automatically started thinking of imperative programming approach and translating it to functional style in clojure.</p>
 
-<p>After few minutes of dabbling, it seemed like a very hard(close to impossible) problem to solve in clojure. It made a dent in my confidence and it needed a fix. I decided to write it in imperative style first. Quickly I came up with below python program to regain part of my confidence :)</p>
+<p>After few minutes of dabbling, it seemed like a very hard(close to impossible) problem to solve in clojure. It made a dent in my confidence and I needed a fix. I decided to write it in imperative style first and quickly came up with below python program to regain part of my confidence :)</p>
 
 <pre><code class="python">def get_prime_factors(n):
     prime_factors = []
@@ -39,7 +39,7 @@
 # not the most optimal solution, but proved I can code function to find prime factors :)
 </code></pre>
 
-<p>It was close to end of the day(&amp; week), my mind dropped it there. But my subconscious mind hadn&rsquo;t let go of that and started giving me this hint at the end of a good night sleep. I needed to break down the problem into smaller abstractions i.e prime factors of number is smallest prime factor of the number and prime factors of the quotient. This is the code I wrote in clojure after this sudden flash of thoughts</p>
+<p>As it was close to end of the day(&amp; week), my mind dropped this problem there. But my subconscious mind hadn&rsquo;t let go of this problem and started giving me this hint at the end of a good night sleep. I needed to breakdown the problem into smaller abstractions i.e prime factors of number is smallest prime factor of the number and prime factors of the quotient. This is the code I wrote in clojure after this sudden flash of thoughts</p>
 
 <pre><code class="clojure">(defn divisible? [n, x]
   (zero? (rem n x))
@@ -61,7 +61,7 @@
   )
 </code></pre>
 
-<p>It made me realise that, the function I had written in imperative style was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function in any other language again, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
+<p>This made me realise, the imperative code I had written earlier was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function again in any other language, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
 
 <p>Well, this was my #cloju-re-alization. What is yours? Leave a comment below or write your own blog post and share</p>
 ]]></content>

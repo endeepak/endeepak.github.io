@@ -87,14 +87,14 @@
 
 <div class="entry-content"><p>This is a story of how learning clojure made me realize one of its selling points through subconscious thinking.</p>
 
-<p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, there were many of my colleagues who had similar feeling about clojure and pure functional programming languages.</p>
+<p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, many of my colleagues had similar feeling about clojure and pure functional programming languages.</p>
 
 <!-- More -->
 
 
-<p>Some of us attended a group training by <a href="https://www.linkedin.com/in/rjaju/">clojure evangelist and expert</a> who recommended to keep an open mind in the beginning and learn the concepts by solving few basic problems using clojure. As part of this exercise, we wrote a function to find <code>factors</code> of a number which made me curious about extending it to find <code>prime-factors</code> of a number. My mind automatically started thinking of imperative programming approach and translating it to functional style in clojure.</p>
+<p>Some of us attended a training by <a href="https://www.linkedin.com/in/rjaju/">clojure evangelist and expert</a> who recommended to keep an open mind in the beginning and learn the concepts by solving few basic problems using clojure. As part of this exercise, we wrote a function to find <code>factors</code> of a number which made me curious about extending it to find <code>prime-factors</code> of a number. My mind automatically started thinking of imperative programming approach and translating it to functional style in clojure.</p>
 
-<p>After few minutes of dabbling, it seemed like a very hard(close to impossible) problem to solve in clojure. It made a dent in my confidence and it needed a fix. I decided to write it in imperative style first. Quickly I came up with below python program to regain part of my confidence :)</p>
+<p>After few minutes of dabbling, it seemed like a very hard(close to impossible) problem to solve in clojure. It made a dent in my confidence and I needed a fix. I decided to write it in imperative style first and quickly came up with below python program to regain part of my confidence :)</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -115,7 +115,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>It was close to end of the day(&amp; week), my mind dropped it there. But my subconscious mind hadn&rsquo;t let go of that and started giving me this hint at the end of a good night sleep. I needed to break down the problem into smaller abstractions i.e prime factors of number is smallest prime factor of the number and prime factors of the quotient. This is the code I wrote in clojure after this sudden flash of thoughts</p>
+<p>As it was close to end of the day(&amp; week), my mind dropped this problem there. But my subconscious mind hadn&rsquo;t let go of this problem and started giving me this hint at the end of a good night sleep. I needed to breakdown the problem into smaller abstractions i.e prime factors of number is smallest prime factor of the number and prime factors of the quotient. This is the code I wrote in clojure after this sudden flash of thoughts</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -156,7 +156,7 @@
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p>It made me realise that, the function I had written in imperative style was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function in any other language again, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
+<p>This made me realise, the imperative code I had written earlier was more complex to digest the concept of prime factors when compared to the clojure function. If I have to write this function again in any other language, I would definitely break it down to abstractions defined in the clojure function above. In a way, clojure was making it harder to write bad code!</p>
 
 <p>Well, this was my #cloju-re-alization. What is yours? Leave a comment below or write your own blog post and share</p>
 </div>
