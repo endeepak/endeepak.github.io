@@ -8,7 +8,7 @@ categories: clojure functional-programming
 
 This is a story of how learning clojure made me realize one of its selling points through subconscious thinking.
 
-I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing `(def y (+ (* m x) c)` felt very weird after expressing it as `y = m * x + c` during many years of education. I wasn't alone, there were many of my colleagues who had the similar feeling about clojure and purer functional programming languages.
+I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing `(def y (+ (* m x) c)` felt very weird after expressing it as `y = m * x + c` during many years of education. I wasn't alone, there were many of my colleagues who had similar feeling about clojure and pure functional programming languages.
 
 <!-- More -->
 
