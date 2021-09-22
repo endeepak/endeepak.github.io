@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: json | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/json/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/json/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Javascript functions in JSON configuration]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration"/>
     <updated>2014-05-18T15:20:32+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration</id>
+    <id>https://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration</id>
     <content type="html"><![CDATA[<p>There is no native support for defining functions in JSON. Commonly used approach is to define function as string and use <code>eval()</code> or <code>new Function()</code> to contruct the function. The basic difference between these two are</p>
 
 <ul>

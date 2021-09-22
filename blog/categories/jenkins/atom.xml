@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: jenkins | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/jenkins/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/jenkins/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[To cron or not to cron]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
+    <link href="https://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
     <updated>2017-12-22T12:16:01+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
+    <id>https://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
     <content type="html"><![CDATA[<p>Using crontab for scheduling background jobs like database backup, purging old data is a common practice in lot of IT organizations. As these jobs are running in background, failures can get missed easily without proper monitoring. In most cases, failures occur due to an error in job script and some times due to mistakes in cron configuration</p>
 
 <!-- More -->

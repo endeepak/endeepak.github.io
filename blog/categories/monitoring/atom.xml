@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: monitoring | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/monitoring/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/monitoring/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Monitoring DB backups using prometheus]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus"/>
+    <link href="https://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus"/>
     <updated>2017-12-22T14:19:02+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus</id>
+    <id>https://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus</id>
     <content type="html"><![CDATA[<p>Ensuring correct database backups taken at regular interval is very critical for disaster recovery. Recent <a href="https://about.gitlab.com/2017/02/01/gitlab-dot-com-database-incident/">gitlab database incident</a> re-emphasizes this fact. <a href="https://about.gitlab.com/">Gitlab</a> was very transparent about this and <a href="https://gitlab.com/gitlab-com/www-gitlab-com/issues/1108">documented</a> approaches for preventing these failures</p>
 
 <p>The preventive measures include, monitoring -</p>
@@ -88,9 +88,9 @@ ALERT backup_size_is_too_small
   
   <entry>
     <title type="html"><![CDATA[To cron or not to cron]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
+    <link href="https://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
     <updated>2017-12-22T12:16:01+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
+    <id>https://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
     <content type="html"><![CDATA[<p>Using crontab for scheduling background jobs like database backup, purging old data is a common practice in lot of IT organizations. As these jobs are running in background, failures can get missed easily without proper monitoring. In most cases, failures occur due to an error in job script and some times due to mistakes in cron configuration</p>
 
 <!-- More -->
@@ -127,9 +127,9 @@ ALERT backup_size_is_too_small
   
   <entry>
     <title type="html"><![CDATA[Evolution of monitoring systems]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
+    <link href="https://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
     <updated>2017-10-21T19:54:38+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
+    <id>https://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
     <content type="html"><![CDATA[<p>Monitoring systems have evolved over time to support evolving architecture styles and deployment strategies</p>
 
 <h2>Generation X+1: Monolithic applications, Bare metal servers</h2>

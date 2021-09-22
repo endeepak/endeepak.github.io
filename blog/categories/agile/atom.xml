@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: agile | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/agile/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/agile/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Working software is worth thousand assurances]]></title>
-    <link href="http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances"/>
+    <link href="https://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances"/>
     <updated>2015-09-13T19:09:14+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances</id>
+    <id>https://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances</id>
     <content type="html"><![CDATA[<p>In the beginning of a software project, every one starts with a big list of features. If you ask the product owner, what is the minimum set of features that we can go live with? most of the times you&rsquo;ll hear a lot more than you expected.</p>
 
 <p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methodologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharing my experience from couple of projects in past few years.</p>

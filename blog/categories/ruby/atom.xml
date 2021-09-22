@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ruby | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/ruby/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Python's elegance in dynamic methods compared to ruby]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
+    <link href="https://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
     <updated>2014-12-27T16:48:17+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
+    <id>https://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
     <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 <!-- More -->
@@ -68,9 +68,9 @@ hasattr(foo, 'bar_qux')
   
   <entry>
     <title type="html"><![CDATA[Common mistakes while switching from ruby to python]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python"/>
+    <link href="https://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python"/>
     <updated>2014-12-17T13:50:24+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
+    <id>https://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
     <content type="html"><![CDATA[<p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
 
 <!-- More -->
@@ -134,9 +134,9 @@ def add(x, y):
   
   <entry>
     <title type="html"><![CDATA[Using app objects in multi app functional tests]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
+    <link href="https://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
     <updated>2014-07-27T18:40:04+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
+    <id>https://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
     <content type="html"><![CDATA[<p>It is better to create small modular apps instead of single monolithic application. In <a href="http://www.bahmni.org">Bahmni EMR</a> we have small apps for Patient Registration, Consultation, etc. An end to end <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">functional test</a> covering patient registration and consultation goes through multiple apps. We needed to abstract the concept of an app in test code to increase the readability and maintainability.</p>
 
 <p>The app objects are natural extension of <a href="https://code.google.com/p/selenium/wiki/PageObjects">page objects</a> recommended for writing functional tests. An app encapsulates all pages and coarse level actions in the app.</p>
@@ -226,9 +226,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Make sure functional tests are user centric]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
+    <link href="https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
     <updated>2014-07-27T16:43:49+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
+    <id>https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
     <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.</p>
 
 <p>Couple of bad ways to achieve this is by using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>

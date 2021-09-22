@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[!geek]]></title>
-  <link href="http://tech.endeepak.com/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Visual simulation of consistent hashing]]></title>
-    <link href="http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consitent-hashing"/>
+    <link href="https://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing"/>
     <updated>2021-09-22T06:02:44+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consitent-hashing</id>
+    <id>https://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing</id>
     <content type="html"><![CDATA[<p>Caching is an important aspect of the high performance applications. As the data volume increases, the cached data needs to be distributed across multiple servers. We need to make sure the following objectives are met while doing so.</p>
 
 <ul>
@@ -304,7 +304,7 @@
 
 <p>Consistent hashing has proven to be a useful technique since its inception in<a href="https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf">1997</a> and it is used in many <a href="https://en.wikipedia.org/wiki/Consistent_hashing">well known</a> distributed systems because of the simplicity and the benefits it offers. The optimization does not end with what we have read so far. Please checkout <a href="https://medium.com/vimeo-engineering-blog/improving-load-balancing-with-a-new-consistent-hashing-algorithm-9f1bd75709ed">this blog</a> or <a href="https://www.youtube.com/watch?v=jk6oiBJxcaA&amp;ab_channel=GoogleTechTalks">this video</a> by vimeo engineering on their practical usage.</p>
 
-<blockquote><p>Meta: You can find the the code used for simulation <a href="https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consitent-hashing.markdown">here</a>.</p></blockquote>
+<blockquote><p>Meta: You can find the the code used for simulation <a href="https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consistent-hashing.markdown">here</a>.</p></blockquote>
 
 <h2>Acknowledgements</h2>
 
@@ -317,9 +317,9 @@
   
   <entry>
     <title type="html"><![CDATA[Cloju-re-alization]]></title>
-    <link href="http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization"/>
+    <link href="https://tech.endeepak.com/blog/2019/02/13/cloju-re-alization"/>
     <updated>2019-02-13T20:22:19+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</id>
+    <id>https://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</id>
     <content type="html"><![CDATA[<p>This is a story of how learning clojure made me realize one of its selling points through subconscious thinking.</p>
 
 <p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, many of my colleagues had similar feeling about clojure and pure functional programming languages.</p>
@@ -399,9 +399,9 @@
   
   <entry>
     <title type="html"><![CDATA[Monitoring DB backups using prometheus]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus"/>
+    <link href="https://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus"/>
     <updated>2017-12-22T14:19:02+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus</id>
+    <id>https://tech.endeepak.com/blog/2017/12/22/monitoring-db-backups-using-prometheus</id>
     <content type="html"><![CDATA[<p>Ensuring correct database backups taken at regular interval is very critical for disaster recovery. Recent <a href="https://about.gitlab.com/2017/02/01/gitlab-dot-com-database-incident/">gitlab database incident</a> re-emphasizes this fact. <a href="https://about.gitlab.com/">Gitlab</a> was very transparent about this and <a href="https://gitlab.com/gitlab-com/www-gitlab-com/issues/1108">documented</a> approaches for preventing these failures</p>
 
 <p>The preventive measures include, monitoring -</p>
@@ -493,9 +493,9 @@
   
   <entry>
     <title type="html"><![CDATA[To cron or not to cron]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
+    <link href="https://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron"/>
     <updated>2017-12-22T12:16:01+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
+    <id>https://tech.endeepak.com/blog/2017/12/22/to-cron-or-not-to-cron</id>
     <content type="html"><![CDATA[<p>Using crontab for scheduling background jobs like database backup, purging old data is a common practice in lot of IT organizations. As these jobs are running in background, failures can get missed easily without proper monitoring. In most cases, failures occur due to an error in job script and some times due to mistakes in cron configuration</p>
 
 <!-- More -->
@@ -532,9 +532,9 @@
   
   <entry>
     <title type="html"><![CDATA[Docker swarm in production]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production"/>
+    <link href="https://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production"/>
     <updated>2017-12-22T09:58:33+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production</id>
+    <id>https://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production</id>
     <content type="html"><![CDATA[<p>This is a experience report on using docker swarm(17.06) in production for ~3 months</p>
 
 <h3>Context</h3>
@@ -586,9 +586,9 @@
   
   <entry>
     <title type="html"><![CDATA[Joy of finding a math series]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series"/>
+    <link href="https://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series"/>
     <updated>2017-10-28T12:46:47+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series</id>
+    <id>https://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series</id>
     <content type="html"><![CDATA[<p>I was trying to come up with a question for preliminary logic round for interviewing. I decided to form a tricky math series and tried to figure out 2 math series which looks same in the beginning and diverges after a while. Something on the lines of</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
@@ -634,9 +634,9 @@
   
   <entry>
     <title type="html"><![CDATA[Evolution of monitoring systems]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
+    <link href="https://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
     <updated>2017-10-21T19:54:38+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
+    <id>https://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
     <content type="html"><![CDATA[<p>Monitoring systems have evolved over time to support evolving architecture styles and deployment strategies</p>
 
 <h2>Generation X+1: Monolithic applications, Bare metal servers</h2>
@@ -648,7 +648,7 @@
 
 <p><a href="https://www.nagios.org">Nagios</a> was(probably still is) the widely used open source monitoring software in this era. You would configure a list of known severs the monitoring system needs to probe to determine the health of the system. This system was simple to configure &amp; operate</p>
 
-<p><img class="center" src="http://tech.endeepak.com/images/evolution-of-monitoring-systems/nagios-architecture.png"></p>
+<p><img class="center" src="https://tech.endeepak.com/images/evolution-of-monitoring-systems/nagios-architecture.png"></p>
 
 <p><em>Image Credit:</em> <a href="https://support.nagios.com/kb/article.php?id=141">https://support.nagios.com/kb/article.php?id=141</a></p>
 
@@ -660,7 +660,7 @@
 
 <p>Monitoring systems like <a href="https://sensuapp.org/">Sensu</a> solved this issue with a different architecture style. Instead of a central server probing a static list of servers, sensu had a publish &amp; subscription model using RabbitMQ. The monitoring agent running on the application server subscribes to monitoring check messages relevant for the service and pushes the results via same messaging system. Monitoring server itself was horizontally scalable to handle varying load</p>
 
-<p><img class="center" src="http://tech.endeepak.com/images/evolution-of-monitoring-systems/sensu-architecture.gif"></p>
+<p><img class="center" src="https://tech.endeepak.com/images/evolution-of-monitoring-systems/sensu-architecture.gif"></p>
 
 <p><em>Image Credit</em>: <a href="https://sensuapp.org/docs/1.0/overview/architecture.html">https://sensuapp.org/docs/1.0/overview/architecture.html</a></p>
 
@@ -672,7 +672,7 @@
 
 <p>During the time when Google open sourced kubernetes(most popular container orchestration engine as of now), a new monitoring system - <a href="https://prometheus.io">Prometheus</a> (built by ex-googlers in soundcloud) started gaining lot of traction. Prometheus leverages service discovery mechanisms for registering services to be monitored. It has a lot simpler setup and smaller resource requirements compared to system like sensu. Prometheus factored the containers ecosystem and fits very well for the job. The scalability argument against pull model of monitoring was also <a href="https://prometheus.io/blog/2016/07/23/pull-does-not-scale-or-does-it/">addressed</a> by the authors of the system.</p>
 
-<p><img class="center" src="http://tech.endeepak.com/images/evolution-of-monitoring-systems/prometheus-architecture.svg"></p>
+<p><img class="center" src="https://tech.endeepak.com/images/evolution-of-monitoring-systems/prometheus-architecture.svg"></p>
 
 <p><em>Image Credit</em>: <a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/</a></p>
 
@@ -686,9 +686,9 @@
   
   <entry>
     <title type="html"><![CDATA[Simple obstacle avoiding robot using arduino]]></title>
-    <link href="http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino"/>
+    <link href="https://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino"/>
     <updated>2016-01-02T16:25:48+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino</id>
+    <id>https://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino</id>
     <content type="html"><![CDATA[<p>Building obstacle avoiding robot is a simple &amp; fun way to start learning arduino and electronics. A lot of useful articles explain this, but you will be blocked if you can&rsquo;t get the same parts in your region. In this post, I&rsquo;ll explain how to build a simple and minimal robot using the parts available online in India.</p>
 
 <p>Watch the below video to get an idea of what you could build by following this article.</p>
@@ -739,7 +739,7 @@
 
 <h5>2.1: Connect the circuit as shown below</h5>
 
-<p><img class="center" src="http://tech.endeepak.com/images/obstacle-avoiding-robot-stage-1.jpg"></p>
+<p><img class="center" src="https://tech.endeepak.com/images/obstacle-avoiding-robot-stage-1.jpg"></p>
 
 <h5>2.2: Add NewPing library to read distance.</h5>
 
@@ -790,7 +790,7 @@
 
 <p>The connection should look somewhat like the image below</p>
 
-<p><img class="center" src="http://tech.endeepak.com/images/obstacle-avoiding-robot-stage-2.jpg"></p>
+<p><img class="center" src="https://tech.endeepak.com/images/obstacle-avoiding-robot-stage-2.jpg"></p>
 
 <p>Please refer to <a href="http://www.amazon.in/dp/B00LMY58TG">images in purchased website</a> for additional technical details</p>
 
@@ -854,9 +854,9 @@
   
   <entry>
     <title type="html"><![CDATA[Soft delete and unique constraint]]></title>
-    <link href="http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint"/>
+    <link href="https://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint"/>
     <updated>2015-10-19T17:59:41+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint</id>
+    <id>https://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint</id>
     <content type="html"><![CDATA[<p>This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows.</p>
 
 <h2>Problem Context</h2>
@@ -907,9 +907,9 @@
   
   <entry>
     <title type="html"><![CDATA[Working software is worth thousand assurances]]></title>
-    <link href="http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances"/>
+    <link href="https://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances"/>
     <updated>2015-09-13T19:09:14+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances</id>
+    <id>https://tech.endeepak.com/blog/2015/09/13/working-software-is-worth-thousand-assurances</id>
     <content type="html"><![CDATA[<p>In the beginning of a software project, every one starts with a big list of features. If you ask the product owner, what is the minimum set of features that we can go live with? most of the times you&rsquo;ll hear a lot more than you expected.</p>
 
 <p>It gets lot harder to talk about minimum scope when you are rewriting an existing software. We would usually want to go live with the minimum viable product(MVP) and build reset of it incrementally. If people are new to agile methodologies, these questions on reducing scope might look stupid &amp; annoying. Fortunately there are ways to get these questions answered, I&rsquo;m sharing my experience from couple of projects in past few years.</p>
@@ -963,9 +963,9 @@ Product owners: Lets go live!! We need to go there before our competitors
   
   <entry>
     <title type="html"><![CDATA[Python's elegance in dynamic methods compared to ruby]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
+    <link href="https://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
     <updated>2014-12-27T16:48:17+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
+    <id>https://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
     <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 <!-- More -->
@@ -1049,9 +1049,9 @@ Product owners: Lets go live!! We need to go there before our competitors
   
   <entry>
     <title type="html"><![CDATA[Common mistakes while switching from ruby to python]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python"/>
+    <link href="https://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python"/>
     <updated>2014-12-17T13:50:24+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
+    <id>https://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
     <content type="html"><![CDATA[<p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
 
 <!-- More -->
@@ -1161,9 +1161,9 @@ Product owners: Lets go live!! We need to go there before our competitors
   
   <entry>
     <title type="html"><![CDATA[Using app objects in multi app functional tests]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
+    <link href="https://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
     <updated>2014-07-27T18:40:04+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
+    <id>https://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
     <content type="html"><![CDATA[<p>It is better to create small modular apps instead of single monolithic application. In <a href="http://www.bahmni.org">Bahmni EMR</a> we have small apps for Patient Registration, Consultation, etc. An end to end <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">functional test</a> covering patient registration and consultation goes through multiple apps. We needed to abstract the concept of an app in test code to increase the readability and maintainability.</p>
 
 <p>The app objects are natural extension of <a href="https://code.google.com/p/selenium/wiki/PageObjects">page objects</a> recommended for writing functional tests. An app encapsulates all pages and coarse level actions in the app.</p>
@@ -1299,9 +1299,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Make sure functional tests are user centric]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
+    <link href="https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
     <updated>2014-07-27T16:43:49+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
+    <id>https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
     <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.</p>
 
 <p>Couple of bad ways to achieve this is by using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
@@ -1388,9 +1388,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Keep your models independent of angular]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
+    <id>https://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
     <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
@@ -1527,9 +1527,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Javascript functions in JSON configuration]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration"/>
     <updated>2014-05-18T15:20:32+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration</id>
+    <id>https://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration</id>
     <content type="html"><![CDATA[<p>There is no native support for defining functions in JSON. Commonly used approach is to define function as string and use <code>eval()</code> or <code>new Function()</code> to contruct the function. The basic difference between these two are</p>
 
 <ul>
@@ -1642,9 +1642,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Spinners in single page apps]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
     <updated>2014-05-11T16:55:23+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
+    <id>https://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
     <content type="html"><![CDATA[<p>One of the good practices in single page apps, is to show spinners (overlay + loading icon) while retrieving data or saving asynchronously. Often people tend to add a generic interceptor to show spinner for all ajax calls. In any mid size app, you will realize that the assumption <strong>&ldquo;Show an overlay for all ajax call&rdquo;</strong> is incorrect. Few examples</p>
 
 <ul>
@@ -1749,9 +1749,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Printing external html templates using AngularJS]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
     <updated>2014-05-03T20:50:48+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
     <content type="html"><![CDATA[<h2>Use case</h2>
 
 <p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
@@ -1846,9 +1846,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Waiting for AngularJS digest cycle]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle"/>
     <updated>2014-05-03T17:43:34+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</id>
     <content type="html"><![CDATA[<p>The million dollar question most of the AngularJS users(devs) end up asking is</p>
 
 <ul>
@@ -1902,9 +1902,9 @@ framework
   
   <entry>
     <title type="html"><![CDATA[Printing html with image and css]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css"/>
     <updated>2014-05-03T16:54:00+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</id>
     <content type="html"><![CDATA[<p>There are plenty of examples for printing html of an element. Most of them look like this</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: angularjs | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/angularjs/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Keep your models independent of angular]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
+    <id>https://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
     <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
@@ -102,9 +102,9 @@ $scope.person = new Person();
   
   <entry>
     <title type="html"><![CDATA[Printing external html templates using AngularJS]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
     <updated>2014-05-03T20:50:48+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
     <content type="html"><![CDATA[<h2>Use case</h2>
 
 <p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
@@ -122,8 +122,8 @@ printer.print('/config/registrationCardTempate.html', {patient: {name: 'Ram Kuma
 <p>Sample html template</p>
 
 <p>&#8220;`html
-<link rel="stylesheet" href="http://tech.endeepak.com/config/registrationCard.css"/>
-<img src="http://tech.endeepak.com/config/logo.jpg"><img></p>
+<link rel="stylesheet" href="https://tech.endeepak.com/config/registrationCard.css"/>
+<img src="https://tech.endeepak.com/config/logo.jpg"><img></p>
 
 <h1>The hospital name</h1>
 
@@ -170,9 +170,9 @@ The complete solution is available on <a href="https://github.com/Bhamni/openmrs
   
   <entry>
     <title type="html"><![CDATA[Waiting for AngularJS digest cycle]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle"/>
     <updated>2014-05-03T17:43:34+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/waiting-for-angularjs-digest-cycle</id>
     <content type="html"><![CDATA[<p>The million dollar question most of the AngularJS users(devs) end up asking is</p>
 
 <ul>
@@ -213,9 +213,9 @@ $timeout(waitForRenderAndDoSomething); // Waits for first digest cycle
   
   <entry>
     <title type="html"><![CDATA[Debugging angular view bindings]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings"/>
     <updated>2014-05-03T09:34:54+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/debugging-angular-view-bindings</id>
     <content type="html"><![CDATA[<p>The way to debug problems with <code></code> or <code>ng-bind</code> or any other directive is to use <a href="https://docs.angularjs.org/api/ng/function/angular.element">angular.element</a> method.</p>
 
 <!-- more -->
@@ -249,9 +249,9 @@ injector.get('myService')
   
   <entry>
     <title type="html"><![CDATA[Debugging angular ui-router]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router"/>
     <updated>2014-05-03T08:21:40+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/debugging-angular-ui-router</id>
     <content type="html"><![CDATA[<p>The <a href="https://github.com/angular-ui/ui-router">ui-router</a> from <a href="https://github.com/angular-ui">angular-ui</a> gives power of nested states and multiple named views which is essential for angular apps with non-trivial layout and workflow.</p>
 
 <p>The main problem with angular ui-router is getting the route configurations right in the first time. You start seeing blank pages for misconfigured views. The sad part is these errors are not logged to console. It gets quite frustrating in tracking down the cause.</p>

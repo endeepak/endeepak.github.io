@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: app-objects | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/app-objects/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/app-objects/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Using app objects in multi app functional tests]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
+    <link href="https://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests"/>
     <updated>2014-07-27T18:40:04+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
+    <id>https://tech.endeepak.com/blog/2014/07/27/using-app-objects-in-multi-app-functional-tests</id>
     <content type="html"><![CDATA[<p>It is better to create small modular apps instead of single monolithic application. In <a href="http://www.bahmni.org">Bahmni EMR</a> we have small apps for Patient Registration, Consultation, etc. An end to end <a href="https://github.com/Bhamni/emr-functional-tests/tree/master/spec">functional test</a> covering patient registration and consultation goes through multiple apps. We needed to abstract the concept of an app in test code to increase the readability and maintainability.</p>
 
 <p>The app objects are natural extension of <a href="https://code.google.com/p/selenium/wiki/PageObjects">page objects</a> recommended for writing functional tests. An app encapsulates all pages and coarse level actions in the app.</p>

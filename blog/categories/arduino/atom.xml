@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: arduino | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/arduino/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/arduino/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Simple obstacle avoiding robot using arduino]]></title>
-    <link href="http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino"/>
+    <link href="https://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino"/>
     <updated>2016-01-02T16:25:48+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino</id>
+    <id>https://tech.endeepak.com/blog/2016/01/02/simple-obstacle-avoiding-robot-using-arduino</id>
     <content type="html"><![CDATA[<p>Building obstacle avoiding robot is a simple &amp; fun way to start learning arduino and electronics. A lot of useful articles explain this, but you will be blocked if you can&rsquo;t get the same parts in your region. In this post, I&rsquo;ll explain how to build a simple and minimal robot using the parts available online in India.</p>
 
 <p>Watch the below video to get an idea of what you could build by following this article.</p>

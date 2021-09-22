@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: caching | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/caching/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/caching/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Visual simulation of consistent hashing]]></title>
-    <link href="http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consitent-hashing"/>
+    <link href="https://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing"/>
     <updated>2021-09-22T06:02:44+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consitent-hashing</id>
+    <id>https://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing</id>
     <content type="html"><![CDATA[<p>Caching is an important aspect of the high performance applications. As the data volume increases, the cached data needs to be distributed across multiple servers. We need to make sure the following objectives are met while doing so.</p>
 
 <ul>
@@ -304,7 +304,7 @@
 
 <p>Consistent hashing has proven to be a useful technique since its inception in<a href="https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf">1997</a> and it is used in many <a href="https://en.wikipedia.org/wiki/Consistent_hashing">well known</a> distributed systems because of the simplicity and the benefits it offers. The optimization does not end with what we have read so far. Please checkout <a href="https://medium.com/vimeo-engineering-blog/improving-load-balancing-with-a-new-consistent-hashing-algorithm-9f1bd75709ed">this blog</a> or <a href="https://www.youtube.com/watch?v=jk6oiBJxcaA&amp;ab_channel=GoogleTechTalks">this video</a> by vimeo engineering on their practical usage.</p>
 
-<blockquote><p>Meta: You can find the the code used for simulation <a href="https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consitent-hashing.markdown">here</a>.</p></blockquote>
+<blockquote><p>Meta: You can find the the code used for simulation <a href="https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consistent-hashing.markdown">here</a>.</p></blockquote>
 
 <h2>Acknowledgements</h2>
 

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: nagios | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/nagios/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/nagios/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Evolution of monitoring systems]]></title>
-    <link href="http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
+    <link href="https://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems"/>
     <updated>2017-10-21T19:54:38+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
+    <id>https://tech.endeepak.com/blog/2017/10/21/evolution-of-monitoring-systems</id>
     <content type="html"><![CDATA[<p>Monitoring systems have evolved over time to support evolving architecture styles and deployment strategies</p>
 
 <h2>Generation X+1: Monolithic applications, Bare metal servers</h2>

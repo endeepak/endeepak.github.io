@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: print | !geek]]></title>
-  <link href="http://tech.endeepak.com/blog/categories/print/atom.xml" rel="self"/>
-  <link href="http://tech.endeepak.com/"/>
-  <updated>2021-09-22T07:06:03+05:30</updated>
-  <id>http://tech.endeepak.com/</id>
+  <link href="https://tech.endeepak.com/blog/categories/print/atom.xml" rel="self"/>
+  <link href="https://tech.endeepak.com/"/>
+  <updated>2021-09-22T09:46:52+05:30</updated>
+  <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Printing external html templates using AngularJS]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
     <updated>2014-05-03T20:50:48+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
     <content type="html"><![CDATA[<h2>Use case</h2>
 
 <p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
@@ -35,8 +35,8 @@ printer.print('/config/registrationCardTempate.html', {patient: {name: 'Ram Kuma
 <p>Sample html template</p>
 
 <p>&#8220;`html
-<link rel="stylesheet" href="http://tech.endeepak.com/config/registrationCard.css"/>
-<img src="http://tech.endeepak.com/config/logo.jpg"><img></p>
+<link rel="stylesheet" href="https://tech.endeepak.com/config/registrationCard.css"/>
+<img src="https://tech.endeepak.com/config/logo.jpg"><img></p>
 
 <h1>The hospital name</h1>
 
@@ -83,9 +83,9 @@ The complete solution is available on <a href="https://github.com/Bhamni/openmrs
   
   <entry>
     <title type="html"><![CDATA[Printing html with image and css]]></title>
-    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css"/>
+    <link href="https://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css"/>
     <updated>2014-05-03T16:54:00+05:30</updated>
-    <id>http://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</id>
+    <id>https://tech.endeepak.com/blog/2014/05/03/printing-html-with-image-and-css</id>
     <content type="html"><![CDATA[<p>There are plenty of examples for printing html of an element. Most of them look like this</p>
 
 <pre><code class="js">//The simple soultion but has few problems listed below.
