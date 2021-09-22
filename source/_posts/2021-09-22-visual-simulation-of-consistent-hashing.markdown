@@ -4,6 +4,7 @@ title: "Visual simulation of consistent hashing"
 date: 2021-09-22 06:02:44 +0530
 comments: true
 categories: system-design caching simufast
+image: /images/visual-simulation-of-consistent-hashing.gif
 ---
 Caching is an important aspect of the high performance applications. As the data volume increases, the cached data needs to be distributed across multiple servers. We need to make sure the following objectives are met while doing so.
 
