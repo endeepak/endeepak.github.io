@@ -256,7 +256,7 @@ Let's analyse the results
 
 Consistent hashing has proven to be a useful technique since its inception in[1997](https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf) and it is used in many [well known](https://en.wikipedia.org/wiki/Consistent_hashing) distributed systems because of the simplicity and the benefits it offers. The optimization does not end with what we have read so far. Please checkout [this blog](https://medium.com/vimeo-engineering-blog/improving-load-balancing-with-a-new-consistent-hashing-algorithm-9f1bd75709ed) or [this video](https://www.youtube.com/watch?v=jk6oiBJxcaA&ab_channel=GoogleTechTalks) by vimeo engineering on their practical usage.
 
-> Meta: You can find the the code used for simulation [here](https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consitent-hashing.markdown).
+> Meta: You can find the the code used for simulation [here](https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consistent-hashing.markdown).
 
 ## Acknowledgements
 
