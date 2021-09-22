@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: simufast | !geek]]></title>
+  <link href="http://tech.endeepak.com/blog/categories/simufast/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2021-09-22T07:06:03+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
+  <author>
+    <name><![CDATA[Deepak Narayana Rao]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Visual simulation of consistent hashing]]></title>
+    <link href="http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consitent-hashing"/>
+    <updated>2021-09-22T06:02:44+05:30</updated>
+    <id>http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consitent-hashing</id>
+    <content type="html"><![CDATA[<p>Caching is an important aspect of the high performance applications. As the data volume increases, the cached data needs to be distributed across multiple servers. We need to make sure the following objectives are met while doing so.</p>
+
+<ul>
+<li>Maximize the cache hits: This will reduce the load on primary data source and reduce the overall latency.</li>
+<li>Distribute the data and traffic evenly: This ensures optimal use of servers and avoid overloading a subset of the servers.</li>
+</ul>
+
+
+<p>As the title of this post suggests, we will look into how <a href="https://en.wikipedia.org/wiki/Consistent_hashing">consistent hashing</a> can be used to achieve the above objectives. Before that, let&rsquo;s look at using a straight forward approach for solving the problem.</p>
+
+<!-- more -->
+
+
+<h2>Modulo Hashing</h2>
+
+<p>In this approach, we hash the requests based on a key and use the formula <code>hash(key) % number_of_servers</code> to route the request to appropriate cache server. For example: If a key &ldquo;apple&rdquo; hashes to 14 and we have 3 cache servers, the request for &ldquo;apple&rdquo; will be forwarded server number 2 as <code>14 % 3 = 2</code>.</p>
+
+<p>Let&rsquo;s simulate this for 3 cache servers, 100 unique keys, 300 random requests and see how it performs.</p>
+
+<p>Click the play button below and check the stats. Increase the speed to fast forward.</p>
+
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.2/src/simufast.css"></p>
+
+<script src="https://cdn.jsdelivr.net/npm/simufast@0.0.2/dist/main.js"></script>
+
+
+
+
+<script>
+    simufast.run((player) => {
+        const moduloHash = new simufast.routing.ModuloHash(player);
+        const simulation = new simufast.cache.MultiNodeCacheSimulation(moduloHash, {
+            nodes: ["S0", "S1", "S2"]
+        });
+        const keys = simufast.utils.randStringArray(100);
+        const commands = [];
+        for (let i = 1; i <= 300; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        player.experiment({
+            name: 'Modulo Hashing: Static nodes',
+            drawable: simulation,
+            commands: commands
+        });
+    }, {
+        statsExpanded: true
+    });
+</script>
+
+
+<p>Let&rsquo;s analyse the results</p>
+
+<ul>
+<li>Cache Hit Ratio: As expected, 2/3rd of the requests(67%) are returned from the cache. This is good.</li>
+<li>Data and load distribution: The load is not equally distributed across all servers, but it is fairly distributed. It is purely based on the distribution property of the hash function.</li>
+</ul>
+
+
+<p>In the real world, we need to add or remove servers as per traffic volume. Additionally, servers can go down sometimes. We need to make sure adding or removing servers is handled gracefully without degrading the metrics mentioned above.</p>
+
+<p>Let&rsquo;s simulate the following scenario with modulo hashing</p>
+
+<ul>
+<li>3 servers(S0,S1,S2), 100 unique keys, 300 random requests as earlier</li>
+<li>1 server(S3) is added after the 100th request</li>
+<li>1 server(S1) is removed after the 200th request</li>
+</ul>
+
+
+<script>
+    simufast.run((player) => {
+        const moduloHash = new simufast.routing.ModuloHash(player, {maxNodes: 4});
+        const simulation = new simufast.cache.MultiNodeCacheSimulation(moduloHash, {
+            nodes: ["S0", "S1", "S2"]
+        });
+        const keys = simufast.utils.randStringArray(100);
+        const commands = [];
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        commands.push(() => simulation.addNode("S3"));
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        commands.push(() => simulation.removeNode("S1"));
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        player.experiment({
+            name: 'Modulo Hashing: Elastic nodes',
+            drawable: simulation,
+            commands: commands
+        });
+    }, {
+        statsExpanded: true
+    });
+</script>
+
+
+<p>Let&rsquo;s analyse the results</p>
+
+<ul>
+<li>Cache Hit Ratio: This drops from ~67% earlier to ~45%.</li>
+<li>Data and load distribution: Number of keys across the servers has increased.</li>
+</ul>
+
+
+<p>This is because, many keys are mapped to a different server when the number of servers change. For example: a key &ldquo;orange&rdquo; with hash value 11 is initially routed to server <code>S2</code> as there are 3 servers(<code>11 % 3 = 2</code>), whereas it is routed to server <code>S3</code> when there are 4 servers(<code>11 % 4 = 3</code>).</p>
+
+<h2>Consistent Hashing</h2>
+
+<p>Consistent Hashing helps in addressing the drawbacks of the modulo hashing. Let&rsquo;s understand the basic concepts of consistent hashing.</p>
+
+<ul>
+<li>The servers(called as nodes) are hashed and mapped to a range. The range is mapped to a real number(not an integer) between 0 to 360 degrees. The node is placed on a circular ring based on its hash value in the range.</li>
+<li>The keys are hashed similarly and mapped to a point on the circle. The request is routed to the closest node in the clockwise direction (It can be anticlockwise as well, as long as the same direction is used for all keys).</li>
+</ul>
+
+
+<p>Let&rsquo;s simulate this in 0.5x speed and visualise this basic concept</p>
+
+<script>
+    simufast.run((player) => {
+        const consistentHash = new simufast.routing.ConsistentHash(player, {
+            nodeReplicationFactor: 1
+        });
+        const simulation = new simufast.cache.MultiNodeCacheSimulation(consistentHash);
+        const keys = simufast.utils.randStringArray(100);
+        const commands = [
+            () => simulation.addNode("S1"),
+            () => simulation.addNode("S2"),
+            () => simulation.addNode("S3"),
+        ];
+        for (let i = 1; i <= 10; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        player.experiment({
+            name: 'Consistent Hashing: Basic Concept',
+            drawable: simulation,
+            commands: commands
+        });
+    }, {
+        speed: 0.5
+    });
+</script>
+
+
+<p>Now that we understand the basic concept, let&rsquo;s run the simulation and observe the stats for 3 servers, 100 unique keys, 300 random requests. (Please increase the simulation speed when required to fast forward to the final stats)</p>
+
+<script>
+    simufast.run((player) => {
+        const consistentHash = new simufast.routing.ConsistentHash(player, {
+            nodeReplicationFactor: 1
+        });
+        const simulation = new simufast.cache.MultiNodeCacheSimulation(consistentHash, {
+            nodes: ["S1", "S2", "S3"],
+        });
+        const keys = simufast.utils.randStringArray(100);
+        const commands = []
+        for (let i = 1; i <= 300; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        player.experiment({
+            name: 'Consistent Hashing(Basic): Static nodes',
+            drawable: simulation,
+            commands: commands
+        });
+    }, {
+        speed: 5,
+        statsExpanded: true
+    });
+</script>
+
+
+<p>We can observe that, cache hit ratio and load distribution is very similar to that of modulo hashing. Let&rsquo;s see how this basic concept of consistent hashing handles the addition and removal of the nodes using the below scenario</p>
+
+<ul>
+<li>3 servers(S1,S2,S3), 100 unique keys, 300 random requests as earlier</li>
+<li>1 server(S4) is added after the 100th request</li>
+<li>1 server(S1) is removed after the 200th request</li>
+</ul>
+
+
+<script>
+    simufast.run((player) => {
+        const consistentHash = new simufast.routing.ConsistentHash(player, {
+            nodeReplicationFactor: 1
+        });
+        const simulation = new simufast.cache.MultiNodeCacheSimulation(consistentHash, {
+            nodes: ["S1", "S2", "S3"]
+        });
+        const keys = simufast.utils.randStringArray(100);
+        const commands = [];
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        commands.push(() => simulation.addNode("S4"));
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        commands.push(() => simulation.removeNode("S1"));
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        player.experiment({
+            name: 'Consistent Hashing(Basic): Elastic nodes',
+            drawable: simulation,
+            commands: commands
+        });
+    }, {
+        speed: 5,
+        statsExpanded: true
+    });
+</script>
+
+
+<p>Let&rsquo;s analyse the results</p>
+
+<ul>
+<li>Cache Hit Ratio: The cache hit ratio is ~60% compared to ~50% in modulo hashing. This is because very few keys are remapped when a node is added or removed.</li>
+<li>Data and load distribution: The load distribution is not great. In the above scenario(with the chosen node names), the new node <code>S4</code> doesn&rsquo;t get many requests due to its proximity to node <code>S3</code>.</li>
+</ul>
+
+
+<p>Consistent hashing solves this load distribution problem by placing each node at multiple points on the ring. These are points are called as virtual nodes. For example, if we need to represent node <code>S1</code> as 4 points on the ring, we place virtual nodes <code>S1-1</code> to <code>S1-4</code> on the ring using same logic as earlier. This allows multiple small fragments of the ring to be mapped to a single node.</p>
+
+<p>Let&rsquo;s simulate the previous elastic nodes scenario with 12 virtual nodes per node.</p>
+
+<script>
+    simufast.run((player) => {
+        const consistentHash = new simufast.routing.ConsistentHash(player, {
+            nodeReplicationFactor: 12
+        });
+        const simulation = new simufast.cache.MultiNodeCacheSimulation(consistentHash);
+        const keys = simufast.utils.randStringArray(100);
+        const commands = [
+            () => simulation.addNode("S1"),
+            () => simulation.addNode("S2"),
+            () => simulation.addNode("S3"),
+        ];
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        commands.push(() => simulation.addNode("S4"));
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        commands.push(() => simulation.removeNode("S1"));
+        for (let i = 1; i <= 100; i++) {
+            const key = simufast.utils.getRandomValueFromArray(keys);
+            commands.push(() => simulation.getOrFetch(key, () => `${key}'s value from data source`));
+        }
+        player.experiment({
+            name: 'Consistent Hashing(Full): Elastic nodes',
+            drawable: simulation,
+            commands: commands
+        });
+    }, {
+        statsExpanded: true
+    });
+</script>
+
+
+<p>Let&rsquo;s analyse the results</p>
+
+<ul>
+<li>Cache Hit Ratio: The cache hit ratio remains good i.e. ~60% compared to ~50% in modulo hashing.</li>
+<li>Data and load distribution: The load is distributed a lot better and the new node <code>S4</code> gets a fair amount of traffic compared to earlier.</li>
+</ul>
+
+
+<h2>Conclusion</h2>
+
+<p>Consistent hashing has proven to be a useful technique since its inception in<a href="https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf">1997</a> and it is used in many <a href="https://en.wikipedia.org/wiki/Consistent_hashing">well known</a> distributed systems because of the simplicity and the benefits it offers. The optimization does not end with what we have read so far. Please checkout <a href="https://medium.com/vimeo-engineering-blog/improving-load-balancing-with-a-new-consistent-hashing-algorithm-9f1bd75709ed">this blog</a> or <a href="https://www.youtube.com/watch?v=jk6oiBJxcaA&amp;ab_channel=GoogleTechTalks">this video</a> by vimeo engineering on their practical usage.</p>
+
+<blockquote><p>Meta: You can find the the code used for simulation <a href="https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consitent-hashing.markdown">here</a>.</p></blockquote>
+
+<h2>Acknowledgements</h2>
+
+<ul>
+<li>The idea of visual simulation was inspired by the amazing interactive posts like <a href="https://ciechanow.ski/internal-combustion-engine/">this</a> by <a href="https://twitter.com/bciechanowski">@bciechanowski</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
