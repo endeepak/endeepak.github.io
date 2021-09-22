@@ -1,17 +1,16 @@
 ---
 layout: post
 title: "Visual simulation of consistent hashing"
-date: 2021-09-12 12:02:44 +0530
+date: 2021-09-22 06:02:44 +0530
 comments: true
 categories: system-design caching simufast
-draft: true
 ---
 Caching is an important aspect of the high performance applications. As the data volume increases, the cached data needs to be distributed across multiple servers. We need to make sure the following objectives are met while doing so.
 
 * Maximize the cache hits: This will reduce the load on primary data source and reduce the overall latency.
 * Distribute the data and traffic evenly: This ensures optimal use of servers and avoid overloading a subset of the servers.
 
-As the title of this post suggests, we will look into how [consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing) can be used to achieve the above objectives. Before that, let's look at using a straight forward approach for solving the problem. 
+As the title of this post suggests, we will look into how [consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing) can be used to achieve the above objectives. Before that, let's look at using a straight forward approach for solving the problem.
 
 <!-- more -->
 
@@ -19,12 +18,12 @@ As the title of this post suggests, we will look into how [consistent hashing](h
 
 In this approach, we hash the requests based on a key and use the formula `hash(key) % number_of_servers` to route the request to appropriate cache server. For example: If a key "apple" hashes to 14 and we have 3 cache servers, the request for "apple" will be forwarded server number 2 as `14 % 3 = 2`.
 
-Let's simulate this for 3 cache servers, 100 unique keys, 300 random requests and see how it performs. 
+Let's simulate this for 3 cache servers, 100 unique keys, 300 random requests and see how it performs.
 
 Click the play button below and check the stats. Increase the speed to fast forward.
 
-<link rel="stylesheet" href="//192.168.1.5:8000/src/simufast.css">
-<script src="//192.168.1.5:8000/dist/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.2/src/simufast.css">
+<script src="https://cdn.jsdelivr.net/npm/simufast@0.0.2/dist/main.js"></script>
 
 <script>
     simufast.run((player) => {
@@ -48,12 +47,12 @@ Click the play button below and check the stats. Increase the speed to fast forw
     });
 </script>
 
-Let's analyse the results 
+Let's analyse the results
 
 * Cache Hit Ratio: As expected, 2/3rd of the requests(67%) are returned from the cache. This is good.
 * Data and load distribution: The load is not equally distributed across all servers, but it is fairly distributed. It is purely based on the distribution property of the hash function.
 
-In real world, we need to add or remove servers as per traffic volume. Additionally, servers can go down sometimes. We need to make sure adding or removing servers is handled gracefully without degrading the metrics mentioned above.  
+In the real world, we need to add or remove servers as per traffic volume. Additionally, servers can go down sometimes. We need to make sure adding or removing servers is handled gracefully without degrading the metrics mentioned above.
 
 Let's simulate the following scenario with modulo hashing
 
@@ -95,17 +94,17 @@ Let's simulate the following scenario with modulo hashing
 
 Let's analyse the results
 
-* Cache Hit Ratio: This drops from ~67% earlier to ~40%.
-* Data and load distribution: Many keys are duplicated across servers, leading to uneven data distribution.
+* Cache Hit Ratio: This drops from ~67% earlier to ~45%.
+* Data and load distribution: Number of keys across the servers has increased.
 
-This is because, many keys are routed to different a server when we add or remove a server. For example: a key "orange" with hash value 11 is routed to server-2 when there are 3 servers as `11 % 3 = 2`, whereas it is routed to server-3 when there are 4 servers as `11 % 4 = 3`.
+This is because, many keys are mapped to a different server when the number of servers change. For example: a key "orange" with hash value 11 is initially routed to server `S2` as there are 3 servers(`11 % 3 = 2`), whereas it is routed to server `S3` when there are 4 servers(`11 % 4 = 3`).
 
 ## Consistent Hashing
 
 Consistent Hashing helps in addressing the drawbacks of the modulo hashing. Let's understand the basic concepts of consistent hashing.
 
-* The servers(called as nodes) are hashed and mapped to a range. The range is mapped to a real number between(not an integer) 0-360 degrees. The node is placed on a circular ring based on its hash value in the range.
-* The keys are hashed similarly and mapped to a point on the circle as per their hash value. The key is routed to the closest node in the clockwise direction (It can be anticlockwise as well, as long as same direction is used for all keys).
+* The servers(called as nodes) are hashed and mapped to a range. The range is mapped to a real number(not an integer) between 0 to 360 degrees. The node is placed on a circular ring based on its hash value in the range.
+* The keys are hashed similarly and mapped to a point on the circle. The request is routed to the closest node in the clockwise direction (It can be anticlockwise as well, as long as the same direction is used for all keys).
 
 Let's simulate this in 0.5x speed and visualise this basic concept
 
@@ -135,7 +134,7 @@ Let's simulate this in 0.5x speed and visualise this basic concept
     });
 </script>
 
-Now that we understand the basic concept, let's run the simulation and observe the stats for 3 servers, 100 unique keys, 300 random requests. Please increase the simulation speed when required to fast forward to the final stats.
+Now that we understand the basic concept, let's run the simulation and observe the stats for 3 servers, 100 unique keys, 300 random requests. (Please increase the simulation speed when required to fast forward to the final stats)
 
 <script>
     simufast.run((player) => {
@@ -162,7 +161,7 @@ Now that we understand the basic concept, let's run the simulation and observe t
     });
 </script>
 
-We can observe that, cache hit ratio and load distribution is very similar to the observed values in modulo hashing. Let's see how this basic concept of consistent hashing handles addition and removal nodes using the below scenario
+We can observe that, cache hit ratio and load distribution is very similar to that of modulo hashing. Let's see how this basic concept of consistent hashing handles the addition and removal of the nodes using the below scenario
 
 * 3 servers(S1,S2,S3), 100 unique keys, 300 random requests as earlier
 * 1 server(S4) is added after the 100th request
@@ -198,6 +197,7 @@ We can observe that, cache hit ratio and load distribution is very similar to th
             commands: commands
         });
     }, {
+        speed: 5,
         statsExpanded: true
     });
 </script>
@@ -205,9 +205,9 @@ We can observe that, cache hit ratio and load distribution is very similar to th
 Let's analyse the results
 
 * Cache Hit Ratio: The cache hit ratio is ~60% compared to ~50% in modulo hashing. This is because very few keys are remapped when a node is added or removed.
-* Data and load distribution: The load distribution is not great. In the above scenario(with the chosen node names), most of the load has now from node `S1` shifted to node `S3`.
+* Data and load distribution: The load distribution is not great. In the above scenario(with the chosen node names), the new node `S4` doesn't get many requests due to its proximity to node `S3`.
 
-Consistent hashing solves this load distribution problem by placing each node on multiple points on the ring. These are points are called as virtual nodes. For example, if we need to represent node `S1` as 4 points on the ring, we place virtual nodes `S1-1` to `S1-4` on the ring using same logic as earlier. These virtual nodes on the ring represent single node for routing the requests.
+Consistent hashing solves this load distribution problem by placing each node at multiple points on the ring. These are points are called as virtual nodes. For example, if we need to represent node `S1` as 4 points on the ring, we place virtual nodes `S1-1` to `S1-4` on the ring using same logic as earlier. This allows multiple small fragments of the ring to be mapped to a single node.
 
 Let's simulate the previous elastic nodes scenario with 12 virtual nodes per node.
 
@@ -250,14 +250,14 @@ Let's simulate the previous elastic nodes scenario with 12 virtual nodes per nod
 Let's analyse the results
 
 * Cache Hit Ratio: The cache hit ratio remains good i.e. ~60% compared to ~50% in modulo hashing.
-* Data and load distribution: The load is distributed a lot better as the virtual nodes are well spread across the ring. The latest node `S4` gets fair amount of traffic compared to earlier.
+* Data and load distribution: The load is distributed a lot better and the new node `S4` gets a fair amount of traffic compared to earlier.
 
 ## Conclusion
 
-Consistent hashing has been around for a while([1997](https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf)) and it is used in many [well known](https://en.wikipedia.org/wiki/Consistent_hashing) distributed systems because of the simplicity and benefits it offers. The optimization does not end with what we have read so far. Checkout [this blog](https://medium.com/vimeo-engineering-blog/improving-load-balancing-with-a-new-consistent-hashing-algorithm-9f1bd75709ed)  or [this video](https://www.youtube.com/watch?v=jk6oiBJxcaA&ab_channel=GoogleTechTalks) by vimeo engineering on their practical usage.
+Consistent hashing has proven to be a useful technique since its inception in[1997](https://www.cs.princeton.edu/courses/archive/fall09/cos518/papers/chash.pdf) and it is used in many [well known](https://en.wikipedia.org/wiki/Consistent_hashing) distributed systems because of the simplicity and the benefits it offers. The optimization does not end with what we have read so far. Please checkout [this blog](https://medium.com/vimeo-engineering-blog/improving-load-balancing-with-a-new-consistent-hashing-algorithm-9f1bd75709ed) or [this video](https://www.youtube.com/watch?v=jk6oiBJxcaA&ab_channel=GoogleTechTalks) by vimeo engineering on their practical usage.
 
-> Meta: You can find the the code used for simulation [here](https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-12-visual-simulation-of-consitent-hashing.markdown).
+> Meta: You can find the the code used for simulation [here](https://raw.githubusercontent.com/endeepak/endeepak.github.io/source/source/_posts/2021-09-22-visual-simulation-of-consitent-hashing.markdown).
 
 ## Acknowledgements
 
-* The idea of simulation was inspired by the amazing interactive posts like [this](https://ciechanow.ski/internal-combustion-engine/) by [@bciechanowski](https://twitter.com/bciechanowski)
+* The idea of visual simulation was inspired by the amazing interactive posts like [this](https://ciechanow.ski/internal-combustion-engine/) by [@bciechanowski](https://twitter.com/bciechanowski)
