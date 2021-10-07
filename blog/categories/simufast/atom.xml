@@ -4,7 +4,7 @@
   <title><![CDATA[Category: simufast | !geek]]></title>
   <link href="https://tech.endeepak.com/blog/categories/simufast/atom.xml" rel="self"/>
   <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-06T06:26:11+05:30</updated>
+  <updated>2021-10-07T06:53:08+05:30</updated>
   <id>https://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
@@ -39,9 +39,9 @@
 
 <p>Click the play button below and check the stats. Increase the speed to fast forward.</p>
 
-<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.5/src/simufast.css"></p>
+<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.6/src/simufast.css"></p>
 
-<script src="https://cdn.jsdelivr.net/npm/simufast@0.0.5/dist/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simufast@0.0.6/dist/main.js"></script>
 
 
 
