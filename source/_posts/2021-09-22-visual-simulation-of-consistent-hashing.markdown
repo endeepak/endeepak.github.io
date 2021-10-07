@@ -23,8 +23,8 @@ Let's simulate this for 3 cache servers, 100 unique keys, 300 random requests an
 
 Click the play button below and check the stats. Increase the speed to fast forward.
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.5/src/simufast.css">
-<script src="https://cdn.jsdelivr.net/npm/simufast@0.0.5/dist/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.6/src/simufast.css">
+<script src="https://cdn.jsdelivr.net/npm/simufast@0.0.6/dist/main.js"></script>
 
 <script>
     simufast.run((player) => {
