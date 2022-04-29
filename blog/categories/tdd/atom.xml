@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tdd | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/tdd/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/tdd/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Common mistakes while switching from ruby to python]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python"/>
+    <link href="http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python"/>
     <updated>2014-12-17T13:50:24+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
+    <id>http://tech.endeepak.com/blog/2014/12/17/common-mistakes-while-switching-from-ruby-to-python</id>
     <content type="html"><![CDATA[<p>This is more of a note to self sort of post to talk about silly mistakes which can take you down quietly when you switch from ruby to python.</p>
 
 <!-- More -->

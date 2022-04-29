@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: maths | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/maths/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/maths/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Joy of finding a math series]]></title>
-    <link href="https://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series"/>
+    <link href="http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series"/>
     <updated>2017-10-28T12:46:47+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series</id>
+    <id>http://tech.endeepak.com/blog/2017/10/28/joy-of-finding-a-math-series</id>
     <content type="html"><![CDATA[<p>I was trying to come up with a question for preliminary logic round for interviewing. I decided to form a tricky math series and tried to figure out 2 math series which looks same in the beginning and diverges after a while. Something on the lines of</p>
 
 <pre><code>series x =&gt; x1, x2, x3, x4, x5

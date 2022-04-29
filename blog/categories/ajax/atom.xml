@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: ajax | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/ajax/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/ajax/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Make sure functional tests are user centric]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
     <updated>2014-07-27T16:43:49+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
+    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
     <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.</p>
 
 <p>Couple of bad ways to achieve this is by using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>

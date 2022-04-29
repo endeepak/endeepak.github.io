@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: docker | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/docker/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/docker/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Docker swarm in production]]></title>
-    <link href="https://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production"/>
+    <link href="http://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production"/>
     <updated>2017-12-22T09:58:33+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production</id>
+    <id>http://tech.endeepak.com/blog/2017/12/22/docker-swarm-in-production</id>
     <content type="html"><![CDATA[<p>This is a experience report on using docker swarm(17.06) in production for ~3 months</p>
 
 <h3>Context</h3>

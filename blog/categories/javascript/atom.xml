@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: javascript | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/javascript/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Make sure functional tests are user centric]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
+    <link href="http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric"/>
     <updated>2014-07-27T16:43:49+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
+    <id>http://tech.endeepak.com/blog/2014/07/27/make-sure-functional-tests-are-user-centric</id>
     <content type="html"><![CDATA[<p>In modern day web applications, most of the data is fetched and saved using ajax calls and the mark up is generated on client side by compiling static HTML templates. The functional tests need to make sure assertions wait till completion of ajax call.</p>
 
 <p>Couple of bad ways to achieve this is by using <code>sleep(xSeconds)</code> or <code>wait_for_ajax</code> like this</p>
@@ -80,9 +80,9 @@ end
   
   <entry>
     <title type="html"><![CDATA[Keep your models independent of angular]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular"/>
     <updated>2014-05-18T16:38:01+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
+    <id>http://tech.endeepak.com/blog/2014/05/18/keep-your-models-independent-of-angular</id>
     <content type="html"><![CDATA[<blockquote><p>If you are using MVC framework you need to make sure controllers are very thin and domain logic lies in small, framework independent, composable models - Wise People</p></blockquote>
 
 <p>In AngularJS, you need to make sure lot of data is not defined directly on $scope and domain logic is not dependent on angular&rsquo;s digest cycle. If follow this mantra, unit testing the models would be a lot simpler which in turn is a indicates that your code in is good shape.</p>
@@ -167,9 +167,9 @@ $scope.person = new Person();
   
   <entry>
     <title type="html"><![CDATA[Javascript functions in JSON configuration]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration"/>
     <updated>2014-05-18T15:20:32+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration</id>
+    <id>http://tech.endeepak.com/blog/2014/05/18/javascript-functions-in-json-configuration</id>
     <content type="html"><![CDATA[<p>There is no native support for defining functions in JSON. Commonly used approach is to define function as string and use <code>eval()</code> or <code>new Function()</code> to contruct the function. The basic difference between these two are</p>
 
 <ul>
@@ -243,9 +243,9 @@ var shouldShowThisSection = showIf({person: personData}));
   
   <entry>
     <title type="html"><![CDATA[Spinners in single page apps]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
     <updated>2014-05-11T16:55:23+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
+    <id>http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
     <content type="html"><![CDATA[<p>One of the good practices in single page apps, is to show spinners (overlay + loading icon) while retrieving data or saving asynchronously. Often people tend to add a generic interceptor to show spinner for all ajax calls. In any mid size app, you will realize that the assumption <strong>&ldquo;Show an overlay for all ajax call&rdquo;</strong> is incorrect. Few examples</p>
 
 <ul>
@@ -310,9 +310,9 @@ spinner.forPromise($.ajax('/items')) //jQuery
   
   <entry>
     <title type="html"><![CDATA[Printing external html templates using AngularJS]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs"/>
     <updated>2014-05-03T20:50:48+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
+    <id>http://tech.endeepak.com/blog/2014/05/03/printing-external-html-templates-using-angularjs</id>
     <content type="html"><![CDATA[<h2>Use case</h2>
 
 <p>In <a href="http://bahmni.org">Bahmni</a> EMR we needed to support customizable html templates for printing patient regisatrtion card and other printable documents. We needed a print API which looks like</p>
@@ -330,8 +330,8 @@ printer.print('/config/registrationCardTempate.html', {patient: {name: 'Ram Kuma
 <p>Sample html template</p>
 
 <p>&#8220;`html
-<link rel="stylesheet" href="https://tech.endeepak.com/config/registrationCard.css"/>
-<img src="https://tech.endeepak.com/config/logo.jpg"><img></p>
+<link rel="stylesheet" href="http://tech.endeepak.com/config/registrationCard.css"/>
+<img src="http://tech.endeepak.com/config/logo.jpg"><img></p>
 
 <h1>The hospital name</h1>
 

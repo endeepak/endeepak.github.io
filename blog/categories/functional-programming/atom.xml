@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: functional-programming | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/functional-programming/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/functional-programming/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Cloju-re-alization]]></title>
-    <link href="https://tech.endeepak.com/blog/2019/02/13/cloju-re-alization"/>
+    <link href="http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization"/>
     <updated>2019-02-13T20:22:19+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</id>
+    <id>http://tech.endeepak.com/blog/2019/02/13/cloju-re-alization</id>
     <content type="html"><![CDATA[<p>This is a story of how learning clojure made me realize one of its selling points through subconscious thinking.</p>
 
 <p>I had tried to learn clojure few times in the past and had dropped it because of the prefix notation for expressions and parentheses black-hole. Writing <code>(def y (+ (* m x) c)</code> felt very weird after expressing it as <code>y = m * x + c</code> during many years of education. I wasn&rsquo;t alone, many of my colleagues had similar feeling about clojure and pure functional programming languages.</p>

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: database | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/database/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/database/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Soft delete and unique constraint]]></title>
-    <link href="https://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint"/>
+    <link href="http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint"/>
     <updated>2015-10-19T17:59:41+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint</id>
+    <id>http://tech.endeepak.com/blog/2015/10/19/soft-delete-and-unique-constraint</id>
     <content type="html"><![CDATA[<p>This post describes a robust solution and other alternatives for having unique constraint at DB level for a table with soft deleted rows.</p>
 
 <h2>Problem Context</h2>

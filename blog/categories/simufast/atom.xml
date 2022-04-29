@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: simufast | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/simufast/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/simufast/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Visual simulation of consistent hashing]]></title>
-    <link href="https://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing"/>
+    <link href="http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing"/>
     <updated>2021-09-22T06:02:44+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing</id>
+    <id>http://tech.endeepak.com/blog/2021/09/22/visual-simulation-of-consistent-hashing</id>
     <content type="html"><![CDATA[<p>Caching is an important aspect of the high performance applications. As the data volume increases, the cached data needs to be distributed across multiple servers. We need to make sure the following objectives are met while doing so.</p>
 
 <ul>
@@ -46,7 +46,7 @@
 
 
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const moduloHash = new simufast.routing.ModuloHash(player);
         const simulation = new simufast.cache.MultiNodeCacheSimulation(moduloHash, {
@@ -86,7 +86,7 @@
 </ul>
 
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const moduloHash = new simufast.routing.ModuloHash(player, {maxNodes: 4});
         const simulation = new simufast.cache.MultiNodeCacheSimulation(moduloHash, {
@@ -141,7 +141,7 @@
 
 <p>Let&rsquo;s play this simulation in 0.5x speed and visualise this basic concept.</p>
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 1
@@ -170,7 +170,7 @@
 
 <p>Now that we understand the basic concept, let&rsquo;s run the simulation and observe the stats for 3 servers, 100 unique keys, 300 random requests. (Please increase the simulation speed when required to fast forward to the final stats)</p>
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 1
@@ -207,7 +207,7 @@
 </ul>
 
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 1
@@ -255,7 +255,7 @@
 
 <p>Let&rsquo;s simulate the previous elastic nodes scenario with 12 virtual nodes per node.</p>
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 12

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: meta-programming | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/meta-programming/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/meta-programming/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Python's elegance in dynamic methods compared to ruby]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
+    <link href="http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr"/>
     <updated>2014-12-27T16:48:17+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
+    <id>http://tech.endeepak.com/blog/2014/12/27/ruby-method-missing-vs-python-getattr</id>
     <content type="html"><![CDATA[<p>I have been a ruby fanboy for a long time because of its expressiveness and elegance in defining DSLs. One of the scary thing in ruby is, when you implement <code>method_missing</code> you need to make sure to implement <code>respond_to_missing?</code>, otherwise <a href="http://robots.thoughtbot.com/always-define-respond-to-missing-when-overriding">bad things will happen to you</a>. The below ruby example shows minimal parts recommended for providing dynamic methods</p>
 
 <!-- More -->

@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: spinner | !geek]]></title>
-  <link href="https://tech.endeepak.com/blog/categories/spinner/atom.xml" rel="self"/>
-  <link href="https://tech.endeepak.com/"/>
-  <updated>2021-10-07T06:53:08+05:30</updated>
-  <id>https://tech.endeepak.com/</id>
+  <link href="http://tech.endeepak.com/blog/categories/spinner/atom.xml" rel="self"/>
+  <link href="http://tech.endeepak.com/"/>
+  <updated>2022-04-29T17:34:01+05:30</updated>
+  <id>http://tech.endeepak.com/</id>
   <author>
     <name><![CDATA[Deepak Narayana Rao]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Spinners in single page apps]]></title>
-    <link href="https://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
+    <link href="http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps"/>
     <updated>2014-05-11T16:55:23+05:30</updated>
-    <id>https://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
+    <id>http://tech.endeepak.com/blog/2014/05/11/spinners-in-single-page-apps</id>
     <content type="html"><![CDATA[<p>One of the good practices in single page apps, is to show spinners (overlay + loading icon) while retrieving data or saving asynchronously. Often people tend to add a generic interceptor to show spinner for all ajax calls. In any mid size app, you will realize that the assumption <strong>&ldquo;Show an overlay for all ajax call&rdquo;</strong> is incorrect. Few examples</p>
 
 <ul>
