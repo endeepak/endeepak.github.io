@@ -26,7 +26,7 @@ Click the play button below and check the stats. Increase the speed to fast forw
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simufast@0.0.6/src/simufast.css">
 <script src="https://cdn.jsdelivr.net/npm/simufast@0.0.6/dist/main.js"></script>
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const moduloHash = new simufast.routing.ModuloHash(player);
         const simulation = new simufast.cache.MultiNodeCacheSimulation(moduloHash, {
@@ -59,7 +59,7 @@ Modulo hashing works well for a fixed number of servers. But in many cases, we n
 * 1 server(S3) is added after the 100th request
 * 1 server(S1) is removed after the 200th request
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const moduloHash = new simufast.routing.ModuloHash(player, {maxNodes: 4});
         const simulation = new simufast.cache.MultiNodeCacheSimulation(moduloHash, {
@@ -107,7 +107,7 @@ Consistent Hashing has a different approach to address the drawbacks of the modu
 
 Let's play this simulation in 0.5x speed and visualise this basic concept.
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 1
@@ -135,7 +135,7 @@ Let's play this simulation in 0.5x speed and visualise this basic concept.
 
 Now that we understand the basic concept, let's run the simulation and observe the stats for 3 servers, 100 unique keys, 300 random requests. (Please increase the simulation speed when required to fast forward to the final stats)
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 1
@@ -168,7 +168,7 @@ Let's see how this basic concept of consistent hashing handles the addition and 
 * 1 server(S4) is added after the 100th request
 * 1 server(S1) is removed after the 200th request
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 1
@@ -212,7 +212,7 @@ Consistent hashing solves this load distribution problem by placing each node at
 
 Let's simulate the previous elastic nodes scenario with 12 virtual nodes per node.
 
-<script>
+<script type="text/javascript">
     simufast.run((player) => {
         const consistentHash = new simufast.routing.ConsistentHash(player, {
             nodeReplicationFactor: 12
